@@ -47,7 +47,7 @@ nodes.forEach(function(n){
   const g=document.createElementNS(SVGNS,'g');g.setAttribute('class','node');
   const c=document.createElementNS(SVGNS,'circle');c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',n._draw);
   if(n.kind==='core'){c.setAttribute('fill','url(#sun)');}
-  else{c.setAttribute('fill',n.color);c.setAttribute('fill-opacity',0.8);c.setAttribute('stroke',n.color);c.setAttribute('stroke-width',1);c.setAttribute('stroke-opacity',0.9);c.setAttribute('vector-effect','non-scaling-stroke');}
+  else{c.setAttribute('fill',n.color);c.setAttribute('fill-opacity',0.92);}
   g.appendChild(c);
   const hasKids=n.children&&n.children.length;
   if(n.portal&&!hasKids){const ring=document.createElementNS(SVGNS,'circle');ring.setAttribute('cx',n.x);ring.setAttribute('cy',n.y);ring.setAttribute('r',n._draw*1.7);ring.setAttribute('fill','none');ring.setAttribute('stroke',n.color);ring.setAttribute('stroke-width',1);ring.setAttribute('stroke-dasharray','2 3');ring.setAttribute('vector-effect','non-scaling-stroke');g.appendChild(ring);n._ringEl=ring;}
@@ -69,6 +69,15 @@ function smooth(v,a,b){let t=(v-a)/(b-a);t=t<0?0:t>1?1:t;return t*t*(3-2*t);}
 function clamp(x,a,b){return x<a?a:x>b?b:x;}
 function s2w(sx,sy){const c=Math.cos(view.rot),s=Math.sin(view.rot);const rx=(sx-view.tx)/view.k,ry=(sy-view.ty)/view.k;return [rx*c+ry*s,-rx*s+ry*c];}
 function fade(n,v){ if(searchActive)return n._match?v:v*0.1; return n._ctx?v:v*0.2; }
+function ancestorBodyFade(n,k){
+  if(n===focus||!n._ring)return 1;
+  let p=focus;
+  while(p){
+    if(p.parent===n)return 1-smooth(n._ring*k,90,190);
+    p=p.parent;
+  }
+  return 1;
+}
 function frame(){
   const rd=view.rot*180/Math.PI;
   world.setAttribute('transform','translate('+view.tx+','+view.ty+') scale('+view.k+') rotate('+rd+')');
@@ -81,9 +90,10 @@ function frame(){
     if(!vis){if(n._g.style.display!=='none')n._g.style.display='none';if(n._edge)n._edge.setAttribute('stroke-opacity',0);continue;}
     if(n._g.style.display==='none')n._g.style.display='';
     const al=fade(n,rev);
-    n._c.setAttribute('opacity',al.toFixed(3));
-    if(n._ringEl)n._ringEl.setAttribute('opacity',(al*smooth(dp,3,8)).toFixed(3));
-    if(n._dotEl)n._dotEl.setAttribute('opacity',(al*smooth(dp,4,10)).toFixed(3));
+    const body=al*ancestorBodyFade(n,k);
+    n._c.setAttribute('opacity',body.toFixed(3));
+    if(n._ringEl)n._ringEl.setAttribute('opacity',(body*smooth(dp,3,8)).toFixed(3));
+    if(n._dotEl)n._dotEl.setAttribute('opacity',(body*smooth(dp,4,10)).toFixed(3));
     const lpx=12.5,fs=lpx/k,ly=n.y-n._draw-5/k;
     n._t.setAttribute('font-size',fs);n._t.setAttribute('y',ly);n._t.setAttribute('transform','rotate('+(-rd)+','+n.x+','+ly+')');
     let lop=fade(n,rev*smooth(dp,2.2,6.5));
