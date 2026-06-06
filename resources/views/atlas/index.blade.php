@@ -5,11 +5,13 @@
   <div id="stage">
     <svg id="svg" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur stdDeviation="3.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+          <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#060a14" flood-opacity="0.35"/>
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3.2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
         <radialGradient id="sun" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fff3d0"/><stop offset="45%" stop-color="#ffd66b"/><stop offset="100%" stop-color="#b8842b"/>
+          <stop offset="0%" stop-color="#ffe9a8"/><stop offset="42%" stop-color="#ffd066"/><stop offset="100%" stop-color="#c49228"/>
         </radialGradient>
       </defs>
       <g id="stars"></g>

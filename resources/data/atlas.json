@@ -1,14 +1,14 @@
 {
     "palette": {
         "core": "#ffd66b",
-        "blue": "#4ea1ff",
+        "blue": "#5eb0ff",
         "amber": "#f5a623",
-        "violet": "#b07cff",
-        "green": "#3ee0a0",
-        "pink": "#fb6f8e",
-        "cyan": "#2bd3e8",
-        "red": "#ff5d6c",
-        "orange": "#ff9f45"
+        "violet": "#c094ff",
+        "green": "#4aebb0",
+        "pink": "#ff85a0",
+        "cyan": "#45e0f5",
+        "red": "#ff7080",
+        "orange": "#ffb05a"
     },
     "tree": {
         "label": "Workspace",

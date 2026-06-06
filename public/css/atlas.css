@@ -1,8 +1,8 @@
 :root{
-    --bg0:#05060c; --ink:#e9eef9; --dim:#8893ac; --faint:#4a5570;
-    --core:#ffd66b; --blue:#4ea1ff; --amber:#f5a623; --violet:#b07cff;
-    --green:#3ee0a0; --pink:#fb6f8e; --cyan:#2bd3e8; --red:#ff5d6c; --orange:#ff9f45;
-    --panel:rgba(12,16,30,.86); --line:rgba(255,255,255,.08);
+    --bg0:#151d32; --bg1:#1c2640; --ink:#f2f6fc; --dim:#9aa8c4; --faint:#5c6a85;
+    --core:#ffd66b; --blue:#5eb0ff; --amber:#f5a623; --violet:#c094ff;
+    --green:#4aebb0; --pink:#ff85a0; --cyan:#45e0f5; --red:#ff7080; --orange:#ffb05a;
+    --panel:rgba(18,24,42,.88); --line:rgba(255,255,255,.12);
     --serif:"Roboto",system-ui,sans-serif; --sans:"Roboto",system-ui,sans-serif; --mono:"Roboto Mono",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -10,20 +10,22 @@
   #app{position:fixed;inset:0;overflow:hidden;touch-action:none;overscroll-behavior:none}
   #stage{position:absolute;inset:0;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;
     background:
-      radial-gradient(1200px 900px at 50% 42%, #11183180 0%, transparent 60%),
-      radial-gradient(900px 700px at 82% 88%, #1a1030a0 0%, transparent 55%),
-      radial-gradient(900px 700px at 12% 12%, #07212a90 0%, transparent 55%),
-      linear-gradient(180deg, #05060c 0%, #080b16 100%);}
+      radial-gradient(ellipse 110% 85% at 50% 44%, #2a3658 0%, #222d4a 30%, transparent 72%),
+      radial-gradient(ellipse 55% 48% at 50% 44%, rgba(255,214,107,.06) 0%, transparent 68%),
+      radial-gradient(ellipse 90% 75% at 90% 88%, rgba(120,90,160,.10) 0%, transparent 65%),
+      radial-gradient(ellipse 90% 75% at 10% 12%, rgba(50,130,160,.08) 0%, transparent 65%),
+      linear-gradient(165deg, var(--bg0) 0%, var(--bg1) 55%, #182030 100%)}
   #stage.grabbing{cursor:grabbing}
-  #svg{width:100%;height:100%;display:block;touch-action:none}
+  #svg{position:relative;z-index:1;width:100%;height:100%;display:block;touch-action:none}
+  #world{filter:brightness(1.06) saturate(1.10)}
   .edge{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
   .node{cursor:pointer}
+  .node-shade{pointer-events:none}
   .nlabel{font-family:var(--sans);font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;
-    paint-order:stroke;stroke:#05060cc8;stroke-width:2.6px;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+    paint-order:stroke;stroke:#080e1a99;stroke-width:2.4px;stroke-linejoin:round;vector-effect:non-scaling-stroke}
   .nlabel.dom{font-family:var(--serif);font-weight:700}
   .nlabel.sat{fill:var(--ink);font-weight:400}
   .glow{filter:url(#glow)}
-  #stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 240px 70px #000a;mix-blend-mode:multiply}
   .hud{position:absolute;z-index:5;pointer-events:none}
   .hud *{pointer-events:auto}
   #top{top:0;left:0;right:0;padding:18px 72px 18px 20px}
