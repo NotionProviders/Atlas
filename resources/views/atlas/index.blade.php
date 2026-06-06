@@ -71,8 +71,6 @@
 @endsection
 
 @push('scripts')
-<script>
-  window.ATLAS_CONFIG = {!! \Illuminate\Support\Js::from($atlasConfig) !!};
-</script>
+<script src="{{ route('atlas.config.js') }}" defer></script>
 <script src="{{ asset('js/atlas.js') }}" defer></script>
 @endpush

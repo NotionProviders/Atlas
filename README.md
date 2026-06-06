@@ -23,8 +23,7 @@ Summary:
 
 - Build with the included **Dockerfile**
 - Container port: **3000**
-- Set `APP_KEY`, `APP_URL`, and `LOG_CHANNEL=stderr` in Coolify
-- No npm/Vite build required — assets are static files in `public/`
+- **No Coolify env vars needed** — see [COOLIFY.md](COOLIFY.md)
 
 ## Project structure
 

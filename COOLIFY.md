@@ -8,27 +8,25 @@ Deploy **Notion Workspace · Orbital Atlas** to Coolify using the included Docke
 2. In Coolify: **+ New → Public/Private Repository** → select the repo.
 3. Build pack: **Dockerfile** (not Nixpacks).
 4. Port: **3000**
-5. Set environment variables (see below).
-6. Deploy.
+5. Deploy — **no environment variables required** (see below).
 
-## Required environment variables
+## Environment variables
 
-Set these in Coolify's **Environment Variables** UI (runtime — not build-time unless noted):
+**None required.** The Docker entrypoint ships a production `.env` from `.env.docker`, auto-generates `APP_KEY` on first boot, and the app detects your public URL from the incoming request (via Coolify’s reverse proxy).
 
-| Variable | Value | Notes |
-|----------|-------|-------|
-| `APP_NAME` | `Notion Workspace Atlas` | |
-| `APP_ENV` | `production` | |
-| `APP_DEBUG` | `false` | |
-| `APP_KEY` | `base64:…` | Generate locally: `php artisan key:generate --show` |
-| `APP_URL` | `https://your-domain.com` | Must match your Coolify domain |
-| `LOG_CHANNEL` | `stderr` | Logs appear in Coolify UI |
-| `LOG_LEVEL` | `warning` | |
-| `DB_CONNECTION` | `sqlite` | Default; no separate DB needed |
-| `DB_DATABASE` | `/var/www/html/database/database.sqlite` | Auto-created on startup |
-| `SESSION_DRIVER` | `cookie` | No DB sessions required |
-| `CACHE_STORE` | `file` | Ephemeral; fine for this app |
-| `QUEUE_CONNECTION` | `sync` | No queue worker needed |
+Leave Coolify’s environment section empty unless you need to override something.
+
+### Optional overrides
+
+| Variable | When to set |
+|----------|-------------|
+| `APP_DEBUG` | `true` temporarily to debug a 500 (turn off after) |
+| `DB_CONNECTION` | `pgsql` only if you attach a Postgres resource |
+| `DB_HOST`, `DB_PASSWORD`, etc. | Only with Postgres |
+
+### Why env looked “required” before
+
+Laravel normally expects `APP_KEY` at minimum. Without it, `/up` can still return 200 (health check only boots Laravel), but `/` hits cookie/session middleware and **500s**. That was likely your error — not missing Postgres, mail, or other vars.
 
 ## Optional: PostgreSQL
 
@@ -138,8 +136,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Symptom | Fix |
 |---------|-----|
-| 500 on `/` but **Healthy** in Coolify | `/up` only checks Laravel boot — the atlas page is separate. Check container logs for view/config errors. Redeploy after fixes; entrypoint clears view cache on each start. |
-| 500 on first load | Set `APP_KEY` in Coolify env vars |
+| 500 on `/` but **Healthy** in Coolify | Usually missing `APP_KEY` on older deploys. Redeploy latest — entrypoint auto-generates it. Check `/atlas-config.js` loads. |
+| 500 on first load (old deploys) | Redeploy latest image; no manual env needed |
 | Blank page | Check container logs in Coolify; verify port is **3000** |
 | Build fails | Ensure Dockerfile build pack is selected (not Nixpacks) |
 | Config changes ignored | Redeploy — entrypoint runs `config:cache` on each start |
