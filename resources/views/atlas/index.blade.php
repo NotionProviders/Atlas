@@ -34,30 +34,31 @@
     </div>
   </div>
 
-  <div class="hud" id="legend">
-    <div class="legend-panel" id="legend-panel">
-      <div class="legend-sub">click to fly</div>
-      <div id="regions"></div>
+  <div class="hud" id="help-hud">
+    <div class="legend-wrap" id="legend">
+      <button type="button" class="btn legend-toggle" id="legend-toggle" title="Domains" aria-label="Domains" aria-expanded="false" aria-controls="legend-panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </button>
+      <div class="legend-panel" id="legend-panel">
+        <div class="legend-sub">click to fly</div>
+        <div id="regions"></div>
+      </div>
     </div>
-    <button type="button" class="btn lab legend-toggle" id="legend-toggle" aria-expanded="false" aria-controls="legend-panel">
-      <span>Domains</span>
-      <svg class="legend-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
+    <button type="button" class="btn" id="help-btn" title="Guide" aria-label="Guide">?</button>
   </div>
 
   <div class="hud" id="ctrl">
-    <button class="btn lab" id="help-btn">? GUIDE</button>
     <div class="ctrl-more" id="ctrl-more">
       <div class="ctrl-panel" id="ctrl-panel">
         <button class="btn" id="out" title="Up one level">&#8593;</button>
+        <button class="btn" id="zin" title="Zoom in">+</button>
+        <button class="btn" id="zout" title="Zoom out">&#8722;</button>
         <button class="btn" id="rccw" title="Rotate left">&#8634;</button>
         <button class="btn" id="rcw" title="Rotate right">&#8635;</button>
         <button class="btn" id="north" title="Reset to north"><span id="needle">&#8593;</span></button>
-        <button class="btn" id="zin" title="Zoom in">+</button>
-        <button class="btn" id="zout" title="Zoom out">&#8722;</button>
       </div>
-      <button type="button" class="btn ctrl-toggle" id="ctrl-toggle" title="More controls" aria-label="More controls" aria-expanded="false" aria-controls="ctrl-panel">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+      <button type="button" class="btn ctrl-toggle" id="ctrl-toggle" title="Navigation" aria-label="Navigation" aria-expanded="false" aria-controls="ctrl-panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
       </button>
     </div>
     <button class="btn" id="home" title="Home">&#8962;</button>
@@ -75,7 +76,7 @@
 
   <div id="help">
     <div class="helpcard">
-      <h3>How this atlas works</h3>
+      <h3>How This Atlas Works</h3>
       <div class="sub">A Notion workspace drawn as a solar system. The workspace is the sun; each domain orbits it; their parts orbit them, all the way down to a single block. Depth equals zoom.</div>
       <div class="helprow"><span class="kx">scroll</span><span>Zoom toward the cursor. A body's orbiting children stay hidden until you get close, then fade in. Keep going to fall level after level.</span></div>
       <div class="helprow"><span class="kx">drag</span><span>Pan around the current orbit.</span></div>

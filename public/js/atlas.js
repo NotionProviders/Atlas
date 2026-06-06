@@ -127,7 +127,7 @@ function openDrawer(n){selected=n;const badge=document.getElementById('d-badge')
 function closeDrawer(){detail.classList.remove('open');selected=null;}
 document.getElementById('dx').onclick=closeDrawer;
 const regWrap=document.getElementById('regions');
-LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){closeLegend();setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
+LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
 const legendEl=document.getElementById('legend');
 const legendToggle=document.getElementById('legend-toggle');
 function closeLegend(){
@@ -186,10 +186,6 @@ app.addEventListener('pointerdown',function(e){
   if(e.pointerType==='mouse'&&e.button!==0)return;
   const searchHud=document.getElementById('search-hud');
   if(searchHud&&searchHud.classList.contains('open')&&(!e.target.closest||!e.target.closest('#search-hud')))closeSearch();
-  const ctrlMore=document.getElementById('ctrl-more');
-  if(ctrlMore&&ctrlMore.classList.contains('open')&&(!e.target.closest||!e.target.closest('#ctrl-more')))closeCtrlMenu();
-  const legendEl=document.getElementById('legend');
-  if(legendEl&&legendEl.classList.contains('open')&&(!e.target.closest||!e.target.closest('#legend')))closeLegend();
   pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pts.size>=2){e.preventDefault();beginPinch();return;}
   if(pts.size===1&&!input.pinch&&!pointerOnUi(e.clientX,e.clientY))beginPan(e);
@@ -272,12 +268,12 @@ function openCtrlMenu(){
 }
 ctrlToggle.onclick=function(e){e.stopPropagation();if(ctrlMore.classList.contains('open'))closeCtrlMenu();else openCtrlMenu();};
 document.getElementById('home').onclick=function(){setFocus(TREE);closeDrawer();fitRoot();};
-document.getElementById('out').onclick=function(){closeCtrlMenu();const p=focus.parent||TREE;setFocus(p);closeDrawer();frameNode(p);};
-document.getElementById('zin').onclick=function(){closeCtrlMenu();zoomAt(vw()/2,vh()/2,1.45);};
-document.getElementById('zout').onclick=function(){closeCtrlMenu();zoomAt(vw()/2,vh()/2,1/1.45);};
-document.getElementById('rccw').onclick=function(){closeCtrlMenu();animateRotTo(view.rot-Math.PI/12);};
-document.getElementById('rcw').onclick=function(){closeCtrlMenu();animateRotTo(view.rot+Math.PI/12);};
-document.getElementById('north').onclick=function(){closeCtrlMenu();resetNorth();};
+document.getElementById('out').onclick=function(){const p=focus.parent||TREE;setFocus(p);closeDrawer();frameNode(p);};
+document.getElementById('zin').onclick=function(){zoomAt(vw()/2,vh()/2,1.45);};
+document.getElementById('zout').onclick=function(){zoomAt(vw()/2,vh()/2,1/1.45);};
+document.getElementById('rccw').onclick=function(){animateRotTo(view.rot-Math.PI/12);};
+document.getElementById('rcw').onclick=function(){animateRotTo(view.rot+Math.PI/12);};
+document.getElementById('north').onclick=function(){resetNorth();};
 document.getElementById('help-btn').onclick=function(){document.getElementById('help').classList.add('open');};
 document.getElementById('help-close').onclick=function(){document.getElementById('help').classList.remove('open');};
 document.getElementById('help').addEventListener('click',function(e){if(e.target.id==='help')e.currentTarget.classList.remove('open');});

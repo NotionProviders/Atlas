@@ -41,17 +41,17 @@
   #search-hud .search-popup input{background:none;border:none;outline:none;color:var(--ink);font-family:var(--sans);font-size:13px;width:100%;min-width:0}
   #search-hud .search-popup input::placeholder{color:var(--faint)}
   #search-hud .search-popup svg{flex:none;opacity:.6}
-  #legend{bottom:18px;left:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:auto;padding:0;background:none;border:none}
-  #legend .legend-toggle{display:flex;align-items:center;gap:8px;height:38px;margin:0}
-  #legend .legend-chev{opacity:.65;transition:transform .2s}
-  #legend.open .legend-chev{transform:rotate(180deg)}
+  #help-hud{bottom:18px;left:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+  #help-btn{width:42px;height:42px;font-size:20px;font-weight:500;padding:0}
+  #legend{display:flex;flex-direction:row;align-items:flex-end;gap:8px;width:auto;padding:0;background:none;border:none;position:static}
+  #legend .legend-toggle{width:42px;height:42px;padding:0;margin:0;flex:none}
   #legend.open .legend-toggle{background:#ffffff18;border-color:#ffffff34}
-  #legend .legend-panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 13px 9px;backdrop-filter:blur(10px);width:208px}
+  #legend .legend-panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 13px 9px;backdrop-filter:blur(10px);width:208px;box-shadow:0 8px 24px #0005}
   #legend.open .legend-panel{display:block}
   #legend .legend-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
   .reg{display:flex;align-items:center;gap:9px;padding:5px 7px;border-radius:8px;cursor:pointer;transition:.15s}
   .reg:hover{background:#ffffff10}
-  .reg .dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 9px currentColor}
+  .reg .dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 3px currentColor}
   .reg .nm{font-size:12px;flex:1}
   #ctrl{bottom:18px;right:18px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
   .ctrl-more{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
@@ -86,21 +86,21 @@
   .helpcard{max-width:520px;background:linear-gradient(180deg,#0c1226,#080b16);border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;box-shadow:0 30px 90px #000a}
   .helpcard h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:4px}
   .helpcard .sub{color:var(--dim);font-size:13px;margin-bottom:16px;line-height:1.5}
-  .helprow{display:flex;gap:12px;align-items:flex-start;margin:11px 0;font-size:13px;color:#c8d1e3;line-height:1.5}
-  .helprow .kx{font-family:var(--mono);font-size:11px;color:var(--core);background:#ffffff0d;border:1px solid var(--line);border-radius:7px;padding:3px 8px;white-space:nowrap;flex:none;min-width:78px;text-align:center}
+  .helprow{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;margin:11px 0;font-size:13px;color:#c8d1e3;line-height:1.5}
+  .helprow .kx{font-family:var(--mono);font-size:11px;color:var(--core);background:#ffffff0d;border:1px solid var(--line);border-radius:7px;padding:3px 8px;white-space:nowrap;text-align:center;justify-self:stretch;box-sizing:border-box}
   .helpcard .close{margin-top:18px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--dim);cursor:pointer}
   .helpcard .close:hover{color:var(--ink)}
   .toast{position:absolute;z-index:9;bottom:74px;left:50%;transform:translateX(-50%) translateY(18px);background:#0c1226;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:11.5px;padding:9px 15px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media(max-width:680px){
     #top{padding:14px 62px 10px 14px}
-    #legend{bottom:72px;left:14px}
+    #help-hud{bottom:14px;left:14px}
+    #help-btn,#help-hud .legend-toggle{width:44px;height:44px}
     #legend .legend-panel{width:min(208px,calc(100vw - 28px))}
     #search-hud{top:14px;right:14px}
     #search-hud .search-toggle{width:44px;height:44px}
     #search-hud .search-popup{width:min(300px,calc(100vw - 28px))}
     #ctrl{bottom:14px;right:14px}
     #ctrl .btn,#ctrl .ctrl-toggle{width:44px;height:44px}
-    #help-btn{position:fixed;bottom:14px;left:14px;z-index:5;width:auto;height:44px}
   }
   #needle{display:inline-block;color:var(--core);transition:transform .15s}
