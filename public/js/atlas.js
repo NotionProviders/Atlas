@@ -55,6 +55,7 @@ nodes.forEach(function(n){
   shade.setAttribute('cx',n.x);shade.setAttribute('cy',n.y);shade.setAttribute('r',(n._draw*1.05).toFixed(2));
   shade.setAttribute('fill','#060a14');g.appendChild(shade);n._shade=shade;
   const c=document.createElementNS(SVGNS,'circle');c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',n._draw);
+  c.setAttribute('shape-rendering','geometricPrecision');
   if(n.kind==='core'){shade.setAttribute('r',(n._draw*1.07).toFixed(2));c.setAttribute('fill','url(#sun)');c.setAttribute('filter','url(#glow)');}
   else{c.setAttribute('fill',n.color);c.setAttribute('stroke','#060a14');c.setAttribute('stroke-opacity','0.65');c.setAttribute('stroke-width','1');c.setAttribute('vector-effect','non-scaling-stroke');c.setAttribute('paint-order','stroke fill');}
   g.appendChild(c);
@@ -86,7 +87,11 @@ function ancestorBodyFade(n,k){
   if(n===focus||!n._ring)return 1;
   let p=focus;
   while(p){
-    if(p.parent===n)return Math.max(0.55,1-smooth(n._ring*k,90,190)*0.45);
+    if(p.parent===n){
+      const t=smooth(n._ring*k,90,190);
+      if(t>0.94)return 0.1;
+      return Math.max(0.28,1-t*0.72);
+    }
     p=p.parent;
   }
   return 1;
@@ -129,7 +134,8 @@ function frame(){
   for(let qi=0;qi<nodes.length;qi++){const n=nodes[qi];
     const rev=n.parent?smooth(n.parent._ring*k,90,200):1;n._rev=rev;
     const rx=n.x*c-n.y*s, ry=n.x*s+n.y*c, sx=rx*k+tx, sy=ry*k+ty, dp=n._draw*k;
-    const vis=rev>0.012&&dp>0.35&&sx>-80&&sx<W+80&&sy>-80&&sy<H+80;
+    const vis=rev>0.012&&dp>0.35&&sx>-80&&sx<W+80&&sy>-80&&sy<H+80
+      &&!(n.depth<focus.depth-1&&dp>45&&n._ring&&n._ring*k>155);
     if(!vis){if(n._g.style.display!=='none')n._g.style.display='none';updateEdge(n,k,tx,ty,W,H,c,s);continue;}
     if(n._g.style.display==='none')n._g.style.display='';
     const al=fade(n,rev);

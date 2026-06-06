@@ -53,14 +53,14 @@
     <div class="ctrl-more" id="ctrl-more">
       <div class="ctrl-panel" id="ctrl-panel">
         <button class="btn" id="out" title="Up one level" aria-label="Up one level">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v9"/><path d="m8 11 4-4 4 4"/><path d="M6 19h12"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19h10"/><path d="M12 15V8"/><path d="M9 11l3-3 3 3"/></svg>
         </button>
         <button class="btn" id="zin" title="Zoom in">+</button>
         <button class="btn" id="zout" title="Zoom out">&#8722;</button>
         <button class="btn" id="rccw" title="Rotate left">&#8634;</button>
         <button class="btn" id="rcw" title="Rotate right">&#8635;</button>
         <button class="btn" id="north" title="Reset to north" aria-label="Reset to north">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><g id="needle"><path d="M12 5 15.5 14 12 11.5 8.5 14Z" fill="currentColor" stroke="none"/></g></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75" opacity="0.55"/><g id="needle"><path d="M12 5 15 14 12 11.5 9 14Z" fill="currentColor" stroke="none"/></g></svg>
         </button>
       </div>
       <button type="button" class="btn ctrl-toggle" id="ctrl-toggle" title="Navigation" aria-label="Navigation" aria-expanded="false" aria-controls="ctrl-panel">
@@ -93,8 +93,8 @@
       <div class="helprow"><span class="kx">orange dot</span><span>More inside this body. Click to zoom in or keep scrolling.</span></div>
       <div class="helprow"><span class="kx">dotted ring</span><span>Portal — bounces to where that feature actually lives.</span></div>
       <div class="helprow"><span class="kx">home</span><span>Home button, bottom right. Fits the whole workspace.</span></div>
-      <div class="helprow"><span class="kx">level up</span><span>Arrow-to-bar button in the nav menu. Go one level higher.</span></div>
-      <div class="helprow"><span class="kx">north</span><span>Compass button in the nav menu. Resets map rotation to north.</span></div>
+      <div class="helprow"><span class="kx">level up</span><span>Up-from-line arrow in the nav menu. Go one level higher.</span></div>
+      <div class="helprow"><span class="kx">north</span><span>Compass in the nav menu. Orange needle shows orientation; click to reset to north.</span></div>
       <div class="helprow"><span class="kx">crumbs</span><span>Breadcrumb path at the top. Click any step to jump back.</span></div>
       <div class="close" id="help-close">CLOSE</div>
     </div>
