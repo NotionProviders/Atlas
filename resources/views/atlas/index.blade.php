@@ -38,13 +38,20 @@
 
   <div class="hud" id="ctrl">
     <button class="btn lab" id="help-btn">? GUIDE</button>
+    <div class="ctrl-more" id="ctrl-more">
+      <div class="ctrl-panel" id="ctrl-panel">
+        <button class="btn" id="out" title="Up one level">&#8593;</button>
+        <button class="btn" id="rccw" title="Rotate left">&#8634;</button>
+        <button class="btn" id="rcw" title="Rotate right">&#8635;</button>
+        <button class="btn" id="north" title="Reset to north"><span id="needle">&#8593;</span></button>
+        <button class="btn" id="zin" title="Zoom in">+</button>
+        <button class="btn" id="zout" title="Zoom out">&#8722;</button>
+      </div>
+      <button type="button" class="btn ctrl-toggle" id="ctrl-toggle" title="More controls" aria-label="More controls" aria-expanded="false" aria-controls="ctrl-panel">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="5" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </button>
+    </div>
     <button class="btn" id="home" title="Home">&#8962;</button>
-    <button class="btn" id="out" title="Up one level">&#8593;</button>
-    <button class="btn" id="rccw" title="Rotate left">&#8634;</button>
-    <button class="btn" id="rcw" title="Rotate right">&#8635;</button>
-    <button class="btn" id="north" title="Reset to north"><span id="needle">&#8593;</span></button>
-    <button class="btn" id="zin" title="Zoom in">+</button>
-    <button class="btn" id="zout" title="Zoom out">&#8722;</button>
   </div>
 
   <div class="hint" id="hint"><span class="hint-desk">scroll zoom · drag pan · shift-drag or &#8634; &#8635; to rotate · click empty space to reset</span><span class="hint-touch">pinch zoom · drag pan · tap empty space to reset</span></div>
