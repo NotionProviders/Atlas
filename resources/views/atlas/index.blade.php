@@ -19,8 +19,8 @@
 
   <div class="hud" id="top">
     <div class="brand">
-      <span class="kicker">{{ $atlas['kicker'] }}</span>
-      <h1>{{ $atlas['heading'] }}</h1>
+      <span class="kicker">{{ $kicker }}</span>
+      <h1>{{ $heading }}</h1>
       <div class="rowline"><span class="lvl" id="lvl">L0 · Workspace</span><span class="crumbs" id="crumbs"></span></div>
     </div>
     <div class="search">
@@ -72,7 +72,7 @@
 
 @push('scripts')
 <script>
-  window.ATLAS_CONFIG = @json($atlasConfig);
+  window.ATLAS_CONFIG = {!! \Illuminate\Support\Js::from($atlasConfig) !!};
 </script>
 <script src="{{ asset('js/atlas.js') }}" defer></script>
 @endpush

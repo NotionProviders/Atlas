@@ -58,6 +58,47 @@ Migrations run automatically on container start (`php artisan migrate --force`).
 - **Config cached at runtime** — env vars from Coolify are picked up on each deploy start.
 - **Health check** — `GET /up` (Laravel built-in).
 
+## Faster deploys (same runtime, shorter builds)
+
+A ~15 minute deploy is almost always **Docker image build time**, not the app starting. This stack rebuilds the image on every push. The slow steps are:
+
+1. **PHP extensions** — compiling `intl`, `mbstring`, etc. from source on Alpine (often 5–8 min on a small VPS).
+2. **`composer install`** — downloading Laravel and dependencies on a cold cache (often 2–4 min).
+3. **No build cache** — if Coolify rebuilds every layer from scratch, nothing is reused even when only `atlas.json` changed.
+
+The Dockerfile is tuned for speed without changing behavior:
+
+- **Pre-built PHP extensions** via `install-php-extensions` (same extensions, no source compile).
+- **BuildKit composer cache** so dependency downloads persist between builds on the same builder.
+- **Layer order** — `composer.json` / extension install run before app source so asset-only commits skip the heavy steps.
+
+### Coolify settings to check
+
+| Setting | Recommendation |
+|---------|------------------|
+| Build pack | **Dockerfile** (not Nixpacks — Nixpacks adds npm/composer detection overhead this app does not need) |
+| Build server | Use a **dedicated builder** with persistent disk if available |
+| BuildKit | Leave enabled (Coolify default on recent versions) |
+| Deploy trigger | Push only when you need a redeploy — every push rebuilds the image |
+
+### Expected build times (rough)
+
+| Scenario | Before | After (typical) |
+|----------|--------|-----------------|
+| Cold build (first deploy, small VPS) | 12–18 min | 3–6 min |
+| Code-only change (`atlas.json`, CSS, JS) | 12–18 min | 30–90 sec |
+| `composer.lock` change | 12–18 min | 2–4 min |
+
+Container **startup** (migrate + config/route/view cache) is usually under 30 seconds — not minutes.
+
+### Local timing check
+
+```bash
+docker build -t atlas .
+```
+
+Run twice; the second build should be noticeably faster if BuildKit cache is working.
+
 ## Static files
 
 All atlas assets are served by Nginx from `public/`:
@@ -97,6 +138,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Symptom | Fix |
 |---------|-----|
+| 500 on `/` but **Healthy** in Coolify | `/up` only checks Laravel boot — the atlas page is separate. Check container logs for view/config errors. Redeploy after fixes; entrypoint clears view cache on each start. |
 | 500 on first load | Set `APP_KEY` in Coolify env vars |
 | Blank page | Check container logs in Coolify; verify port is **3000** |
 | Build fails | Ensure Dockerfile build pack is selected (not Nixpacks) |

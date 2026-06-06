@@ -20,7 +20,7 @@
   .node{cursor:pointer}
   .nlabel{font-family:var(--sans);font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;
     paint-order:stroke;stroke:#05060cc8;stroke-width:2.6px;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-  .nlabel.dom{font-family:var(--serif);font-weight:700;letter-spacing:.2px}
+  .nlabel.dom{font-family:var(--serif);font-weight:700}
   .nlabel.sat{fill:var(--ink);font-weight:400}
   .glow{filter:url(#glow)}
   #stage::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 240px 70px #000a;mix-blend-mode:multiply}

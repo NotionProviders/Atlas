@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 class AtlasController extends Controller
 {
     public function index(): View
     {
-        $atlas = config('atlas');
+        $meta = config('atlas');
+        $data = json_decode(File::get($meta['data_path']), true, 512, JSON_THROW_ON_ERROR);
 
         return view('atlas.index', [
-            'atlas' => $atlas,
+            'pageTitle' => $meta['title'],
+            'kicker' => $meta['kicker'],
+            'heading' => $meta['heading'],
             'atlasConfig' => [
-                'palette' => $atlas['palette'],
-                'tree' => $atlas['tree'],
-                'legend' => $atlas['legend'],
+                'palette' => $data['palette'],
+                'tree' => $data['tree'],
+                'legend' => $data['legend'],
             ],
         ]);
     }

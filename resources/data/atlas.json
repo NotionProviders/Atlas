@@ -500,37 +500,265 @@
                                             {
                                                 "label": "Block types",
                                                 "kind": "sub",
-                                                "note": "What a block can be.",
+                                                "note": "What a block can be. Each category opens into its individual blocks.",
                                                 "children": [
                                                     {
                                                         "label": "Basic",
-                                                        "kind": "leaf",
-                                                        "note": "Text, H1, H2, H3, bulleted, numbered, to-do, toggle, quote, divider, callout."
+                                                        "kind": "sub",
+                                                        "note": "The everyday writing blocks.",
+                                                        "children": [
+                                                            {
+                                                                "label": "Text",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Heading 1",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Heading 2",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Heading 3",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "To-do list",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Bulleted list",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Numbered list",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Toggle list",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Quote",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Divider",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Callout",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Page",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Link to page",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Simple table",
+                                                                "kind": "leaf"
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "label": "Media",
-                                                        "kind": "leaf",
-                                                        "note": "Image, video, audio, file, web bookmark, embed."
+                                                        "kind": "sub",
+                                                        "note": "Files and rich embeds.",
+                                                        "children": [
+                                                            {
+                                                                "label": "Image",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Video",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Audio",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "File",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Web bookmark",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Code",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Embed",
+                                                                "kind": "leaf",
+                                                                "note": "500+ apps."
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "label": "Database blocks",
-                                                        "kind": "leaf",
-                                                        "note": "Table, board, gallery, list, calendar, timeline, chart, linked view."
+                                                        "kind": "sub",
+                                                        "note": "Insert a database or a linked view.",
+                                                        "children": [
+                                                            {
+                                                                "label": "Table",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Board",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Timeline",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Calendar",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "List",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Gallery",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Chart",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Map",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Form",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Feed",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Linked view of database",
+                                                                "kind": "leaf"
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "label": "Advanced",
-                                                        "kind": "leaf",
-                                                        "note": "Table of contents, button, breadcrumb, synced block, table, columns, code, math, mermaid, toggle heading."
+                                                        "kind": "sub",
+                                                        "note": "Structure and layout.",
+                                                        "children": [
+                                                            {
+                                                                "label": "Table of contents",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Button",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Synced block",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Columns",
+                                                                "kind": "leaf",
+                                                                "note": "2 to 5 columns."
+                                                            },
+                                                            {
+                                                                "label": "Toggle heading",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Breadcrumb",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Math equation",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Mermaid diagram",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Template button",
+                                                                "kind": "leaf",
+                                                                "note": "Legacy; replaced by Buttons."
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "label": "Inline",
-                                                        "kind": "leaf",
-                                                        "note": "Mention a person, page or date, reminder, emoji, inline equation."
+                                                        "kind": "sub",
+                                                        "note": "Typed inline with @ or /.",
+                                                        "children": [
+                                                            {
+                                                                "label": "Mention a person",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Mention a page",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Date or reminder",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Emoji",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Inline equation",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Inline code",
+                                                                "kind": "leaf"
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "label": "AI blocks",
-                                                        "kind": "leaf",
-                                                        "note": "AI summary, AI custom block, AI autofill."
+                                                        "kind": "sub",
+                                                        "note": "Blocks powered by Notion AI.",
+                                                        "children": [
+                                                            {
+                                                                "label": "AI block",
+                                                                "kind": "leaf",
+                                                                "note": "Generate from a prompt."
+                                                            },
+                                                            {
+                                                                "label": "AI summary",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "AI Meeting Notes",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Ask AI / Q&A",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "Research mode",
+                                                                "kind": "leaf"
+                                                            },
+                                                            {
+                                                                "label": "AI image",
+                                                                "kind": "leaf"
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }

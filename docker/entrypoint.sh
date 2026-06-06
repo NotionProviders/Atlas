@@ -28,6 +28,10 @@ php artisan migrate --force --no-interaction
 
 php artisan config:cache --no-interaction
 php artisan route:cache --no-interaction
+php artisan view:clear --no-interaction
 php artisan view:cache --no-interaction
+
+chown -R www-data:www-data storage bootstrap/cache database
+chmod -R 775 storage bootstrap/cache database
 
 exec "$@"

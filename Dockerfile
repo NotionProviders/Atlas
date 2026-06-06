@@ -6,7 +6,9 @@ WORKDIR /app
 
 COPY composer.json composer.lock ./
 
-RUN composer install \
+RUN --mount=type=cache,target=/tmp/composer-cache \
+    COMPOSER_CACHE_DIR=/tmp/composer-cache \
+    composer install \
     --no-dev \
     --no-interaction \
     --no-scripts \
@@ -19,24 +21,22 @@ RUN composer dump-autoload --optimize --classmap-authoritative --no-interaction
 
 FROM php:8.3-fpm-alpine AS runtime
 
-RUN apk add --no-cache \
-    nginx \
-    supervisor \
-    wget \
-    icu-dev \
-    libzip-dev \
-    oniguruma-dev \
-    postgresql-dev \
-    sqlite-dev \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install \
+# Pre-built extension binaries — same extensions, much faster than compiling from source.
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions \
     bcmath \
     intl \
     mbstring \
     opcache \
     pdo_pgsql \
     pdo_sqlite \
-    zip \
+    zip
+
+RUN apk add --no-cache \
+    nginx \
+    supervisor \
+    wget \
     && rm -rf /var/cache/apk/* /tmp/*
 
 WORKDIR /var/www/html
