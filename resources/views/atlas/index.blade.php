@@ -50,12 +50,16 @@
   <div class="hud" id="ctrl">
     <div class="ctrl-more" id="ctrl-more">
       <div class="ctrl-panel" id="ctrl-panel">
-        <button class="btn" id="out" title="Up one level">&#8593;</button>
+        <button class="btn" id="out" title="Up one level" aria-label="Up one level">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v9"/><path d="m8 11 4-4 4 4"/><path d="M6 19h12"/></svg>
+        </button>
         <button class="btn" id="zin" title="Zoom in">+</button>
         <button class="btn" id="zout" title="Zoom out">&#8722;</button>
         <button class="btn" id="rccw" title="Rotate left">&#8634;</button>
         <button class="btn" id="rcw" title="Rotate right">&#8635;</button>
-        <button class="btn" id="north" title="Reset to north"><span id="needle">&#8593;</span></button>
+        <button class="btn" id="north" title="Reset to north" aria-label="Reset to north">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><g id="needle"><path d="M12 5 15.5 14 12 11.5 8.5 14Z" fill="currentColor" stroke="none"/></g></svg>
+        </button>
       </div>
       <button type="button" class="btn ctrl-toggle" id="ctrl-toggle" title="Navigation" aria-label="Navigation" aria-expanded="false" aria-controls="ctrl-panel">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/></svg>
@@ -77,13 +81,19 @@
   <div id="help">
     <div class="helpcard">
       <h3>How This Atlas Works</h3>
-      <div class="sub">A Notion workspace drawn as a solar system. The workspace is the sun; each domain orbits it; their parts orbit them, all the way down to a single block. Depth equals zoom.</div>
-      <div class="helprow"><span class="kx">scroll</span><span>Zoom toward the cursor. A body's orbiting children stay hidden until you get close, then fade in. Keep going to fall level after level.</span></div>
-      <div class="helprow"><span class="kx">drag</span><span>Pan around the current orbit.</span></div>
-      <div class="helprow"><span class="kx">click</span><span>Fly to a body. Leaves open a detail panel.</span></div>
-      <div class="helprow"><span class="kx">dotted ring</span><span>A portal. It bounces you smoothly to where that feature actually lives. Try Manage connections deep inside a page's ••• menu.</span></div>
-      <div class="helprow"><span class="kx">orange dot</span><span>There is more inside. Click or zoom in to open it.</span></div>
-      <div class="helprow"><span class="kx">⌂ ↑</span><span>Home returns to the workspace. Up climbs one orbit.</span></div>
+      <div class="sub">An interactive map of a Notion workspace. Zoom from the whole workspace down through sidebar, teamspaces, pages, and blocks.</div>
+      <div class="helprow"><span class="kx">scroll</span><span>Zoom toward the cursor. Orbits fade in as you get closer.</span></div>
+      <div class="helprow"><span class="kx">drag</span><span>Pan around the map. Click or tap empty space to reset focus.</span></div>
+      <div class="helprow"><span class="kx">click</span><span>Fly to a body. Zooms in when it has children.</span></div>
+      <div class="helprow"><span class="kx">panel</span><span>Leaf nodes open a detail panel with notes and shortcuts inside.</span></div>
+      <div class="helprow"><span class="kx">search</span><span>Magnifier button, top right. Type to highlight matches; press Enter to fly.</span></div>
+      <div class="helprow"><span class="kx">domains</span><span>Domains button, bottom left. Jump to sidebar, teamspaces, databases, and more.</span></div>
+      <div class="helprow"><span class="kx">orange dot</span><span>More inside this body. Click to zoom in or keep scrolling.</span></div>
+      <div class="helprow"><span class="kx">dotted ring</span><span>Portal — bounces to where that feature actually lives.</span></div>
+      <div class="helprow"><span class="kx">home</span><span>Home button, bottom right. Fits the whole workspace.</span></div>
+      <div class="helprow"><span class="kx">level up</span><span>Arrow-to-bar button in the nav menu. Go one level higher.</span></div>
+      <div class="helprow"><span class="kx">north</span><span>Compass button in the nav menu. Resets map rotation to north.</span></div>
+      <div class="helprow"><span class="kx">crumbs</span><span>Breadcrumb path at the top. Click any step to jump back.</span></div>
       <div class="close" id="help-close">CLOSE</div>
     </div>
   </div>

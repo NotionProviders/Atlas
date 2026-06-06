@@ -103,4 +103,4 @@
     #ctrl{bottom:14px;right:14px}
     #ctrl .btn,#ctrl .ctrl-toggle{width:44px;height:44px}
   }
-  #needle{display:inline-block;color:var(--core);transition:transform .15s}
+  #needle path{fill:var(--core)}

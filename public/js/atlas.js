@@ -112,7 +112,7 @@ function fitRoot(){flyTo(0,0,0.42*Math.min(vw(),vh())/TREE._R);}
 function zoomAt(sx,sy,f){const k2=clamp(view.k*f,KMIN,KMAX);const wp=s2w(sx,sy);view.k=k2;const c=Math.cos(view.rot),s=Math.sin(view.rot),rx=wp[0]*c-wp[1]*s,ry=wp[0]*s+wp[1]*c;view.tx=sx-rx*k2;view.ty=sy-ry*k2;frame();}
 function rotateBy(d){cancelAnimationFrame(rotAnim);const W=vw(),H=vh(),cw=s2w(W/2,H/2);view.rot+=d;const c=Math.cos(view.rot),s=Math.sin(view.rot),rx=cw[0]*c-cw[1]*s,ry=cw[0]*s+cw[1]*c;view.tx=W/2-rx*view.k;view.ty=H/2-ry*view.k;updateNorth();frame();}
 function resetNorth(){animateRotTo(0);}function animateRotTo(target){cancelAnimationFrame(rotAnim);const W=vw(),H=vh(),pivot=s2w(W/2,H/2),start=view.rot,t0=performance.now(),dur=420;(function st(now){let t=(now-t0)/dur;if(t>1)t=1;const e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;view.rot=start+(target-start)*e;const c=Math.cos(view.rot),s=Math.sin(view.rot),rx=pivot[0]*c-pivot[1]*s,ry=pivot[0]*s+pivot[1]*c;view.tx=W/2-rx*view.k;view.ty=H/2-ry*view.k;updateNorth();frame();if(t<1)rotAnim=requestAnimationFrame(st);})(performance.now());}
-function updateNorth(){const el=document.getElementById('needle');if(el)el.style.transform='rotate('+(-view.rot*180/Math.PI)+'deg)';}
+function updateNorth(){const el=document.getElementById('needle');if(!el)return;const deg=(-view.rot*180/Math.PI).toFixed(2);el.setAttribute('transform','rotate('+deg+' 12 12)');}
 function markCtx(f){nodes.forEach(function(n){n._ctx=false;});let p=f;while(p){p._ctx=true;p=p.parent;}(function dive(n){n._ctx=true;if(n.children)n.children.forEach(dive);})(f);}
 function setFocus(n){focus=n;markCtx(n);updateChrome();}
 function resetFocus(){closeSearch();setFocus(TREE);closeDrawer();frame();}
