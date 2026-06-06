@@ -129,62 +129,92 @@ document.getElementById('dx').onclick=closeDrawer;
 const regWrap=document.getElementById('regions');
 LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
 const stage=document.getElementById('stage');
-const pointers=new Map();
-const pinch={active:false,lastDist:0};
 const drag={on:false,sx:0,sy:0,lx:0,ly:0,moved:false,rotate:false,pid:null};
-function ptrMid(){const p=Array.from(pointers.values());return {x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2};}
-function ptrDist(){const p=Array.from(pointers.values());return Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);}
-function endDrag(){drag.on=false;drag.pid=null;stage.classList.remove('grabbing');}
-function syncPinch(){
-  if(pointers.size>=2){
-    if(!pinch.active){endDrag();pinch.active=true;}
-    pinch.lastDist=ptrDist();
-  }else{pinch.active=false;pinch.lastDist=0;}
+const pts=new Map();
+const input={pinch:false,lastDist:0,panning:false,panId:null};
+function endDrag(){
+  if(drag.pid!=null){try{stage.releasePointerCapture(drag.pid);}catch(err){}}
+  drag.on=false;drag.pid=null;
 }
-stage.addEventListener('pointerdown',function(e){
-  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(pointers.size===1&&!pinch.active){
-    drag.on=true;drag.moved=false;drag.rotate=e.shiftKey||e.button===2;
-    drag.sx=e.clientX;drag.sy=e.clientY;drag.lx=e.clientX;drag.ly=e.clientY;drag.pid=e.pointerId;
-    stage.classList.add('grabbing');stage.setPointerCapture(e.pointerId);
+function ptDist(){const p=Array.from(pts.values());return Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);}
+function ptMid(){const p=Array.from(pts.values());return {x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2};}
+function pointerOnUi(x,y){
+  const el=document.elementFromPoint(x,y);
+  if(!el||!el.closest)return true;
+  return !!(el.closest('.node')||el.closest('.hud')||el.closest('#detail')||el.closest('#help')||el.closest('input')||el.closest('button')||el.closest('textarea'));
+}
+function beginPinch(){
+  input.panning=false;input.panId=null;
+  endDrag();
+  input.pinch=true;
+  input.lastDist=ptDist();
+  stage.classList.remove('grabbing');
+}
+function applyPinch(){
+  const dist=ptDist();
+  if(input.lastDist>0){
+    const mid=ptMid(),r=app.getBoundingClientRect();
+    zoomAt(mid.x-r.left,mid.y-r.top,dist/input.lastDist);
+    drag.moved=true;
   }
-  if(pointers.size>=2)syncPinch();
-});
-stage.addEventListener('pointermove',function(e){
-  if(!pointers.has(e.pointerId))return;
-  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(pinch.active&&pointers.size>=2){
-    const dist=ptrDist();
-    if(pinch.lastDist>0){
-      const mid=ptrMid(),r=app.getBoundingClientRect();
-      zoomAt(mid.x-r.left,mid.y-r.top,dist/pinch.lastDist);
-      drag.moved=true;
-    }
-    pinch.lastDist=dist;
+  input.lastDist=dist;
+}
+function beginPan(e){
+  input.panning=true;input.panId=e.pointerId;drag.moved=false;
+  drag.sx=drag.lx=e.clientX;drag.sy=drag.ly=e.clientY;
+  drag.rotate=e.pointerType==='mouse'&&(e.shiftKey||e.button===2);
+  stage.classList.add('grabbing');
+  if(e.pointerType==='mouse'){
+    drag.on=true;drag.pid=e.pointerId;
+    stage.setPointerCapture(e.pointerId);
+  }
+}
+app.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size>=2){e.preventDefault();beginPinch();return;}
+  if(pts.size===1&&!input.pinch&&!pointerOnUi(e.clientX,e.clientY))beginPan(e);
+},{capture:true});
+app.addEventListener('pointermove',function(e){
+  if(!pts.has(e.pointerId))return;
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size>=2){
+    e.preventDefault();
+    if(!input.pinch)beginPinch();
+    else applyPinch();
     return;
   }
-  if(!drag.on||e.pointerId!==drag.pid)return;
+  if(!input.panning||e.pointerId!==input.panId||pts.size!==1)return;
+  if(e.pointerType!=='mouse')e.preventDefault();
   const dx=e.clientX-drag.lx,dy=e.clientY-drag.ly;
   drag.lx=e.clientX;drag.ly=e.clientY;
   if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>3)drag.moved=true;
   if(drag.rotate){rotateBy(dx*0.008);}else{view.tx+=dx;view.ty+=dy;frame();}
-});
-stage.addEventListener('pointerup',function(e){
-  const wasPinch=pinch.active;
-  pointers.delete(e.pointerId);
-  syncPinch();
-  if(drag.on&&e.pointerId===drag.pid){
+},{capture:true,passive:false});
+app.addEventListener('pointerup',function(e){
+  const wasPinch=input.pinch;
+  pts.delete(e.pointerId);
+  if(pts.size<2){input.pinch=false;input.lastDist=0;}
+  if(pts.size===1&&wasPinch){
+    input.panning=false;input.panId=null;
+  }else if(pts.size===0){
+    if(input.panning&&!drag.moved&&!wasPinch)resetFocus();
+    input.panning=false;input.panId=null;
     endDrag();
-    if(!drag.moved&&!wasPinch)resetFocus();
+    stage.classList.remove('grabbing');
   }
-});
-stage.addEventListener('pointercancel',function(e){
-  pointers.delete(e.pointerId);
-  syncPinch();
-  if(drag.on&&e.pointerId===drag.pid)endDrag();
-});
+},{capture:true});
+app.addEventListener('pointercancel',function(e){
+  pts.delete(e.pointerId);
+  if(pts.size<2){input.pinch=false;input.lastDist=0;}
+  if(pts.size===0){
+    input.panning=false;input.panId=null;
+    endDrag();
+    stage.classList.remove('grabbing');
+  }
+},{capture:true});
+app.addEventListener('gesturestart',function(e){e.preventDefault();},{capture:true,passive:false});
 stage.addEventListener('contextmenu',function(e){e.preventDefault();});
-stage.addEventListener('touchmove',function(e){if(pinch.active||drag.on)e.preventDefault();},{passive:false});
 stage.addEventListener('wheel',function(e){e.preventDefault();const r=app.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,Math.pow(1.0016,-e.deltaY));},{passive:false});
 const search=document.getElementById('search');
 search.addEventListener('input',function(){const q=search.value.trim().toLowerCase();searchActive=q.length>0;nodes.forEach(function(n){n._match=q&&n.label.toLowerCase().indexOf(q)>=0;});frame();});

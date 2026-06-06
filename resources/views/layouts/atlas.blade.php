@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="Interactive orbital map of a Notion workspace — zoom from the whole workspace down to individual blocks.">
     <link rel="canonical" href="{{ config('atlas.url') }}">
     <title>{{ $pageTitle }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/atlas.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/atlas.css') }}?v={{ @filemtime(public_path('css/atlas.css')) ?: 1 }}">
     @stack('head')
 </head>
 <body>

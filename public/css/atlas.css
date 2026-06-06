@@ -6,16 +6,16 @@
     --serif:"Roboto",system-ui,sans-serif; --sans:"Roboto",system-ui,sans-serif; --mono:"Roboto Mono",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;background:var(--bg0);color:var(--ink);font-family:var(--sans);overflow:hidden}
-  #app{position:fixed;inset:0;overflow:hidden}
-  #stage{position:absolute;inset:0;touch-action:none;cursor:grab;
+  html,body{height:100%;background:var(--bg0);color:var(--ink);font-family:var(--sans);overflow:hidden;touch-action:none;overscroll-behavior:none;-webkit-overflow-scrolling:auto}
+  #app{position:fixed;inset:0;overflow:hidden;touch-action:none;overscroll-behavior:none}
+  #stage{position:absolute;inset:0;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;
     background:
       radial-gradient(1200px 900px at 50% 42%, #11183180 0%, transparent 60%),
       radial-gradient(900px 700px at 82% 88%, #1a1030a0 0%, transparent 55%),
       radial-gradient(900px 700px at 12% 12%, #07212a90 0%, transparent 55%),
       linear-gradient(180deg, #05060c 0%, #080b16 100%);}
   #stage.grabbing{cursor:grabbing}
-  #svg{width:100%;height:100%;display:block}
+  #svg{width:100%;height:100%;display:block;touch-action:none}
   .edge{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
   .node{cursor:pointer}
   .nlabel{font-family:var(--sans);font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;

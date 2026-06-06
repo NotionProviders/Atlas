@@ -72,5 +72,5 @@
 
 @push('scripts')
 <script>{!! $atlasConfigScript !!}</script>
-<script src="{{ asset('js/atlas.js') }}" defer></script>
+<script src="{{ asset('js/atlas.js') }}?v={{ @filemtime(public_path('js/atlas.js')) ?: 1 }}" defer></script>
 @endpush
