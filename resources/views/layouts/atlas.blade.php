@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Interactive orbital map of a Notion workspace — zoom from the whole workspace down to individual blocks.">
     <link rel="canonical" href="{{ config('atlas.url') }}">
     <title>{{ $pageTitle }}</title>

@@ -119,12 +119,62 @@ document.getElementById('dx').onclick=closeDrawer;
 const regWrap=document.getElementById('regions');
 LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
 const stage=document.getElementById('stage');
-const drag={on:false,sx:0,sy:0,lx:0,ly:0,moved:false,rotate:false};
-stage.addEventListener('pointerdown',function(e){drag.on=true;drag.moved=false;drag.rotate=e.shiftKey||e.button===2;drag.sx=e.clientX;drag.sy=e.clientY;drag.lx=e.clientX;drag.ly=e.clientY;stage.classList.add('grabbing');stage.setPointerCapture(e.pointerId);});
-stage.addEventListener('pointermove',function(e){if(!drag.on)return;const dx=e.clientX-drag.lx,dy=e.clientY-drag.ly;drag.lx=e.clientX;drag.ly=e.clientY;if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>3)drag.moved=true;if(drag.rotate){rotateBy(dx*0.008);}else{view.tx+=dx;view.ty+=dy;frame();}});
-stage.addEventListener('pointerup',function(e){if(!drag.on)return;drag.on=false;stage.classList.remove('grabbing');if(!drag.moved)resetFocus();});
-stage.addEventListener('pointercancel',function(e){drag.on=false;stage.classList.remove('grabbing');});
+const pointers=new Map();
+const pinch={active:false,lastDist:0};
+const drag={on:false,sx:0,sy:0,lx:0,ly:0,moved:false,rotate:false,pid:null};
+function ptrMid(){const p=Array.from(pointers.values());return {x:(p[0].x+p[1].x)/2,y:(p[0].y+p[1].y)/2};}
+function ptrDist(){const p=Array.from(pointers.values());return Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);}
+function endDrag(){drag.on=false;drag.pid=null;stage.classList.remove('grabbing');}
+function syncPinch(){
+  if(pointers.size>=2){
+    if(!pinch.active){endDrag();pinch.active=true;}
+    pinch.lastDist=ptrDist();
+  }else{pinch.active=false;pinch.lastDist=0;}
+}
+stage.addEventListener('pointerdown',function(e){
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size===1&&!pinch.active){
+    drag.on=true;drag.moved=false;drag.rotate=e.shiftKey||e.button===2;
+    drag.sx=e.clientX;drag.sy=e.clientY;drag.lx=e.clientX;drag.ly=e.clientY;drag.pid=e.pointerId;
+    stage.classList.add('grabbing');stage.setPointerCapture(e.pointerId);
+  }
+  if(pointers.size>=2)syncPinch();
+});
+stage.addEventListener('pointermove',function(e){
+  if(!pointers.has(e.pointerId))return;
+  pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch.active&&pointers.size>=2){
+    const dist=ptrDist();
+    if(pinch.lastDist>0){
+      const mid=ptrMid(),r=app.getBoundingClientRect();
+      zoomAt(mid.x-r.left,mid.y-r.top,dist/pinch.lastDist);
+      drag.moved=true;
+    }
+    pinch.lastDist=dist;
+    return;
+  }
+  if(!drag.on||e.pointerId!==drag.pid)return;
+  const dx=e.clientX-drag.lx,dy=e.clientY-drag.ly;
+  drag.lx=e.clientX;drag.ly=e.clientY;
+  if(Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>3)drag.moved=true;
+  if(drag.rotate){rotateBy(dx*0.008);}else{view.tx+=dx;view.ty+=dy;frame();}
+});
+stage.addEventListener('pointerup',function(e){
+  const wasPinch=pinch.active;
+  pointers.delete(e.pointerId);
+  syncPinch();
+  if(drag.on&&e.pointerId===drag.pid){
+    endDrag();
+    if(!drag.moved&&!wasPinch)resetFocus();
+  }
+});
+stage.addEventListener('pointercancel',function(e){
+  pointers.delete(e.pointerId);
+  syncPinch();
+  if(drag.on&&e.pointerId===drag.pid)endDrag();
+});
 stage.addEventListener('contextmenu',function(e){e.preventDefault();});
+stage.addEventListener('touchmove',function(e){if(pinch.active||drag.on)e.preventDefault();},{passive:false});
 stage.addEventListener('wheel',function(e){e.preventDefault();const r=app.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,Math.pow(1.0016,-e.deltaY));},{passive:false});
 const search=document.getElementById('search');
 search.addEventListener('input',function(){const q=search.value.trim().toLowerCase();searchActive=q.length>0;nodes.forEach(function(n){n._match=q&&n.label.toLowerCase().indexOf(q)>=0;});frame();});

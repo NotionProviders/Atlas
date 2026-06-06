@@ -42,7 +42,7 @@
     <button class="btn" id="zout" title="Zoom out">&#8722;</button>
   </div>
 
-  <div class="hint" id="hint">scroll zoom · drag pan · shift-drag or &#8634; &#8635; to rotate · click empty space to reset</div>
+  <div class="hint" id="hint"><span class="hint-desk">scroll zoom · drag pan · shift-drag or &#8634; &#8635; to rotate · click empty space to reset</span><span class="hint-touch">pinch zoom · drag pan · tap empty space to reset</span></div>
 
   <div id="detail">
     <span class="x" id="dx">&times;</span>

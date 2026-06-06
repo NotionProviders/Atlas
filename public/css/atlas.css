@@ -52,6 +52,8 @@
   .btn:hover{background:#ffffff18;border-color:#ffffff34}
   .btn.lab{width:auto;padding:0 13px;font-size:11px;font-family:var(--mono);letter-spacing:1px;gap:7px;height:38px}
   .hint{position:absolute;z-index:4;bottom:18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:1px;pointer-events:none;transition:opacity .6s;text-align:center;padding:0 12px}
+  .hint .hint-touch{display:none}
+  @media(pointer:coarse){.hint .hint-desk{display:none}.hint .hint-touch{display:inline}}
   #detail{position:absolute;z-index:6;top:0;right:0;height:100%;width:344px;max-width:88%;background:linear-gradient(180deg,#0b1020f4,#080b16fb);border-left:1px solid var(--line);backdrop-filter:blur(16px);transform:translateX(102%);transition:transform .42s cubic-bezier(.22,1,.36,1);padding:24px 22px;display:flex;flex-direction:column;gap:14px;box-shadow:-30px 0 80px #0008;overflow:auto}
   #detail.open{transform:translateX(0)}
   #detail .x{position:absolute;top:15px;right:15px;cursor:pointer;color:var(--dim);font-size:22px;line-height:1}
@@ -79,5 +81,5 @@
   .helpcard .close:hover{color:var(--ink)}
   .toast{position:absolute;z-index:9;bottom:74px;left:50%;transform:translateX(-50%) translateY(18px);background:#0c1226;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:11.5px;padding:9px 15px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  @media(max-width:680px){ .brand h1{font-size:20px} #legend{display:none} .hint{display:none} .brand{max-width:100%} }
+  @media(max-width:680px){ .brand h1{font-size:20px} #legend{display:none} .brand{max-width:100%} #top{padding:14px 14px 10px} .search{min-width:0;flex:1} #ctrl{bottom:14px;right:14px} .btn{width:44px;height:44px} }
   #needle{display:inline-block;color:var(--core);transition:transform .15s}
