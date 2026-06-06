@@ -21,6 +21,7 @@
   .edge{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
   .node{cursor:pointer}
   .node-shade{pointer-events:none}
+  .portal-ring{pointer-events:none}
   .nlabel{font-family:var(--sans);font-weight:500;fill:var(--ink);pointer-events:none;text-anchor:middle;
     paint-order:stroke;stroke:#080e1a99;stroke-width:2.4px;stroke-linejoin:round;vector-effect:non-scaling-stroke}
   .nlabel.dom{font-family:var(--serif);font-weight:700}

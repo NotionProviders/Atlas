@@ -46,7 +46,7 @@ nodes.forEach(function(n){
     const ln=document.createElementNS(SVGNS,'line');
     ln.setAttribute('x1',n.parent.x);ln.setAttribute('y1',n.parent.y);ln.setAttribute('x2',n.x);ln.setAttribute('y2',n.y);
     ln.setAttribute('class','edge');ln.setAttribute('stroke',n.color);ln.setAttribute('stroke-width',n.depth<=1?1.5:n.depth===2?1.1:0.8);
-    gEdges.appendChild(ln); n._edge=ln; edges.push(n);
+    gEdges.appendChild(ln); n._edge=ln; n._ex1=n.parent.x; n._ey1=n.parent.y; n._ex2=n.x; n._ey2=n.y; edges.push(n);
   }
 });
 nodes.forEach(function(n){
@@ -60,7 +60,7 @@ nodes.forEach(function(n){
   else{c.setAttribute('fill',n.color);c.setAttribute('stroke','#060a14');c.setAttribute('stroke-opacity','0.65');c.setAttribute('stroke-width','1');c.setAttribute('vector-effect','non-scaling-stroke');c.setAttribute('paint-order','stroke fill');}
   g.appendChild(c);
   const hasKids=n.children&&n.children.length;
-  if(n.portal&&!hasKids){const ring=document.createElementNS(SVGNS,'circle');ring.setAttribute('cx',n.x);ring.setAttribute('cy',n.y);ring.setAttribute('r',n._draw*1.7);ring.setAttribute('fill','none');ring.setAttribute('stroke',n.color);ring.setAttribute('stroke-width',1);ring.setAttribute('stroke-dasharray','2 3');ring.setAttribute('vector-effect','non-scaling-stroke');g.appendChild(ring);n._ringEl=ring;}
+  if(n.portal&&!hasKids){const pr=n._draw*1.7;const ring=document.createElementNS(SVGNS,'circle');ring.setAttribute('class','portal-ring');ring.setAttribute('cx',n.x);ring.setAttribute('cy',n.y);ring.setAttribute('r',pr);ring.setAttribute('fill','none');ring.setAttribute('stroke',n.color);ring.setAttribute('stroke-opacity','0.55');ring.setAttribute('stroke-width','1.25');ring.setAttribute('vector-effect','non-scaling-stroke');g.appendChild(ring);n._ringEl=ring;}
   if(hasKids&&n.depth>=1){const dr=(n.depth===1)?n._draw*0.13:n._draw*0.26;const dot=document.createElementNS(SVGNS,'circle');dot.setAttribute('cx',n.x+n._draw*0.78);dot.setAttribute('cy',n.y-n._draw*0.78);dot.setAttribute('r',dr);dot.setAttribute('fill','#ff7a1a');dot.setAttribute('stroke','#ffffff');dot.setAttribute('stroke-width',1.2);dot.setAttribute('vector-effect','non-scaling-stroke');g.appendChild(dot);n._dotEl=dot;}
   const t=document.createElementNS(SVGNS,'text');t.setAttribute('x',n.x);
   t.setAttribute('class','nlabel'+((n.kind==='core'||n.kind==='domain')?' dom':''));
@@ -89,12 +89,32 @@ function ancestorBodyFade(n,k){
   while(p){
     if(p.parent===n){
       const t=smooth(n._ring*k,90,190);
-      if(t>0.94)return 0.1;
-      return Math.max(0.28,1-t*0.72);
+      if(t>0.82)return 0.94;
+      return Math.max(0.45,1-t*0.55);
     }
     p=p.parent;
   }
   return 1;
+}
+function hideHubSpoke(n,k){
+  const hub=focus.parent;
+  if(!hub||!hub._ring||n.parent!==hub||n===focus)return false;
+  return smooth(hub._ring*k,90,190)>0.42;
+}
+function setEdgeGeom(n){
+  const p=n.parent,x1=n._ex1,y1=n._ey1,x2=n._ex2,y2=n._ey2;
+  const dx=x2-x1,dy=y2-y1,dist=Math.hypot(dx,dy);
+  let ax1=x1,ay1=y1,ax2=x2,ay2=y2;
+  if(dist>1){
+    const t1=Math.min(p._draw/dist,0.48),t2=Math.max(1-n._draw/dist,0.52);
+    ax1=x1+dx*t1;ay1=y1+dy*t1;ax2=x1+dx*t2;ay2=y1+dy*t2;
+  }
+  n._edge.setAttribute('x1',ax1);n._edge.setAttribute('y1',ay1);
+  n._edge.setAttribute('x2',ax2);n._edge.setAttribute('y2',ay2);
+  if(n._edgeSh){
+    n._edgeSh.setAttribute('x1',ax1);n._edgeSh.setAttribute('y1',ay1);
+    n._edgeSh.setAttribute('x2',ax2);n._edgeSh.setAttribute('y2',ay2);
+  }
 }
 function edgeRev(n,k){
   if(!n.parent)return 1;
@@ -115,6 +135,12 @@ function edgeOnScreen(n,k,tx,ty,W,H,c,s){
 }
 function updateEdge(n,k,tx,ty,W,H,c,s){
   if(!n._edge)return;
+  setEdgeGeom(n);
+  if(hideHubSpoke(n,k)){
+    n._edge.setAttribute('stroke-opacity',0);
+    if(n._edgeSh)n._edgeSh.setAttribute('stroke-opacity',0);
+    return;
+  }
   const er=edgeRev(n,k);
   if(er<0.012||!edgeOnScreen(n,k,tx,ty,W,H,c,s)){
     n._edge.setAttribute('stroke-opacity',0);

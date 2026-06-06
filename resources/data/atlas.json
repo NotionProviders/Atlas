@@ -472,8 +472,7 @@
                                                     {
                                                         "label": "Move to",
                                                         "kind": "leaf",
-                                                        "portal": "teamspaces",
-                                                        "note": "Move the block or page somewhere else. Bounces to the Teamspace level."
+                                                        "note": "Move the block to a different page. Opens a picker to choose the destination."
                                                     },
                                                     {
                                                         "label": "Comment",
@@ -881,8 +880,7 @@
                                             {
                                                 "label": "Move to",
                                                 "kind": "leaf",
-                                                "portal": "teamspaces",
-                                                "note": "Pick a new parent teamspace or page. Bounces you to the Teamspace level."
+                                                "note": "Relocate this page. Opens a picker to choose a new parent anywhere in the workspace."
                                             },
                                             {
                                                 "label": "Archive",
