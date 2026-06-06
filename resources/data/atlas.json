@@ -1,0 +1,1133 @@
+{
+    "palette": {
+        "core": "#ffd66b",
+        "blue": "#4ea1ff",
+        "amber": "#f5a623",
+        "violet": "#b07cff",
+        "green": "#3ee0a0",
+        "pink": "#fb6f8e",
+        "cyan": "#2bd3e8",
+        "red": "#ff5d6c",
+        "orange": "#ff9f45"
+    },
+    "tree": {
+        "label": "Workspace",
+        "kind": "core",
+        "c": "#ffd66b",
+        "id": "workspace",
+        "note": "The whole Notion workspace. Two halves: the sidebar (everything you navigate) and workspace settings (everything you administer). Zoom in and fall all the way down to a single block.",
+        "children": [
+            {
+                "label": "Sidebar",
+                "kind": "domain",
+                "c": "#4ea1ff",
+                "id": "sidebar",
+                "note": "The left navigation. Your entry point to search, home, inbox, teamspaces, shared and private pages, settings, templates and trash.",
+                "children": [
+                    {
+                        "label": "Search",
+                        "kind": "item",
+                        "note": "Quick find across the workspace (Cmd/Ctrl+P)."
+                    },
+                    {
+                        "label": "Notion AI",
+                        "kind": "item",
+                        "note": "Ask, search and generate with AI across your pages."
+                    },
+                    {
+                        "label": "Home",
+                        "kind": "item",
+                        "note": "Personalized home: recents, upcoming events and tasks."
+                    },
+                    {
+                        "label": "Inbox",
+                        "kind": "item",
+                        "note": "All notifications, mentions and page updates."
+                    },
+                    {
+                        "label": "Teamspaces",
+                        "kind": "domain",
+                        "c": "#b07cff",
+                        "id": "teamspaces",
+                        "note": "A team's home. Holds its pages and databases and controls who can see them. A workspace can hold many teamspaces.",
+                        "children": [
+                            {
+                                "label": "Teamspace settings",
+                                "kind": "sub",
+                                "note": "Members, owners and the access level of the teamspace.",
+                                "children": [
+                                    {
+                                        "label": "Members & owners",
+                                        "kind": "leaf",
+                                        "note": "Add people and assign owners."
+                                    },
+                                    {
+                                        "label": "Open",
+                                        "kind": "leaf",
+                                        "note": "Anyone in the workspace can join and view."
+                                    },
+                                    {
+                                        "label": "Closed",
+                                        "kind": "leaf",
+                                        "note": "Discoverable; people request access; only members contribute."
+                                    },
+                                    {
+                                        "label": "Private",
+                                        "kind": "leaf",
+                                        "note": "Invite only and hidden from everyone else."
+                                    },
+                                    {
+                                        "label": "Default",
+                                        "kind": "leaf",
+                                        "note": "Every member is added automatically."
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Database",
+                                "kind": "domain",
+                                "c": "#3ee0a0",
+                                "id": "database",
+                                "note": "A collection of pages that share properties. Same content engine as a page, but structured. This is the split from a page.",
+                                "children": [
+                                    {
+                                        "label": "Data source",
+                                        "kind": "sub",
+                                        "note": "The underlying collection of rows. One database block can surface one or more sources.",
+                                        "children": [
+                                            {
+                                                "label": "collection",
+                                                "kind": "leaf",
+                                                "note": "Each source has its own ID, property schema and rows."
+                                            },
+                                            {
+                                                "label": "Add a source",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Lock data source",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Pages (rows)",
+                                        "kind": "sub",
+                                        "portal": "page",
+                                        "note": "Every row IS a page. Open one and you are back in the Page world.",
+                                        "children": [
+                                            {
+                                                "label": "Open as page",
+                                                "kind": "leaf",
+                                                "portal": "page",
+                                                "note": "A row opens as a full page. Click to bounce to the Page level."
+                                            },
+                                            {
+                                                "label": "Row properties",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Row template",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Properties",
+                                        "kind": "sub",
+                                        "note": "Typed columns shared by every row.",
+                                        "children": [
+                                            {
+                                                "label": "Title",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Text",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Number",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Select",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Multi-select",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Status",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Date",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Person",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Files & media",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Checkbox",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "URL",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Email",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Phone",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Formula",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Relation",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Rollup",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Created time",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Created by",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Last edited time",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Last edited by",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Button",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "ID",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Place",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Views",
+                                        "kind": "sub",
+                                        "note": "Different lenses on the same rows.",
+                                        "children": [
+                                            {
+                                                "label": "Table",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Board",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Timeline",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Calendar",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "List",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Gallery",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Chart",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "View options",
+                                                "kind": "leaf",
+                                                "note": "Open pages in side peek / center / full, card preview, page size, shown properties, vertical lines."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Filters",
+                                        "kind": "sub",
+                                        "note": "Show only the rows that match.",
+                                        "children": [
+                                            {
+                                                "label": "Add filter",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Condition",
+                                                "kind": "leaf",
+                                                "note": "is / is not / contains / before / after."
+                                            },
+                                            {
+                                                "label": "And / Or groups",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Advanced filter",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Sorts",
+                                        "kind": "sub",
+                                        "children": [
+                                            {
+                                                "label": "Ascending",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Descending",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Multi-sort",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Manual",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Groups",
+                                        "kind": "sub",
+                                        "children": [
+                                            {
+                                                "label": "Group by",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Sub-group by",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Hide empty groups",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Sort groups",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Color columns",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Automations",
+                                        "kind": "sub",
+                                        "note": "When something happens, do something.",
+                                        "children": [
+                                            {
+                                                "label": "Triggers",
+                                                "kind": "leaf",
+                                                "note": "Property edited, Page added, On a schedule, Button clicked."
+                                            },
+                                            {
+                                                "label": "Actions",
+                                                "kind": "leaf",
+                                                "note": "Edit property, Add page, Send notification, Slack, Email, Webhook."
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Templates",
+                                        "kind": "sub",
+                                        "children": [
+                                            {
+                                                "label": "New template",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Set as default",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Repeat on a schedule",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "label": "Page",
+                                "kind": "domain",
+                                "c": "#fb6f8e",
+                                "id": "page",
+                                "note": "The atom of Notion. A title, an icon and cover, and a stack of blocks. Almost everything is a page.",
+                                "children": [
+                                    {
+                                        "label": "Icon & cover",
+                                        "kind": "sub",
+                                        "children": [
+                                            {
+                                                "label": "Add icon",
+                                                "kind": "leaf",
+                                                "note": "Emoji, upload or link."
+                                            },
+                                            {
+                                                "label": "Add cover",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Reposition",
+                                                "kind": "leaf"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Title",
+                                        "kind": "leaf",
+                                        "note": "The page name. Also the Title property when the page lives in a database."
+                                    },
+                                    {
+                                        "label": "Blocks",
+                                        "kind": "domain",
+                                        "c": "#2bd3e8",
+                                        "id": "blocks",
+                                        "note": "The content. Every line is a block you can drag, transform and nest.",
+                                        "children": [
+                                            {
+                                                "label": "6-dot handle",
+                                                "kind": "sub",
+                                                "note": "Drag to move or reorder. Click it to open the block menu.",
+                                                "children": [
+                                                    {
+                                                        "label": "Drag to move",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Drag to nest",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Click for menu",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Add block",
+                                                "kind": "sub",
+                                                "note": "The plus and the slash menu to insert any block.",
+                                                "children": [
+                                                    {
+                                                        "label": "Slash menu",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Add above / below",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Block menu",
+                                                "kind": "sub",
+                                                "note": "Actions on the selected block.",
+                                                "children": [
+                                                    {
+                                                        "label": "Delete",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Duplicate",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Copy link to block",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Move to",
+                                                        "kind": "leaf",
+                                                        "portal": "teamspaces",
+                                                        "note": "Move the block or page somewhere else. Bounces to the Teamspace level."
+                                                    },
+                                                    {
+                                                        "label": "Comment",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Color",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Turn into",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Turn into page",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Ask AI",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Block types",
+                                                "kind": "sub",
+                                                "note": "What a block can be.",
+                                                "children": [
+                                                    {
+                                                        "label": "Basic",
+                                                        "kind": "leaf",
+                                                        "note": "Text, H1, H2, H3, bulleted, numbered, to-do, toggle, quote, divider, callout."
+                                                    },
+                                                    {
+                                                        "label": "Media",
+                                                        "kind": "leaf",
+                                                        "note": "Image, video, audio, file, web bookmark, embed."
+                                                    },
+                                                    {
+                                                        "label": "Database blocks",
+                                                        "kind": "leaf",
+                                                        "note": "Table, board, gallery, list, calendar, timeline, chart, linked view."
+                                                    },
+                                                    {
+                                                        "label": "Advanced",
+                                                        "kind": "leaf",
+                                                        "note": "Table of contents, button, breadcrumb, synced block, table, columns, code, math, mermaid, toggle heading."
+                                                    },
+                                                    {
+                                                        "label": "Inline",
+                                                        "kind": "leaf",
+                                                        "note": "Mention a person, page or date, reminder, emoji, inline equation."
+                                                    },
+                                                    {
+                                                        "label": "AI blocks",
+                                                        "kind": "leaf",
+                                                        "note": "AI summary, AI custom block, AI autofill."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Share",
+                                        "kind": "domain",
+                                        "c": "#ff5d6c",
+                                        "id": "share",
+                                        "note": "Who can do what on this page. Page-level access can override the teamspace.",
+                                        "children": [
+                                            {
+                                                "label": "Invite people / groups",
+                                                "kind": "sub",
+                                                "children": [
+                                                    {
+                                                        "label": "Full access",
+                                                        "kind": "leaf",
+                                                        "note": "Edit, share and manage who has access."
+                                                    },
+                                                    {
+                                                        "label": "Can edit",
+                                                        "kind": "leaf",
+                                                        "note": "Edit content and sub-pages."
+                                                    },
+                                                    {
+                                                        "label": "Can edit content",
+                                                        "kind": "leaf",
+                                                        "note": "Edit content but not restructure."
+                                                    },
+                                                    {
+                                                        "label": "Can comment",
+                                                        "kind": "leaf",
+                                                        "note": "Comment and view, no edits."
+                                                    },
+                                                    {
+                                                        "label": "Can view",
+                                                        "kind": "leaf",
+                                                        "note": "Read only."
+                                                    },
+                                                    {
+                                                        "label": "No access - can create",
+                                                        "kind": "leaf",
+                                                        "note": "Cannot view this page but can create within it."
+                                                    },
+                                                    {
+                                                        "label": "Page-level access",
+                                                        "kind": "leaf",
+                                                        "note": "Override the inherited teamspace permissions on this page."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Publish to web",
+                                                "kind": "sub",
+                                                "children": [
+                                                    {
+                                                        "label": "Allow editing",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Allow duplicate as template",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Search engine indexing",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Customize site",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "label": "Comments",
+                                        "kind": "leaf",
+                                        "note": "Page-level discussion thread shown at the top of the page."
+                                    },
+                                    {
+                                        "label": "Page settings",
+                                        "kind": "domain",
+                                        "c": "#ff9f45",
+                                        "id": "pagesettings",
+                                        "note": "The menu in the top-right. Everything you can do TO a page.",
+                                        "children": [
+                                            {
+                                                "label": "Font",
+                                                "kind": "sub",
+                                                "children": [
+                                                    {
+                                                        "label": "Default",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Serif",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Mono",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Copy link",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Copy page contents",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Duplicate",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Move to",
+                                                "kind": "leaf",
+                                                "portal": "teamspaces",
+                                                "note": "Pick a new parent teamspace or page. Bounces you to the Teamspace level."
+                                            },
+                                            {
+                                                "label": "Archive",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Move to trash",
+                                                "kind": "leaf",
+                                                "portal": "trash",
+                                                "note": "Send to Trash. Bounces you up to Trash in the sidebar."
+                                            },
+                                            {
+                                                "label": "Present",
+                                                "kind": "leaf",
+                                                "note": "Full-screen presentation mode."
+                                            },
+                                            {
+                                                "label": "Available offline",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Small text",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Full width",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Customize page",
+                                                "kind": "sub",
+                                                "note": "Tune what shows around the content.",
+                                                "children": [
+                                                    {
+                                                        "label": "Backlinks",
+                                                        "kind": "leaf",
+                                                        "note": "Expanded / Show in popover / Off."
+                                                    },
+                                                    {
+                                                        "label": "Page discussions",
+                                                        "kind": "leaf",
+                                                        "note": "Show or hide the top-of-page comments."
+                                                    },
+                                                    {
+                                                        "label": "Table of contents",
+                                                        "kind": "leaf",
+                                                        "note": "Show or hide a sticky outline."
+                                                    },
+                                                    {
+                                                        "label": "Inline comments",
+                                                        "kind": "leaf",
+                                                        "note": "Minimal / Default."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Lock page",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Suggest edits",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Translate",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Undo",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Import",
+                                                "kind": "leaf"
+                                            },
+                                            {
+                                                "label": "Export",
+                                                "kind": "sub",
+                                                "children": [
+                                                    {
+                                                        "label": "PDF",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "HTML",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Markdown & CSV",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Include subpages",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Turn into Wiki",
+                                                "kind": "leaf",
+                                                "note": "Add an owner and verification; sub-pages gain properties."
+                                            },
+                                            {
+                                                "label": "Updates & analytics",
+                                                "kind": "sub",
+                                                "note": "Activity and reach for this page.",
+                                                "children": [
+                                                    {
+                                                        "label": "Updates",
+                                                        "kind": "leaf",
+                                                        "note": "On-page edit history you can restore from."
+                                                    },
+                                                    {
+                                                        "label": "Analytics",
+                                                        "kind": "leaf",
+                                                        "note": "Who is viewing and editing, and how often."
+                                                    },
+                                                    {
+                                                        "label": "Settings: view history",
+                                                        "kind": "leaf",
+                                                        "note": "Show or hide your own view history for this page."
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Version history",
+                                                "kind": "leaf",
+                                                "note": "Snapshots over time; restore any of them."
+                                            },
+                                            {
+                                                "label": "Notify me",
+                                                "kind": "sub",
+                                                "children": [
+                                                    {
+                                                        "label": "All comments",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Replies and @mentions",
+                                                        "kind": "leaf"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "Connections",
+                                                "kind": "sub",
+                                                "note": "Apps connected to this page.",
+                                                "children": [
+                                                    {
+                                                        "label": "Slack",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "GitHub",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Google Drive",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Jira",
+                                                        "kind": "leaf"
+                                                    },
+                                                    {
+                                                        "label": "Manage connections",
+                                                        "kind": "leaf",
+                                                        "portal": "ws-connections",
+                                                        "note": "Jumps out to workspace-level Connections, several levels up. Click to bounce up and over."
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Shared",
+                        "kind": "item",
+                        "note": "Pages shared across teamspaces or with guests."
+                    },
+                    {
+                        "label": "Private",
+                        "kind": "item",
+                        "note": "Pages only you can see."
+                    },
+                    {
+                        "label": "Settings",
+                        "kind": "item",
+                        "portal": "wssettings",
+                        "note": "Opens workspace and account settings. Click to bounce over."
+                    },
+                    {
+                        "label": "Templates",
+                        "kind": "item",
+                        "note": "Prebuilt pages and databases to start from."
+                    },
+                    {
+                        "label": "Trash",
+                        "kind": "item",
+                        "id": "trash",
+                        "note": "Deleted pages live here for 30 days. Restore or purge.",
+                        "children": [
+                            {
+                                "label": "Restore",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Delete permanently",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Search trash",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Calendar",
+                        "kind": "item",
+                        "note": "The Notion Calendar app, linked to your events."
+                    },
+                    {
+                        "label": "Invite members",
+                        "kind": "item"
+                    }
+                ]
+            },
+            {
+                "label": "Workspace settings",
+                "kind": "domain",
+                "c": "#f5a623",
+                "id": "wssettings",
+                "note": "Account and workspace administration. The other half of the workspace.",
+                "children": [
+                    {
+                        "label": "My account",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Preferred name",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Email & password",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Devices / log out",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "My settings",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Appearance",
+                                "kind": "leaf",
+                                "note": "Light / dark / system."
+                            },
+                            {
+                                "label": "Open on start",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Language & region",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Desktop app",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "My notifications",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Mobile push",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Email",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Slack",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "My connections",
+                        "kind": "leaf",
+                        "note": "Personal app connections (Slack, GitHub and more)."
+                    },
+                    {
+                        "label": "General",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Workspace name & icon",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Export all",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Danger zone",
+                                "kind": "leaf",
+                                "note": "Delete the workspace."
+                            }
+                        ]
+                    },
+                    {
+                        "label": "People",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Members",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Guests",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Groups",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Invite link",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Teamspaces",
+                        "kind": "leaf",
+                        "portal": "teamspaces",
+                        "note": "Manage every teamspace. Bounces to the Teamspaces level."
+                    },
+                    {
+                        "label": "Security",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Allowed email domains",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Public page settings",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Export & member permissions",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Identity & provisioning",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "SAML SSO",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "SCIM",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Domain management",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Connections",
+                        "kind": "sub",
+                        "id": "ws-connections",
+                        "note": "Workspace-wide app connections. This is exactly where Manage connections lands from deep inside a page.",
+                        "children": [
+                            {
+                                "label": "Installed connections",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Add connections",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Member access & approval",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Connection settings",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Import",
+                        "kind": "leaf",
+                        "note": "Bring in Evernote, Confluence, CSV, Word and more."
+                    },
+                    {
+                        "label": "Billing & plan",
+                        "kind": "sub",
+                        "children": [
+                            {
+                                "label": "Plan",
+                                "kind": "leaf",
+                                "note": "Free / Plus / Business / Enterprise."
+                            },
+                            {
+                                "label": "Payment method",
+                                "kind": "leaf"
+                            },
+                            {
+                                "label": "Invoices",
+                                "kind": "leaf"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Sites",
+                        "kind": "leaf",
+                        "note": "Pages published as websites."
+                    }
+                ]
+            }
+        ]
+    },
+    "legend": [
+        [
+            "sidebar",
+            "Sidebar"
+        ],
+        [
+            "wssettings",
+            "Workspace settings"
+        ],
+        [
+            "teamspaces",
+            "Teamspaces"
+        ],
+        [
+            "database",
+            "Databases"
+        ],
+        [
+            "page",
+            "Pages"
+        ],
+        [
+            "blocks",
+            "Blocks"
+        ],
+        [
+            "share",
+            "Sharing"
+        ],
+        [
+            "pagesettings",
+            "Page menu"
+        ]
+    ]
+}
