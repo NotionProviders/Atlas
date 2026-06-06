@@ -71,6 +71,6 @@
 @endsection
 
 @push('scripts')
-<script src="{{ route('atlas.config.js') }}" defer></script>
+<script>{!! $atlasConfigScript !!}</script>
 <script src="{{ asset('js/atlas.js') }}" defer></script>
 @endpush

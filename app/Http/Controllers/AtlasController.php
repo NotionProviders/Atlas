@@ -18,13 +18,24 @@ class AtlasController extends Controller
             'pageTitle' => $meta['title'],
             'kicker' => $meta['kicker'],
             'heading' => $meta['heading'],
+            'atlasConfigScript' => $this->buildConfigScript($this->loadAtlasData()),
         ]);
     }
 
     public function configScript(): Response
     {
-        $data = $this->loadAtlasData();
+        return response(
+            $this->buildConfigScript($this->loadAtlasData()),
+            200,
+            [
+                'Content-Type' => 'application/javascript; charset=UTF-8',
+                'Cache-Control' => 'public, max-age=300',
+            ]
+        );
+    }
 
+    private function buildConfigScript(array $data): string
+    {
         try {
             $json = json_encode([
                 'palette' => $data['palette'],
@@ -35,14 +46,7 @@ class AtlasController extends Controller
             throw new RuntimeException('Failed to encode atlas config.', 0, $e);
         }
 
-        return response(
-            'window.ATLAS_CONFIG='.$json.';',
-            200,
-            [
-                'Content-Type' => 'application/javascript; charset=UTF-8',
-                'Cache-Control' => 'public, max-age=300',
-            ]
-        );
+        return 'window.ATLAS_CONFIG='.$json.';';
     }
 
     private function loadAtlasData(): array
