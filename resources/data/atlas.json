@@ -102,11 +102,13 @@
                                             },
                                             {
                                                 "label": "Add a source",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Combine another collection into this database. Each source keeps its own schema and rows."
                                             },
                                             {
                                                 "label": "Lock data source",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Freeze the schema and rows of this source. Only owners can unlock it."
                                             }
                                         ]
                                     },
@@ -124,11 +126,13 @@
                                             },
                                             {
                                                 "label": "Row properties",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "The property values for this row, shown in the database and on the page."
                                             },
                                             {
                                                 "label": "Row template",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Pre-fill new rows from a saved template page."
                                             }
                                         ]
                                     },
@@ -139,95 +143,118 @@
                                         "children": [
                                             {
                                                 "label": "Title",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "The name of every row. Required on every database."
                                             },
                                             {
                                                 "label": "Text",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Free-form text column for notes and descriptions."
                                             },
                                             {
                                                 "label": "Number",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Numeric values. Can feed formulas and rollups."
                                             },
                                             {
                                                 "label": "Select",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Pick one option from a predefined list."
                                             },
                                             {
                                                 "label": "Multi-select",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Tag rows with multiple options from a list."
                                             },
                                             {
                                                 "label": "Status",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Track progress with grouped options like To-do, In progress and Done."
                                             },
                                             {
                                                 "label": "Date",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A date or date range. Can include time and reminders."
                                             },
                                             {
                                                 "label": "Person",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Assign one or more workspace members to a row."
                                             },
                                             {
                                                 "label": "Files & media",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Attach images, documents and other files to a row."
                                             },
                                             {
                                                 "label": "Checkbox",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A true/false toggle for simple flags."
                                             },
                                             {
                                                 "label": "URL",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Store a clickable web link on the row."
                                             },
                                             {
                                                 "label": "Email",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Email digests and alerts for workspace activity."
                                             },
                                             {
                                                 "label": "Phone",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A phone number field."
                                             },
                                             {
                                                 "label": "Formula",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Computed value from other properties using Notion formula syntax."
                                             },
                                             {
                                                 "label": "Relation",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Link this row to rows in another database."
                                             },
                                             {
                                                 "label": "Rollup",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Pull and aggregate values from a related database through a relation."
                                             },
                                             {
                                                 "label": "Created time",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-set when the row was first created."
                                             },
                                             {
                                                 "label": "Created by",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-set to whoever created the row."
                                             },
                                             {
                                                 "label": "Last edited time",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-updates whenever the row changes."
                                             },
                                             {
                                                 "label": "Last edited by",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-updates to whoever last edited the row."
                                             },
                                             {
                                                 "label": "Button",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A clickable property that runs an automation."
                                             },
                                             {
                                                 "label": "ID",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A unique auto-generated identifier for each row."
                                             },
                                             {
                                                 "label": "Place",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "A location field with an optional map preview."
                                             }
                                         ]
                                     },
@@ -238,31 +265,38 @@
                                         "children": [
                                             {
                                                 "label": "Table",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Spreadsheet-style rows and columns. The default database view."
                                             },
                                             {
                                                 "label": "Board",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Kanban columns grouped by a select or status property."
                                             },
                                             {
                                                 "label": "Timeline",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Gantt-style view along a date range property."
                                             },
                                             {
                                                 "label": "Calendar",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Rows plotted on a monthly calendar by date property."
                                             },
                                             {
                                                 "label": "List",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Compact list of row titles with key properties."
                                             },
                                             {
                                                 "label": "Gallery",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Card layout with large previews of cover images."
                                             },
                                             {
                                                 "label": "Chart",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Bar, line or donut charts built from database data."
                                             },
                                             {
                                                 "label": "View options",
@@ -278,7 +312,8 @@
                                         "children": [
                                             {
                                                 "label": "Add filter",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Add a rule to show only rows that match a property condition."
                                             },
                                             {
                                                 "label": "Condition",
@@ -287,11 +322,13 @@
                                             },
                                             {
                                                 "label": "And / Or groups",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Combine multiple filter rules with AND or OR logic."
                                             },
                                             {
                                                 "label": "Advanced filter",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Build nested filter groups for complex conditions."
                                             }
                                         ]
                                     },
@@ -301,21 +338,26 @@
                                         "children": [
                                             {
                                                 "label": "Ascending",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Sort from lowest to highest (A–Z, oldest first)."
                                             },
                                             {
                                                 "label": "Descending",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Sort from highest to lowest (Z–A, newest first)."
                                             },
                                             {
                                                 "label": "Multi-sort",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Stack multiple sort rules with priority order."
                                             },
                                             {
                                                 "label": "Manual",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Drag rows into a custom order. Stored as a manual sort property."
                                             }
-                                        ]
+                                        ],
+                                        "note": "Order rows by one or more property values."
                                     },
                                     {
                                         "label": "Groups",
@@ -323,25 +365,31 @@
                                         "children": [
                                             {
                                                 "label": "Group by",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Group rows by a select, status, person or date property."
                                             },
                                             {
                                                 "label": "Sub-group by",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Nest a second grouping inside the first."
                                             },
                                             {
                                                 "label": "Hide empty groups",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Collapse columns or sections that have no rows."
                                             },
                                             {
                                                 "label": "Sort groups",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Reorder group headers independently of the rows inside."
                                             },
                                             {
                                                 "label": "Color columns",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Apply board column colors from the grouped property."
                                             }
-                                        ]
+                                        ],
+                                        "note": "Named groups of members for bulk sharing."
                                     },
                                     {
                                         "label": "Automations",
@@ -366,17 +414,21 @@
                                         "children": [
                                             {
                                                 "label": "New template",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Create a template page that pre-fills new rows."
                                             },
                                             {
                                                 "label": "Set as default",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-apply a template whenever a row is created."
                                             },
                                             {
                                                 "label": "Repeat on a schedule",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Auto-create rows from a template on a recurring schedule."
                                             }
-                                        ]
+                                        ],
+                                        "note": "Reusable blueprints for new database rows."
                                     }
                                 ]
                             },
@@ -398,13 +450,16 @@
                                             },
                                             {
                                                 "label": "Add cover",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Banner image at the top of the page. Upload, link or pick from Unsplash."
                                             },
                                             {
                                                 "label": "Reposition",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Drag to adjust which part of the cover image is visible."
                                             }
-                                        ]
+                                        ],
+                                        "note": "Visual identity at the top of the page."
                                     },
                                     {
                                         "label": "Title",
@@ -425,15 +480,18 @@
                                                 "children": [
                                                     {
                                                         "label": "Drag to move",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Reorder the block among siblings on the same level."
                                                     },
                                                     {
                                                         "label": "Drag to nest",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Drop onto another block to make it a child."
                                                     },
                                                     {
                                                         "label": "Click for menu",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Open the block action menu: delete, duplicate, turn into and more."
                                                     }
                                                 ]
                                             },
@@ -444,11 +502,13 @@
                                                 "children": [
                                                     {
                                                         "label": "Slash menu",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Type / to search and insert any block type."
                                                     },
                                                     {
                                                         "label": "Add above / below",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Insert a new empty block above or below the current one."
                                                     }
                                                 ]
                                             },
@@ -459,15 +519,18 @@
                                                 "children": [
                                                     {
                                                         "label": "Delete",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Remove this block from the page."
                                                     },
                                                     {
                                                         "label": "Duplicate",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Copy this block directly below the original."
                                                     },
                                                     {
                                                         "label": "Copy link to block",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Get a direct URL that scrolls to this block."
                                                     },
                                                     {
                                                         "label": "Move to",
@@ -476,23 +539,28 @@
                                                     },
                                                     {
                                                         "label": "Comment",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Start an inline discussion thread on this block."
                                                     },
                                                     {
                                                         "label": "Color",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Change the block background or text color."
                                                     },
                                                     {
                                                         "label": "Turn into",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Convert the block to a different type (e.g. bulleted list to numbered)."
                                                     },
                                                     {
                                                         "label": "Turn into page",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Convert this block into a full sub-page."
                                                     },
                                                     {
                                                         "label": "Ask AI",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Use Notion AI to rewrite, summarize or expand this block."
                                                     }
                                                 ]
                                             },
@@ -508,59 +576,73 @@
                                                         "children": [
                                                             {
                                                                 "label": "Text",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Plain paragraph block. The default when you start typing."
                                                             },
                                                             {
                                                                 "label": "Heading 1",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Large top-level heading."
                                                             },
                                                             {
                                                                 "label": "Heading 2",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Medium sub-heading."
                                                             },
                                                             {
                                                                 "label": "Heading 3",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Small section heading."
                                                             },
                                                             {
                                                                 "label": "To-do list",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Checkbox items you can check off."
                                                             },
                                                             {
                                                                 "label": "Bulleted list",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Unordered list with bullet points."
                                                             },
                                                             {
                                                                 "label": "Numbered list",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Ordered list that auto-increments."
                                                             },
                                                             {
                                                                 "label": "Toggle list",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Collapsible block that hides nested content."
                                                             },
                                                             {
                                                                 "label": "Quote",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Indented block with a left border for quotations."
                                                             },
                                                             {
                                                                 "label": "Divider",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Horizontal line to separate sections."
                                                             },
                                                             {
                                                                 "label": "Callout",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Highlighted box with an icon for tips and warnings."
                                                             },
                                                             {
                                                                 "label": "Page",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Create a sub-page nested inside the current page."
                                                             },
                                                             {
                                                                 "label": "Link to page",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Inline mention that links to another page in the workspace."
                                                             },
                                                             {
                                                                 "label": "Simple table",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Lightweight rows and columns without database properties."
                                                             }
                                                         ]
                                                     },
@@ -571,27 +653,33 @@
                                                         "children": [
                                                             {
                                                                 "label": "Image",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Upload, embed or paste an image block."
                                                             },
                                                             {
                                                                 "label": "Video",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Embed video from upload, YouTube, Vimeo and more."
                                                             },
                                                             {
                                                                 "label": "Audio",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Embed an audio file or SoundCloud link."
                                                             },
                                                             {
                                                                 "label": "File",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Attach a downloadable file to the page."
                                                             },
                                                             {
                                                                 "label": "Web bookmark",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Rich preview card generated from a URL."
                                                             },
                                                             {
                                                                 "label": "Code",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Syntax-highlighted code block with language selection."
                                                             },
                                                             {
                                                                 "label": "Embed",
@@ -607,47 +695,58 @@
                                                         "children": [
                                                             {
                                                                 "label": "Table",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a table view."
                                                             },
                                                             {
                                                                 "label": "Board",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a board view."
                                                             },
                                                             {
                                                                 "label": "Timeline",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a timeline view."
                                                             },
                                                             {
                                                                 "label": "Calendar",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a calendar view."
                                                             },
                                                             {
                                                                 "label": "List",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a list view."
                                                             },
                                                             {
                                                                 "label": "Gallery",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a gallery view."
                                                             },
                                                             {
                                                                 "label": "Chart",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Insert a new inline database as a chart view."
                                                             },
                                                             {
                                                                 "label": "Map",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Plot rows with a Place property on an interactive map."
                                                             },
                                                             {
                                                                 "label": "Form",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Public form that creates new rows in the database."
                                                             },
                                                             {
                                                                 "label": "Feed",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Social-style feed of database updates and comments."
                                                             },
                                                             {
                                                                 "label": "Linked view of database",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Surface an existing database with its own filters and sorts."
                                                             }
                                                         ]
                                                     },
@@ -658,15 +757,18 @@
                                                         "children": [
                                                             {
                                                                 "label": "Table of contents",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Auto-generated outline from headings on the page."
                                                             },
                                                             {
                                                                 "label": "Button",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Run automations or insert template blocks on click."
                                                             },
                                                             {
                                                                 "label": "Synced block",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "A copy that stays in sync across every page it appears on."
                                                             },
                                                             {
                                                                 "label": "Columns",
@@ -675,19 +777,23 @@
                                                             },
                                                             {
                                                                 "label": "Toggle heading",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Heading that expands to reveal nested content."
                                                             },
                                                             {
                                                                 "label": "Breadcrumb",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Navigation trail showing the page hierarchy above."
                                                             },
                                                             {
                                                                 "label": "Math equation",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Render LaTeX/KaTeX math as a block."
                                                             },
                                                             {
                                                                 "label": "Mermaid diagram",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Render flowcharts and diagrams from Mermaid syntax."
                                                             },
                                                             {
                                                                 "label": "Template button",
@@ -703,27 +809,33 @@
                                                         "children": [
                                                             {
                                                                 "label": "Mention a person",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Type @ to tag a person and notify them."
                                                             },
                                                             {
                                                                 "label": "Mention a page",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Type @ to link to another page inline."
                                                             },
                                                             {
                                                                 "label": "Date or reminder",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Set an inline date with an optional reminder notification."
                                                             },
                                                             {
                                                                 "label": "Emoji",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Type : to insert an emoji inline."
                                                             },
                                                             {
                                                                 "label": "Inline equation",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Inline KaTeX math within a sentence."
                                                             },
                                                             {
                                                                 "label": "Inline code",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Monospace snippet within running text."
                                                             }
                                                         ]
                                                     },
@@ -739,23 +851,28 @@
                                                             },
                                                             {
                                                                 "label": "AI summary",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Auto-summarize the page or selected content with Notion AI."
                                                             },
                                                             {
                                                                 "label": "AI Meeting Notes",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Transcribe and summarize a meeting recording."
                                                             },
                                                             {
                                                                 "label": "Ask AI / Q&A",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Ask questions about the content on this page."
                                                             },
                                                             {
                                                                 "label": "Research mode",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Deep AI research that searches and synthesizes sources."
                                                             },
                                                             {
                                                                 "label": "AI image",
-                                                                "kind": "leaf"
+                                                                "kind": "leaf",
+                                                                "note": "Generate an image from a text prompt."
                                                             }
                                                         ]
                                                     }
@@ -809,7 +926,8 @@
                                                         "kind": "leaf",
                                                         "note": "Override the inherited teamspace permissions on this page."
                                                     }
-                                                ]
+                                                ],
+                                                "note": "Add collaborators and set their permission level on this page."
                                             },
                                             {
                                                 "label": "Publish to web",
@@ -817,21 +935,26 @@
                                                 "children": [
                                                     {
                                                         "label": "Allow editing",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Let visitors edit the published page in their browser."
                                                     },
                                                     {
                                                         "label": "Allow duplicate as template",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Visitors can copy the page into their own workspace."
                                                     },
                                                     {
                                                         "label": "Search engine indexing",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Let Google and other search engines index the public page."
                                                     },
                                                     {
                                                         "label": "Customize site",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Set favicon, custom domain and site title for the public page."
                                                     }
-                                                ]
+                                                ],
+                                                "note": "Make this page a public website anyone can visit."
                                             }
                                         ]
                                     },
@@ -853,29 +976,36 @@
                                                 "children": [
                                                     {
                                                         "label": "Default",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Notion's standard sans-serif typeface."
                                                     },
                                                     {
                                                         "label": "Serif",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "A classic serif font for a more editorial feel."
                                                     },
                                                     {
                                                         "label": "Mono",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Monospace font, useful for code and technical notes."
                                                     }
-                                                ]
+                                                ],
+                                                "note": "Change the typeface for this page only."
                                             },
                                             {
                                                 "label": "Copy link",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Copy a shareable URL to this page."
                                             },
                                             {
                                                 "label": "Copy page contents",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Copy all text content to your clipboard."
                                             },
                                             {
                                                 "label": "Duplicate",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Create a copy of this page in the same location."
                                             },
                                             {
                                                 "label": "Move to",
@@ -884,7 +1014,8 @@
                                             },
                                             {
                                                 "label": "Archive",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Hide the page from the sidebar without deleting it."
                                             },
                                             {
                                                 "label": "Move to trash",
@@ -899,15 +1030,18 @@
                                             },
                                             {
                                                 "label": "Available offline",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Cache this page for offline access in the mobile or desktop app."
                                             },
                                             {
                                                 "label": "Small text",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Shrink body text size on this page."
                                             },
                                             {
                                                 "label": "Full width",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Stretch content to fill the full page width."
                                             },
                                             {
                                                 "label": "Customize page",
@@ -938,23 +1072,28 @@
                                             },
                                             {
                                                 "label": "Lock page",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Prevent anyone from editing until you unlock it."
                                             },
                                             {
                                                 "label": "Suggest edits",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Let viewers propose changes you can accept or reject."
                                             },
                                             {
                                                 "label": "Translate",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Translate page content into another language with Notion AI."
                                             },
                                             {
                                                 "label": "Undo",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Reverse the most recent edit on this page."
                                             },
                                             {
                                                 "label": "Import",
-                                                "kind": "leaf"
+                                                "kind": "leaf",
+                                                "note": "Bring content into this page from another app or file."
                                             },
                                             {
                                                 "label": "Export",
@@ -962,21 +1101,26 @@
                                                 "children": [
                                                     {
                                                         "label": "PDF",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Export as a PDF document, preserving layout."
                                                     },
                                                     {
                                                         "label": "HTML",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Export as a standalone HTML file."
                                                     },
                                                     {
                                                         "label": "Markdown & CSV",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Export as Markdown text or CSV for spreadsheets."
                                                     },
                                                     {
                                                         "label": "Include subpages",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Include nested sub-pages in the export."
                                                     }
-                                                ]
+                                                ],
+                                                "note": "Download this page in a portable format."
                                             },
                                             {
                                                 "label": "Turn into Wiki",
@@ -1016,13 +1160,16 @@
                                                 "children": [
                                                     {
                                                         "label": "All comments",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Get notified for every new comment on the page."
                                                     },
                                                     {
                                                         "label": "Replies and @mentions",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Only notify when someone replies to you or @mentions you."
                                                     }
-                                                ]
+                                                ],
+                                                "note": "Choose which activity on this page sends you notifications."
                                             },
                                             {
                                                 "label": "Connections",
@@ -1031,19 +1178,23 @@
                                                 "children": [
                                                     {
                                                         "label": "Slack",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Link this page to a Slack channel for notifications and unfurls."
                                                     },
                                                     {
                                                         "label": "GitHub",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Connect GitHub repos and pull requests to this page."
                                                     },
                                                     {
                                                         "label": "Google Drive",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Embed and link Google Drive files from this page."
                                                     },
                                                     {
                                                         "label": "Jira",
-                                                        "kind": "leaf"
+                                                        "kind": "leaf",
+                                                        "note": "Link Jira issues and sync updates to this page."
                                                     },
                                                     {
                                                         "label": "Manage connections",
@@ -1088,15 +1239,18 @@
                         "children": [
                             {
                                 "label": "Restore",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Bring a trashed page back to its original location."
                             },
                             {
                                 "label": "Delete permanently",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Remove forever. Cannot be undone."
                             },
                             {
                                 "label": "Search trash",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Find deleted pages by title."
                             }
                         ]
                     },
@@ -1107,7 +1261,8 @@
                     },
                     {
                         "label": "Invite members",
-                        "kind": "item"
+                        "kind": "item",
+                        "note": "Add people to the workspace from the sidebar."
                     }
                 ]
             },
@@ -1124,17 +1279,21 @@
                         "children": [
                             {
                                 "label": "Preferred name",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "The display name shown to others in the workspace."
                             },
                             {
                                 "label": "Email & password",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Change your login email or password."
                             },
                             {
                                 "label": "Devices / log out",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "See active sessions and sign out remotely."
                             }
-                        ]
+                        ],
+                        "note": "Your personal profile and login credentials."
                     },
                     {
                         "label": "My settings",
@@ -1147,17 +1306,21 @@
                             },
                             {
                                 "label": "Open on start",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Choose which page opens when you launch Notion."
                             },
                             {
                                 "label": "Language & region",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Set interface language, timezone and date format."
                             },
                             {
                                 "label": "Desktop app",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Desktop app preferences and update settings."
                             }
-                        ]
+                        ],
+                        "note": "Personal preferences for how Notion behaves for you."
                     },
                     {
                         "label": "My notifications",
@@ -1165,17 +1328,21 @@
                         "children": [
                             {
                                 "label": "Mobile push",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Push notifications on your phone or tablet."
                             },
                             {
                                 "label": "Email",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Email digests and alerts for workspace activity."
                             },
                             {
                                 "label": "Slack",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Slack notifications for mentions, comments and page updates."
                             }
-                        ]
+                        ],
+                        "note": "Control how Notion notifies you across channels."
                     },
                     {
                         "label": "My connections",
@@ -1188,18 +1355,21 @@
                         "children": [
                             {
                                 "label": "Workspace name & icon",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Rename the workspace and change its icon."
                             },
                             {
                                 "label": "Export all",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Download the entire workspace as HTML, Markdown or CSV."
                             },
                             {
                                 "label": "Danger zone",
                                 "kind": "leaf",
                                 "note": "Delete the workspace."
                             }
-                        ]
+                        ],
+                        "note": "Workspace identity and bulk export options."
                     },
                     {
                         "label": "People",
@@ -1207,21 +1377,26 @@
                         "children": [
                             {
                                 "label": "Members",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Full workspace members with access to teamspaces."
                             },
                             {
                                 "label": "Guests",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "External collaborators invited to specific pages only."
                             },
                             {
                                 "label": "Groups",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Named groups of members for bulk sharing."
                             },
                             {
                                 "label": "Invite link",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Shareable link that adds people to the workspace."
                             }
-                        ]
+                        ],
+                        "note": "Manage who belongs to the workspace."
                     },
                     {
                         "label": "Teamspaces",
@@ -1235,17 +1410,21 @@
                         "children": [
                             {
                                 "label": "Allowed email domains",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Restrict who can join based on email domain."
                             },
                             {
                                 "label": "Public page settings",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Default rules for pages published to the web."
                             },
                             {
                                 "label": "Export & member permissions",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Control who can export data and invite others."
                             }
-                        ]
+                        ],
+                        "note": "Workspace-wide access and data controls."
                     },
                     {
                         "label": "Identity & provisioning",
@@ -1253,17 +1432,21 @@
                         "children": [
                             {
                                 "label": "SAML SSO",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Single sign-on through your identity provider."
                             },
                             {
                                 "label": "SCIM",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Automated user provisioning and deprovisioning."
                             },
                             {
                                 "label": "Domain management",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Verify and manage custom email domains."
                             }
-                        ]
+                        ],
+                        "note": "Enterprise login and user lifecycle management."
                     },
                     {
                         "label": "Connections",
@@ -1273,19 +1456,23 @@
                         "children": [
                             {
                                 "label": "Installed connections",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Apps already connected to this workspace."
                             },
                             {
                                 "label": "Add connections",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Browse and install new workspace integrations."
                             },
                             {
                                 "label": "Member access & approval",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Control which members can use each connection."
                             },
                             {
                                 "label": "Connection settings",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Configure permissions and defaults per app."
                             }
                         ]
                     },
@@ -1305,13 +1492,16 @@
                             },
                             {
                                 "label": "Payment method",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Credit card or billing details on file."
                             },
                             {
                                 "label": "Invoices",
-                                "kind": "leaf"
+                                "kind": "leaf",
+                                "note": "Past billing statements and receipts."
                             }
-                        ]
+                        ],
+                        "note": "Subscription tier, payment and invoices."
                     },
                     {
                         "label": "Sites",
