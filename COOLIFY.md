@@ -1,6 +1,6 @@
 # Coolify Deployment Guide
 
-Deploy **Notion Workspace · Orbital Atlas** to Coolify using the included Dockerfile. The container listens on **port 3000** (Coolify's default reverse-proxy target).
+Deploy **Notion Workspace · Orbital Atlas** to Coolify using the included Dockerfile. Production: **[atlas.notionproviders.com](https://atlas.notionproviders.com)**. The container listens on **port 3000** (Coolify's default reverse-proxy target).
 
 ## Quick checklist
 
@@ -116,21 +116,16 @@ If you later add user uploads, mount a Coolify persistent volume or use S3/R2.
 
 ## SSL
 
-Coolify handles SSL via Let's Encrypt when you assign a domain. Set `APP_URL` to the same `https://` URL.
+Assign **atlas.notionproviders.com** in Coolify; Let's Encrypt handles the certificate. No `APP_URL` env var needed — the app reads the public URL from each request.
 
 ## Local Docker test
 
 ```bash
 docker build -t atlas .
-docker run --rm -p 3000:3000 \
-  -e APP_KEY="base64:YOUR_KEY_HERE" \
-  -e APP_ENV=production \
-  -e APP_DEBUG=false \
-  -e APP_URL=http://localhost:3000 \
-  atlas
+docker run --rm -p 3000:3000 atlas
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). No env vars required — same as Coolify.
 
 ## Troubleshooting
 

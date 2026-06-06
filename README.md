@@ -2,6 +2,8 @@
 
 An interactive orbital map of a Notion workspace, built with Laravel. Zoom from the whole workspace down through domains, pages, and blocks.
 
+**Live:** [atlas.notionproviders.com](https://atlas.notionproviders.com)
+
 ## Local development
 
 ```bash
