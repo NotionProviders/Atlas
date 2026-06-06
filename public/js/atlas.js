@@ -127,7 +127,20 @@ function openDrawer(n){selected=n;const badge=document.getElementById('d-badge')
 function closeDrawer(){detail.classList.remove('open');selected=null;}
 document.getElementById('dx').onclick=closeDrawer;
 const regWrap=document.getElementById('regions');
-LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
+LEGEND.forEach(function(pair){const id=pair[0],name=pair[1];const n=byId[id];if(!n)return;const r=document.createElement('div');r.className='reg';r.innerHTML='<span class="dot" style="color:'+n.color+';background:'+n.color+'"></span><span class="nm">'+name+'</span>';r.onclick=function(){closeLegend();setFocus(n);frameNode(n);closeDrawer();};regWrap.appendChild(r);});
+const legendEl=document.getElementById('legend');
+const legendToggle=document.getElementById('legend-toggle');
+function closeLegend(){
+  if(legendEl.classList.contains('open')){
+    legendEl.classList.remove('open');
+    legendToggle.setAttribute('aria-expanded','false');
+  }
+}
+function openLegend(){
+  legendEl.classList.add('open');
+  legendToggle.setAttribute('aria-expanded','true');
+}
+legendToggle.onclick=function(e){e.stopPropagation();if(legendEl.classList.contains('open'))closeLegend();else openLegend();};
 const stage=document.getElementById('stage');
 const drag={on:false,sx:0,sy:0,lx:0,ly:0,moved:false,rotate:false,pid:null};
 const pts=new Map();
@@ -175,6 +188,8 @@ app.addEventListener('pointerdown',function(e){
   if(searchHud&&searchHud.classList.contains('open')&&(!e.target.closest||!e.target.closest('#search-hud')))closeSearch();
   const ctrlMore=document.getElementById('ctrl-more');
   if(ctrlMore&&ctrlMore.classList.contains('open')&&(!e.target.closest||!e.target.closest('#ctrl-more')))closeCtrlMenu();
+  const legendEl=document.getElementById('legend');
+  if(legendEl&&legendEl.classList.contains('open')&&(!e.target.closest||!e.target.closest('#legend')))closeLegend();
   pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pts.size>=2){e.preventDefault();beginPinch();return;}
   if(pts.size===1&&!input.pinch&&!pointerOnUi(e.clientX,e.clientY))beginPan(e);
@@ -267,7 +282,7 @@ document.getElementById('help-btn').onclick=function(){document.getElementById('
 document.getElementById('help-close').onclick=function(){document.getElementById('help').classList.remove('open');};
 document.getElementById('help').addEventListener('click',function(e){if(e.target.id==='help')e.currentTarget.classList.remove('open');});
 let tt;function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){e.classList.remove('show');},1200);}
-window.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT')return;if(e.key==='Escape'){if(document.getElementById('help').classList.contains('open'))document.getElementById('help').classList.remove('open');else resetFocus();}if(e.key==='Backspace'){e.preventDefault();const p=focus.parent||TREE;setFocus(p);closeDrawer();frameNode(p);}if(e.key==='h'||e.key==='H'){setFocus(TREE);closeDrawer();fitRoot();}if(e.key==='['){animateRotTo(view.rot-Math.PI/12);}if(e.key===']'){animateRotTo(view.rot+Math.PI/12);}});
+window.addEventListener('keydown',function(e){if(e.target.tagName==='INPUT')return;if(e.key==='Escape'){if(document.getElementById('help').classList.contains('open'))document.getElementById('help').classList.remove('open');else{closeSearch();closeCtrlMenu();closeLegend();resetFocus();}}if(e.key==='Backspace'){e.preventDefault();const p=focus.parent||TREE;setFocus(p);closeDrawer();frameNode(p);}if(e.key==='h'||e.key==='H'){setFocus(TREE);closeDrawer();fitRoot();}if(e.key==='['){animateRotTo(view.rot-Math.PI/12);}if(e.key===']'){animateRotTo(view.rot+Math.PI/12);}});
 window.addEventListener('resize',frame);
 setFocus(TREE);updateNorth();
 view.k=0.28*Math.min(vw(),vh())/TREE._R;view.tx=vw()/2;view.ty=vh()/2;frame();

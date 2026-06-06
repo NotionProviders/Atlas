@@ -1,6 +1,6 @@
 # Coolify Deployment Guide
 
-Deploy **Notion Workspace · Orbital Atlas** to Coolify using the included Dockerfile. Production: **[atlas.notionproviders.com](https://atlas.notionproviders.com)**. The container listens on **port 3000** (Coolify's default reverse-proxy target).
+Deploy **Notion Workspace Atlas** to Coolify using the included Dockerfile. Production: **[atlas.notionproviders.com](https://atlas.notionproviders.com)**. The container listens on **port 3000** (Coolify's default reverse-proxy target).
 
 ## Quick checklist
 

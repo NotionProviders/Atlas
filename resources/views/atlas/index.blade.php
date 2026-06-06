@@ -34,7 +34,16 @@
     </div>
   </div>
 
-  <div class="hud" id="legend"><div class="lh">Domains · click to fly</div><div id="regions"></div></div>
+  <div class="hud" id="legend">
+    <div class="legend-panel" id="legend-panel">
+      <div class="legend-sub">click to fly</div>
+      <div id="regions"></div>
+    </div>
+    <button type="button" class="btn lab legend-toggle" id="legend-toggle" aria-expanded="false" aria-controls="legend-panel">
+      <span>Domains</span>
+      <svg class="legend-chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+  </div>
 
   <div class="hud" id="ctrl">
     <button class="btn lab" id="help-btn">? GUIDE</button>

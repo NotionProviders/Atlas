@@ -41,8 +41,14 @@
   #search-hud .search-popup input{background:none;border:none;outline:none;color:var(--ink);font-family:var(--sans);font-size:13px;width:100%;min-width:0}
   #search-hud .search-popup input::placeholder{color:var(--faint)}
   #search-hud .search-popup svg{flex:none;opacity:.6}
-  #legend{bottom:18px;left:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 13px 9px;backdrop-filter:blur(10px);width:208px}
-  #legend .lh{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+  #legend{bottom:18px;left:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:auto;padding:0;background:none;border:none}
+  #legend .legend-toggle{display:flex;align-items:center;gap:8px;height:38px;margin:0}
+  #legend .legend-chev{opacity:.65;transition:transform .2s}
+  #legend.open .legend-chev{transform:rotate(180deg)}
+  #legend.open .legend-toggle{background:#ffffff18;border-color:#ffffff34}
+  #legend .legend-panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 13px 9px;backdrop-filter:blur(10px);width:208px}
+  #legend.open .legend-panel{display:block}
+  #legend .legend-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
   .reg{display:flex;align-items:center;gap:9px;padding:5px 7px;border-radius:8px;cursor:pointer;transition:.15s}
   .reg:hover{background:#ffffff10}
   .reg .dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 9px currentColor}
@@ -88,7 +94,8 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media(max-width:680px){
     #top{padding:14px 62px 10px 14px}
-    #legend{display:none}
+    #legend{bottom:72px;left:14px}
+    #legend .legend-panel{width:min(208px,calc(100vw - 28px))}
     #search-hud{top:14px;right:14px}
     #search-hud .search-toggle{width:44px;height:44px}
     #search-hud .search-popup{width:min(300px,calc(100vw - 28px))}

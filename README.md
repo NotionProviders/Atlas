@@ -1,6 +1,6 @@
-# Notion Workspace · Orbital Atlas
+# Notion Workspace Atlas
 
-An interactive orbital map of a Notion workspace, built with Laravel. Zoom from the whole workspace down through domains, pages, and blocks.
+An interactive map of a Notion workspace, built with Laravel. Zoom from the whole workspace down through domains, pages, and blocks.
 
 **Live:** [atlas.notionproviders.com](https://atlas.notionproviders.com)
 
@@ -36,7 +36,7 @@ Summary:
 | `resources/data/atlas.json` | Workspace tree, palette, legend |
 | `resources/views/atlas/` | Blade templates |
 | `public/css/atlas.css` | Styles |
-| `public/js/atlas.js` | Interactive orbital map logic |
+| `public/js/atlas.js` | Interactive map logic |
 | `docker/` | Nginx, PHP, and entrypoint for production |
 | `legacy/notion-workspace-atlas.html` | Original standalone file |
 

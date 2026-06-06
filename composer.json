@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "notion-providers/atlas",
     "type": "project",
-    "description": "Interactive orbital map of a Notion workspace.",
+    "description": "Interactive map of a Notion workspace.",
     "keywords": ["laravel", "notion", "atlas", "visualization"],
     "license": "MIT",
     "require": {
