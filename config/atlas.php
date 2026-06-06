@@ -1,8 +1,7 @@
 <?php
 
 return [
-    'title' => 'Notion Workspace · Orbital Atlas',
-    'kicker' => 'Workspace Atlas · orbital zoom',
-    'heading' => 'Notion Workspace',
+    'title' => 'Notion Workspace Atlas',
+    'kicker' => 'Notion Workspace Atlas',
     'url' => 'https://atlas.notionproviders.com',
 ];

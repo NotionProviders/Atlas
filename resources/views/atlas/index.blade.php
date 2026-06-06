@@ -20,11 +20,16 @@
   <div class="hud" id="top">
     <div class="brand">
       <span class="kicker">{{ $kicker }}</span>
-      <h1>{{ $heading }}</h1>
-      <div class="rowline"><span class="lvl" id="lvl">L0 · Workspace</span><span class="crumbs" id="crumbs"></span></div>
+      <div class="crumbs" id="crumbs"></div>
     </div>
-    <div class="search">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+  </div>
+
+  <div class="hud" id="search-hud">
+    <button type="button" class="btn search-toggle" id="search-toggle" title="Search" aria-label="Search" aria-expanded="false" aria-controls="search-popup">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    </button>
+    <div class="search-popup" id="search-popup">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input id="search" placeholder="Search the atlas…  &#8629; to fly" autocomplete="off" />
     </div>
   </div>

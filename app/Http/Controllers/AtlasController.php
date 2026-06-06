@@ -17,7 +17,6 @@ class AtlasController extends Controller
         return view('atlas.index', [
             'pageTitle' => $meta['title'],
             'kicker' => $meta['kicker'],
-            'heading' => $meta['heading'],
             'atlasConfigScript' => $this->buildConfigScript($this->loadAtlasData()),
         ]);
     }
