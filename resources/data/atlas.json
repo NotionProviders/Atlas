@@ -25,26 +25,6 @@
                 "note": "The left navigation. Your entry point to search, home, inbox, teamspaces, shared and private pages, settings, templates and trash.",
                 "children": [
                     {
-                        "label": "Search",
-                        "kind": "item",
-                        "note": "Quick find across the workspace (Cmd/Ctrl+P)."
-                    },
-                    {
-                        "label": "Notion AI",
-                        "kind": "item",
-                        "note": "Ask, search and generate with AI across your pages."
-                    },
-                    {
-                        "label": "Home",
-                        "kind": "item",
-                        "note": "Personalized home: recents, upcoming events and tasks."
-                    },
-                    {
-                        "label": "Inbox",
-                        "kind": "item",
-                        "note": "All notifications, mentions and page updates."
-                    },
-                    {
                         "label": "Teamspaces",
                         "kind": "domain",
                         "c": "#b07cff",
@@ -1209,6 +1189,26 @@
                                 ]
                             }
                         ]
+                    },
+                    {
+                        "label": "Search",
+                        "kind": "item",
+                        "note": "Quick find across the workspace (Cmd/Ctrl+P)."
+                    },
+                    {
+                        "label": "Notion AI",
+                        "kind": "item",
+                        "note": "Ask, search and generate with AI across your pages."
+                    },
+                    {
+                        "label": "Home",
+                        "kind": "item",
+                        "note": "Personalized home: recents, upcoming events and tasks."
+                    },
+                    {
+                        "label": "Inbox",
+                        "kind": "item",
+                        "note": "All notifications, mentions and page updates."
                     },
                     {
                         "label": "Shared",
