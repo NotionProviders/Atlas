@@ -38,7 +38,28 @@ Summary:
 | `public/css/atlas.css` | Styles |
 | `public/js/atlas.js` | Interactive map logic |
 | `docker/` | Nginx, PHP, and entrypoint for production |
+| `routes/web-console.php` | Authenticated Atlas Console routes (`/console/*`) |
 | `legacy/notion-workspace-atlas.html` | Original standalone file |
+
+## Atlas Console (client workspace mapping)
+
+Authenticated backend at **`/console`** for managing per-client workspace mapping projects (before / ideal / after snapshots).
+
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
+
+Sign in at [http://127.0.0.1:8000/console/login](http://127.0.0.1:8000/console/login) with the seeded admin user (`admin@notionproviders.com` / `password`).
+
+Import snapshot JSON:
+
+```bash
+php artisan atlas:import-snapshot formosa-ev before resources/data/demo-formosa-before.json
+```
+
+Production requires PostgreSQL — see [COOLIFY.md](COOLIFY.md).
 
 ## Regenerating data from the legacy HTML
 

@@ -1,0 +1,160 @@
+{
+    "palette": {
+        "core": "#ffd66b",
+        "blue": "#5eb0ff",
+        "amber": "#f5a623",
+        "violet": "#c094ff",
+        "green": "#4aebb0",
+        "pink": "#ff85a0",
+        "cyan": "#45e0f5"
+    },
+    "legend": [
+        ["ts-hq", "Formosa EV HQ"],
+        ["ts-sales", "Sales and Marketing"],
+        ["ts-ops", "Operations"],
+        ["ts-product", "Product Dev"]
+    ],
+    "tree": {
+        "label": "Formosa EV",
+        "kind": "core",
+        "c": "#ffd66b",
+        "id": "workspace",
+        "note": "Demo workspace snapshot for Atlas Console.",
+        "children": [
+            {
+                "label": "Formosa EV HQ",
+                "kind": "teamspace",
+                "c": "#f5a623",
+                "id": "ts-hq",
+                "legend_id": "ts-hq",
+                "note": "Company wiki and people.",
+                "children": [
+                    {
+                        "label": "Company Home",
+                        "kind": "database",
+                        "c": "#4aebb0",
+                        "notion_page_id": "904970bd-0000-0000-0000-000000000001",
+                        "notion_data_source_id": "904970bd-dbe8-806c-b22b-000ba3e25865",
+                        "note": "HQ wiki database.",
+                        "properties": [
+                            {"name": "Section", "type": "select"},
+                            {"name": "Owner", "type": "person"},
+                            {"name": "Status", "type": "status"}
+                        ],
+                        "children": [
+                            {"label": "Company Vision", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000101"},
+                            {"label": "Employee Handbook", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000102"}
+                        ]
+                    },
+                    {
+                        "label": "People Directory",
+                        "kind": "database",
+                        "c": "#4aebb0",
+                        "notion_page_id": "904970bd-0000-0000-0000-000000000002",
+                        "properties": [
+                            {"name": "Email", "type": "email"},
+                            {"name": "Department", "type": "select"},
+                            {"name": "Start Date", "type": "date"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Sales and Marketing",
+                "kind": "teamspace",
+                "c": "#c094ff",
+                "id": "ts-sales",
+                "legend_id": "ts-sales",
+                "children": [
+                    {
+                        "label": "Sales and Marketing Home",
+                        "kind": "page",
+                        "c": "#45e0f5",
+                        "notion_page_id": "904970bd-0000-0000-0000-000000000201",
+                        "children": [
+                            {
+                                "label": "Marketing Meetings",
+                                "kind": "database",
+                                "c": "#4aebb0",
+                                "notion_page_id": "904970bd-0000-0000-0000-000000000202",
+                                "properties": [
+                                    {"name": "Date", "type": "date"},
+                                    {"name": "Attendees", "type": "person"},
+                                    {"name": "Notes", "type": "rich_text"}
+                                ]
+                            },
+                            {
+                                "label": "Blog Posts",
+                                "kind": "database",
+                                "c": "#4aebb0",
+                                "notion_page_id": "904970bd-0000-0000-0000-000000000203",
+                                "properties": [
+                                    {"name": "Status", "type": "status"},
+                                    {"name": "Author", "type": "person"},
+                                    {"name": "Publish Date", "type": "date"}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Operations",
+                "kind": "teamspace",
+                "c": "#45e0f5",
+                "id": "ts-ops",
+                "legend_id": "ts-ops",
+                "children": [
+                    {
+                        "label": "Operations Home",
+                        "kind": "page",
+                        "notion_page_id": "904970bd-0000-0000-0000-000000000301",
+                        "children": [
+                            {"label": "Vendor Accounts", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000302"},
+                            {"label": "Equipment", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000303"},
+                            {
+                                "label": "Bambu H2D",
+                                "kind": "database",
+                                "c": "#4aebb0",
+                                "notion_page_id": "904970bd-0000-0000-0000-000000000304",
+                                "properties": [
+                                    {"name": "Serial", "type": "rich_text"},
+                                    {"name": "Location", "type": "select"}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Product Dev",
+                "kind": "teamspace",
+                "c": "#4aebb0",
+                "id": "ts-product",
+                "legend_id": "ts-product",
+                "children": [
+                    {
+                        "label": "Product Dev Home",
+                        "kind": "page",
+                        "notion_page_id": "904970bd-0000-0000-0000-000000000401",
+                        "children": [
+                            {"label": "Dev Hub", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000402"},
+                            {
+                                "label": "2026 Product Planning",
+                                "kind": "database",
+                                "c": "#4aebb0",
+                                "notion_page_id": "904970bd-0000-0000-0000-000000000403",
+                                "properties": [
+                                    {"name": "Priority", "type": "select"},
+                                    {"name": "Owner", "type": "person"},
+                                    {"name": "Target Quarter", "type": "select"}
+                                ]
+                            },
+                            {"label": "VCU Architecture", "kind": "page", "notion_page_id": "904970bd-0000-0000-0000-000000000404"}
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

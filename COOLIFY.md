@@ -28,20 +28,39 @@ Leave Coolify’s environment section empty unless you need to override somethin
 
 Laravel normally expects `APP_KEY` at minimum. Without it, `/up` can still return 200 (health check only boots Laravel), but `/` hits cookie/session middleware and **500s**. That was likely your error — not missing Postgres, mail, or other vars.
 
-## Optional: PostgreSQL
+## Atlas Console + PostgreSQL (recommended for production)
 
-This app does not require PostgreSQL (it serves static JSON tree data). If your org standard requires a Postgres resource:
+The public atlas at `/` still works without a database. **Atlas Console** (`/console`) stores client workspace mapping projects and requires a persistent database.
+
+1. In Coolify, add a **PostgreSQL** resource and link it to the Atlas service.
+2. Set these environment variables on the Atlas service:
 
 | Variable | Value |
 |----------|-------|
 | `DB_CONNECTION` | `pgsql` |
 | `DB_HOST` | Internal hostname from Coolify Postgres resource |
 | `DB_PORT` | `5432` |
-| `DB_DATABASE` | Your database name |
+| `DB_DATABASE` | e.g. `atlas_console` |
 | `DB_USERNAME` | `postgres` |
 | `DB_PASSWORD` | From Coolify Postgres resource |
+| `SESSION_DRIVER` | `database` |
 
-Migrations run automatically on container start (`php artisan migrate --force`).
+3. Redeploy. Migrations run on container start.
+4. Seed an admin user (once): `php artisan db:seed --force` inside the container, or run locally against the same database.
+
+Default seeded credentials (change immediately in production):
+
+- Email: `admin@notionproviders.com`
+- Password: `password`
+
+Console routes:
+
+- `/console/login` — sign in
+- `/console/projects` — client project dashboard
+
+## Optional: PostgreSQL (legacy note)
+
+If you only need the public read-only atlas and not Atlas Console, SQLite in the container is sufficient. For any Console usage, use PostgreSQL as above.
 
 ## Port configuration
 
@@ -108,11 +127,10 @@ No Vite build or Cloudflare R2 required for this app.
 
 ## Persistence
 
-- **SQLite** (default): stored in the container filesystem; recreated on deploy. Acceptable because this app has no user data.
+- **SQLite** (default): stored in the container filesystem; recreated on deploy. Fine for the public atlas only.
+- **PostgreSQL** (recommended): required for Atlas Console client workspace data to survive redeploys.
 - **Logs**: written to stderr only (`LOG_CHANNEL=stderr`).
-- **Uploads**: not used by this app.
-
-If you later add user uploads, mount a Coolify persistent volume or use S3/R2.
+- **Uploads**: JSON imports are processed in-memory; no persistent upload storage required.
 
 ## SSL
 
