@@ -251,7 +251,7 @@ function applyPinch(){
 function beginPan(e){
   input.panning=true;input.panId=e.pointerId;drag.moved=false;
   drag.sx=drag.lx=e.clientX;drag.sy=drag.ly=e.clientY;
-  drag.rotate=e.pointerType==='mouse'&&(e.shiftKey||e.button===1||e.button===2);
+  drag.rotate=e.pointerType==='mouse'&&(e.shiftKey||e.button===2);
   stage.classList.add('grabbing');
   if(e.pointerType==='mouse'){
     drag.on=true;drag.pid=e.pointerId;

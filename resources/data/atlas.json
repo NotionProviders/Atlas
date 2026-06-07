@@ -1269,7 +1269,7 @@
             {
                 "label": "Workspace settings",
                 "kind": "domain",
-                "c": "#f5a623",
+                "c": "#c094ff",
                 "id": "wssettings",
                 "note": "Account and workspace administration. The other half of the workspace.",
                 "children": [
