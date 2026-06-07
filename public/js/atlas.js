@@ -251,7 +251,7 @@ function applyPinch(){
 function beginPan(e){
   input.panning=true;input.panId=e.pointerId;drag.moved=false;
   drag.sx=drag.lx=e.clientX;drag.sy=drag.ly=e.clientY;
-  drag.rotate=e.pointerType==='mouse'&&(e.shiftKey||e.button===2);
+  drag.rotate=e.pointerType==='mouse'&&(e.shiftKey||e.button===1||e.button===2);
   stage.classList.add('grabbing');
   if(e.pointerType==='mouse'){
     drag.on=true;drag.pid=e.pointerId;
@@ -259,7 +259,8 @@ function beginPan(e){
   }
 }
 app.addEventListener('pointerdown',function(e){
-  if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(e.pointerType==='mouse'&&e.button>2)return;
+  if(e.pointerType==='mouse'&&(e.button===1||e.button===2))e.preventDefault();
   const searchHud=document.getElementById('search-hud');
   if(searchHud&&searchHud.classList.contains('open')&&(!e.target.closest||!e.target.closest('#search-hud')))closeSearch();
   pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
