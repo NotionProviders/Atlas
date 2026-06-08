@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Snapshot;
 use App\Services\AtlasTreeBuilder;
 use App\Services\SnapshotImporter;
+use App\Support\ProjectCanonicalTable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,6 +30,15 @@ class SnapshotController extends Controller
         $view = $request->query('view', 'atlas') === 'table' ? 'table' : 'atlas';
 
         if ($snapshot->isEmpty()) {
+            if ($snapshotType === SnapshotType::Canon && $view === 'table' && $project->databaseMappings()->exists()) {
+                return view('console.snapshots.show-canon-table', [
+                    'project' => $project,
+                    'snapshot' => $snapshot,
+                    'snapshotType' => $snapshotType,
+                    'projectCanonicalRows' => ProjectCanonicalTable::rows($project),
+                ]);
+            }
+
             return view('console.snapshots.empty', compact('project', 'snapshot', 'snapshotType', 'view'));
         }
 

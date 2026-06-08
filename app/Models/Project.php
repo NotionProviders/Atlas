@@ -41,4 +41,10 @@ class Project extends Model
     {
         return $this->hasMany(DatabaseMapping::class);
     }
+
+    /** @return HasMany<CanonicalPlacement, $this> */
+    public function canonicalPlacements(): HasMany
+    {
+        return $this->hasMany(CanonicalPlacement::class);
+    }
 }

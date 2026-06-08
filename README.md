@@ -43,7 +43,7 @@ Summary:
 
 ## Atlas Console (client workspace mapping)
 
-Authenticated backend at **`/console`** for managing per-client workspace mapping projects (before / ideal / after snapshots).
+Authenticated backend at **`/console`** for managing per-client workspace mapping projects (before / canonical / after snapshots).
 
 ```bash
 php artisan migrate

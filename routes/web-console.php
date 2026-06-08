@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Console\CanonicalDatabasePropertyController;
 use App\Http\Controllers\Console\CanonicalDatabaseController;
 use App\Http\Controllers\Console\DashboardController;
 use App\Http\Controllers\Console\DatabaseMappingController;
@@ -52,8 +53,18 @@ Route::middleware('auth')->group(function () {
         ->name('console.canonical.panel');
     Route::get('canonical-databases/{canonicalDatabase:slug}', [CanonicalDatabaseController::class, 'show'])
         ->name('console.canonical.show');
+    Route::put('canonical-databases/{canonicalDatabase:slug}', [CanonicalDatabaseController::class, 'update'])
+        ->name('console.canonical.update');
+    Route::put('canonical-databases/{canonicalDatabase:slug}/placement', [CanonicalDatabaseController::class, 'updatePlacement'])
+        ->name('console.canonical.placement.update');
     Route::post('canonical-databases', [CanonicalDatabaseController::class, 'store'])
         ->name('console.canonical.store');
+    Route::post('canonical-databases/{canonicalDatabase:slug}/properties', [CanonicalDatabasePropertyController::class, 'store'])
+        ->name('console.canonical.properties.store');
+    Route::put('canonical-databases/{canonicalDatabase:slug}/properties/{property}', [CanonicalDatabasePropertyController::class, 'update'])
+        ->name('console.canonical.properties.update');
+    Route::delete('canonical-databases/{canonicalDatabase:slug}/properties/{property}', [CanonicalDatabasePropertyController::class, 'destroy'])
+        ->name('console.canonical.properties.destroy');
     Route::delete('canonical-databases/{canonicalDatabase}', [CanonicalDatabaseController::class, 'destroy'])
         ->name('console.canonical.destroy');
 
@@ -63,26 +74,37 @@ Route::middleware('auth')->group(function () {
 
     Route::get('projects/{project:slug}/snapshots/{type}', [SnapshotController::class, 'show'])
         ->name('console.snapshots.show')
-        ->whereIn('type', ['before', 'ideal', 'after']);
+        ->whereIn('type', ['before', 'canon', 'after']);
 
     Route::get('projects/{project:slug}/snapshots/{type}/embed', [SnapshotController::class, 'embed'])
         ->name('console.snapshots.embed')
-        ->whereIn('type', ['before', 'ideal', 'after']);
+        ->whereIn('type', ['before', 'canon', 'after']);
 
     Route::get('projects/{project:slug}/snapshots/{type}/nodes', [SnapshotController::class, 'nodes'])
         ->name('console.snapshots.nodes')
-        ->whereIn('type', ['before', 'ideal', 'after']);
+        ->whereIn('type', ['before', 'canon', 'after']);
 
     Route::post('projects/{project:slug}/snapshots/{type}/import', [SnapshotController::class, 'import'])
         ->name('console.snapshots.import')
-        ->whereIn('type', ['before', 'ideal', 'after']);
+        ->whereIn('type', ['before', 'canon', 'after']);
 
     Route::get('projects/{project:slug}/mappings', [DatabaseMappingController::class, 'index'])
         ->name('console.mappings.index');
+    Route::get('projects/{project:slug}/mappings/c/database/{atlasNode}', [DatabaseMappingController::class, 'indexWithDatabasePeek'])
+        ->name('console.mappings.database.peek-page');
+    Route::get('projects/{project:slug}/mappings/c/database/{atlasNode}/panel', [DatabaseMappingController::class, 'databasePanel'])
+        ->name('console.mappings.database.panel');
+    Route::get('projects/{project:slug}/mappings/c/canonical/{canonicalDatabase:slug}', [DatabaseMappingController::class, 'indexWithCanonicalPeek'])
+        ->name('console.mappings.canonical.peek-page');
+    Route::get('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'databaseShow'])
+        ->name('console.mappings.database.show');
+    Route::put('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'updateDatabaseMapping'])
+        ->name('console.mappings.database.update');
+    Route::delete('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'destroyDatabaseMapping'])
+        ->name('console.mappings.database.destroy');
 
     Route::post('projects/{project:slug}/mappings', [DatabaseMappingController::class, 'store'])
         ->name('console.mappings.store');
-
-    Route::delete('projects/{project:slug}/mappings/{mapping}', [DatabaseMappingController::class, 'destroy'])
-        ->name('console.mappings.destroy');
+    Route::post('projects/{project:slug}/mappings/quick-canonical', [DatabaseMappingController::class, 'quickCanonical'])
+        ->name('console.mappings.quick-canonical');
 });

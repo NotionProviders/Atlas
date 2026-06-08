@@ -81,11 +81,16 @@ class ProjectController extends Controller
             $defaultPreviewType = SnapshotType::Before;
         }
 
+        $hasDatabaseMappings = $project->databaseMappings()->exists();
+        $databaseMappingCount = $hasDatabaseMappings ? $project->databaseMappings()->count() : 0;
+
         return view('console.projects.show', compact(
             'project',
             'snapshotsByType',
             'previewTypes',
             'defaultPreviewType',
+            'hasDatabaseMappings',
+            'databaseMappingCount',
         ));
     }
 

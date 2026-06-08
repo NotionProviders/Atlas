@@ -22,26 +22,34 @@
 
 <div class="console-snapshot-grid">
     @foreach (\App\Enums\SnapshotType::cases() as $type)
-        @php $snapshot = $snapshotsByType[$type->value] ?? null; @endphp
+        @php
+            $snapshot = $snapshotsByType[$type->value] ?? null;
+            $canOpenCanonTable = $type === \App\Enums\SnapshotType::Canon && ($hasDatabaseMappings ?? false);
+            $hasSnapshotData = $snapshot && ! $snapshot->isEmpty();
+        @endphp
         <div class="console-snapshot-card">
             <h2>{{ $type->label() }}</h2>
             <p class="console-muted">
-                @if ($snapshot && !$snapshot->isEmpty())
+                @if ($hasSnapshotData)
                     Imported {{ $snapshot->imported_at?->diffForHumans() }}
                     · {{ $snapshot->nodes()->count() }} nodes
+                @elseif ($canOpenCanonTable)
+                    {{ $databaseMappingCount }} mapped {{ Str::plural('database', $databaseMappingCount) }}
                 @else
                     No data imported
                 @endif
             </p>
             <div class="console-snapshot-card-actions">
-                @if ($snapshot && !$snapshot->isEmpty())
+                @if ($hasSnapshotData)
                     <a href="{{ route('console.snapshots.show', [$project, $type->value, 'view' => 'atlas']) }}" class="console-btn console-btn-primary">Atlas</a>
                     <a href="{{ route('console.snapshots.show', [$project, $type->value, 'view' => 'table']) }}" class="console-btn">Table</a>
+                @elseif ($canOpenCanonTable)
+                    <a href="{{ route('console.snapshots.show', [$project, $type->value, 'view' => 'table']) }}" class="console-btn console-btn-primary">Table</a>
                 @endif
                 <form method="POST" action="{{ route('console.snapshots.import', [$project, $type->value]) }}" enctype="multipart/form-data" class="console-import-form">
                     @csrf
                     <label class="console-file-label">
-                        <span class="console-btn">{{ $snapshot && !$snapshot->isEmpty() ? 'Re-import' : 'Import JSON' }}</span>
+                        <span class="console-btn">{{ $hasSnapshotData ? 'Re-import' : 'Import JSON' }}</span>
                         <input type="file" name="import_file" accept=".json,application/json" onchange="this.form.submit()">
                     </label>
                 </form>

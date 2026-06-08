@@ -18,6 +18,7 @@ class CanonicalDatabase extends Model
         'notion_export_id',
         'template_tag',
         'is_lookup',
+        'is_custom',
         'description',
         'sort_order',
     ];
@@ -26,6 +27,7 @@ class CanonicalDatabase extends Model
     {
         return [
             'is_lookup' => 'boolean',
+            'is_custom' => 'boolean',
         ];
     }
 
@@ -39,5 +41,11 @@ class CanonicalDatabase extends Model
     public function databaseMappings(): HasMany
     {
         return $this->hasMany(DatabaseMapping::class);
+    }
+
+    /** @return HasMany<CanonicalPlacement, $this> */
+    public function placements(): HasMany
+    {
+        return $this->hasMany(CanonicalPlacement::class);
     }
 }

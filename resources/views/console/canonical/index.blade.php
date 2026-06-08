@@ -19,9 +19,9 @@
 </div>
 
 <div class="console-canonical-stats">
-    <span class="console-pill console-pill-ok">{{ $entityDatabases->count() }} entity databases</span>
-    <span class="console-pill">{{ $lookupDatabases->count() }} lookup / taxonomy databases</span>
-    <span class="console-pill">{{ $canonicalDatabases->sum(fn ($d) => $d->properties->count()) }} properties total</span>
+    <span class="console-tag console-tag-ok">{{ $entityDatabases->count() }} entity databases</span>
+    <span class="console-tag">{{ $lookupDatabases->count() }} lookup / taxonomy databases</span>
+    <span class="console-tag">{{ $canonicalDatabases->sum(fn ($d) => $d->properties->count()) }} properties total</span>
 </div>
 
 <details class="console-add-canonical">
@@ -54,7 +54,7 @@
 @else
     @if ($entityDatabases->isNotEmpty())
         <h2 class="console-section-title">Entity databases</h2>
-        @include('console.canonical.partials.table', ['databases' => $entityDatabases])
+        @include('console.canonical.partials.table', ['databases' => $entityDatabases, 'showNotes' => true])
     @endif
 
     @if ($lookupDatabases->isNotEmpty())

@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Console;
 
+use App\Enums\NodeKind;
+use App\Enums\SnapshotType;
+use App\Http\Controllers\Console\CanonicalDatabasePropertyController;
 use App\Http\Controllers\Controller;
+use App\Models\AtlasNode;
 use App\Models\CanonicalDatabase;
+use App\Models\CanonicalPlacement;
+use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -21,14 +27,55 @@ class CanonicalDatabaseController extends Controller
         return $this->renderIndex($canonicalDatabase);
     }
 
-    public function panel(CanonicalDatabase $canonicalDatabase): View
+    public function panel(Request $request, CanonicalDatabase $canonicalDatabase): View
     {
-        return view('console.canonical.panel', $this->detailContext($canonicalDatabase));
+        return view('console.canonical.panel', $this->detailContext($request, $canonicalDatabase));
     }
 
-    public function show(CanonicalDatabase $canonicalDatabase): View
+    public function show(Request $request, CanonicalDatabase $canonicalDatabase): View
     {
-        return view('console.canonical.show', $this->detailContext($canonicalDatabase));
+        return view('console.canonical.show', $this->detailContext($request, $canonicalDatabase));
+    }
+
+    public function update(Request $request, CanonicalDatabase $canonicalDatabase): RedirectResponse
+    {
+        $validated = $request->validate([
+            'description' => ['nullable', 'string'],
+            'project' => ['nullable', 'string', 'exists:projects,slug'],
+        ]);
+
+        $canonicalDatabase->update([
+            'description' => $validated['description'] ?? null,
+        ]);
+
+        return $this->redirectBackToCanonical($request, $canonicalDatabase, 'Notes saved.');
+    }
+
+    public function updatePlacement(Request $request, CanonicalDatabase $canonicalDatabase): RedirectResponse
+    {
+        $validated = $request->validate([
+            'project' => ['required', 'string', 'exists:projects,slug'],
+            'teamspace_node_id' => ['nullable', 'exists:atlas_nodes,id'],
+            'placement_notes' => ['nullable', 'string'],
+        ]);
+
+        $project = Project::query()->where('slug', $validated['project'])->firstOrFail();
+
+        if ($validated['teamspace_node_id'] ?? null) {
+            $this->assertTeamspaceInCanonSnapshot($project, (int) $validated['teamspace_node_id']);
+        }
+
+        $placement = CanonicalPlacement::query()->firstOrCreate([
+            'project_id' => $project->id,
+            'canonical_database_id' => $canonicalDatabase->id,
+        ]);
+
+        $placement->update([
+            'teamspace_node_id' => $validated['teamspace_node_id'] ?? null,
+            'placement_notes' => $validated['placement_notes'] ?? null,
+        ]);
+
+        return $this->redirectBackToCanonical($request, $canonicalDatabase, 'Canonical placement updated.', $project);
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,6 +99,7 @@ class CanonicalDatabaseController extends Controller
             'name' => $validated['name'],
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
+            'is_custom' => (bool) $request->boolean('is_custom'),
             'sort_order' => (int) CanonicalDatabase::query()->max('sort_order') + 1,
         ]);
 
@@ -86,7 +134,7 @@ class CanonicalDatabaseController extends Controller
     }
 
     /** @return array<string, mixed> */
-    private function detailContext(CanonicalDatabase $canonicalDatabase): array
+    private function detailContext(Request $request, CanonicalDatabase $canonicalDatabase): array
     {
         $canonicalDatabase->load('properties');
 
@@ -95,7 +143,99 @@ class CanonicalDatabaseController extends Controller
             ->distinct('project_id')
             ->count('project_id');
 
-        return compact('canonicalDatabase', 'mappingCount', 'projectCount');
+        $project = null;
+        $placement = null;
+        $projectMappings = collect();
+        $teamspaces = collect();
+
+        if ($projectSlug = $request->query('project')) {
+            $project = Project::query()->where('slug', $projectSlug)->first();
+
+            if ($project) {
+                $projectMappings = $project->databaseMappings()
+                    ->where('canonical_database_id', $canonicalDatabase->id)
+                    ->with('atlasNode')
+                    ->get();
+
+                $placement = $project->canonicalPlacements()
+                    ->where('canonical_database_id', $canonicalDatabase->id)
+                    ->with('teamspaceNode')
+                    ->first();
+
+                if (! $placement && $projectMappings->isNotEmpty()) {
+                    $placement = CanonicalPlacement::query()->create([
+                        'project_id' => $project->id,
+                        'canonical_database_id' => $canonicalDatabase->id,
+                    ]);
+                }
+
+                $teamspaces = $this->canonTeamspaces($project);
+            }
+        }
+
+        return compact(
+            'canonicalDatabase',
+            'mappingCount',
+            'projectCount',
+            'project',
+            'placement',
+            'projectMappings',
+            'teamspaces',
+        ) + [
+            'propertyTypes' => CanonicalDatabasePropertyController::PROPERTY_TYPES,
+        ];
+    }
+
+    private function redirectBackToCanonical(
+        Request $request,
+        CanonicalDatabase $canonicalDatabase,
+        string $message,
+        ?Project $project = null,
+    ): RedirectResponse {
+        $projectSlug = $project?->slug ?? $request->input('project') ?? $request->query('project');
+
+        if ($projectSlug) {
+            return redirect()
+                ->route('console.canonical.show', [
+                    'canonicalDatabase' => $canonicalDatabase,
+                    'project' => $projectSlug,
+                ])
+                ->with('status', $message);
+        }
+
+        return redirect()
+            ->route('console.canonical.show', $canonicalDatabase)
+            ->with('status', $message);
+    }
+
+    /** @return \Illuminate\Support\Collection<int, AtlasNode> */
+    private function canonTeamspaces(Project $project)
+    {
+        $canonSnapshot = $project->snapshots()->where('type', SnapshotType::Canon)->first();
+
+        if (! $canonSnapshot || $canonSnapshot->isEmpty()) {
+            return collect();
+        }
+
+        return AtlasNode::query()
+            ->where('snapshot_id', $canonSnapshot->id)
+            ->where('kind', NodeKind::Teamspace)
+            ->orderBy('label')
+            ->get();
+    }
+
+    private function assertTeamspaceInCanonSnapshot(Project $project, int $teamspaceNodeId): void
+    {
+        $canonSnapshot = $project->snapshots()->where('type', SnapshotType::Canon)->first();
+        abort_unless($canonSnapshot && ! $canonSnapshot->isEmpty(), 422);
+
+        $valid = AtlasNode::query()
+            ->where('id', $teamspaceNodeId)
+            ->where('snapshot_id', $canonSnapshot->id)
+            ->where('kind', NodeKind::Teamspace)
+            ->exists();
+
+        abort_unless($valid, 422);
     }
 
     private function renderIndex(?CanonicalDatabase $openPeek): View

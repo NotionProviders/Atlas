@@ -12,6 +12,7 @@ class DatabaseMapping extends Model
         'atlas_node_id',
         'canonical_database_id',
         'notes',
+        'migration_details',
     ];
 
     /** @return BelongsTo<Project, $this> */

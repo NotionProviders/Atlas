@@ -21,7 +21,7 @@
                 <div class="console-snapshot-pills">
                     @foreach (\App\Enums\SnapshotType::cases() as $snapshotType)
                         @php $snap = $clientProject->snapshots->first(fn ($s) => $s->type === $snapshotType); @endphp
-                        <span class="console-pill {{ $snap && !$snap->isEmpty() ? 'console-pill-ok' : 'console-pill-empty' }}">
+                        <span class="console-tag {{ $snap && !$snap->isEmpty() ? 'console-tag-ok' : 'console-tag-empty' }}">
                             {{ $snapshotType->label() }}
                         </span>
                     @endforeach

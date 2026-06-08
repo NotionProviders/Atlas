@@ -5,14 +5,14 @@ namespace App\Enums;
 enum SnapshotType: string
 {
     case Before = 'before';
-    case Ideal = 'ideal';
+    case Canon = 'canon';
     case After = 'after';
 
     public function label(): string
     {
         return match ($this) {
             self::Before => 'Before',
-            self::Ideal => 'Canonical',
+            self::Canon => 'Canonical',
             self::After => 'After',
         };
     }

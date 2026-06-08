@@ -1,30 +1,9 @@
 <div class="canonical-details">
-    <dl class="canonical-details-meta">
-        <div>
-            <dt>Kind</dt>
-            <dd>
-                @if ($canonicalDatabase->is_lookup)
-                    Lookup / taxonomy
-                @else
-                    Entity
-                @endif
-            </dd>
-        </div>
-        @if ($canonicalDatabase->notion_export_id)
-            <div>
-                <dt>Notion export ID</dt>
-                <dd><code class="console-type-code">{{ $canonicalDatabase->notion_export_id }}</code></dd>
-            </div>
-        @endif
-        <div>
-            <dt>Project mappings</dt>
-            <dd>{{ $mappingCount }} mapping{{ $mappingCount === 1 ? '' : 's' }} across {{ $projectCount }} project{{ $projectCount === 1 ? '' : 's' }}</dd>
-        </div>
-    </dl>
+    @include('console.canonical.partials.details-meta')
 
     @if ($canonicalDatabase->description)
         <section class="canonical-details-section">
-            <h3>About</h3>
+            <h3>Notes</h3>
             <p class="console-muted canonical-details-about">{{ $canonicalDatabase->description }}</p>
         </section>
     @endif
@@ -66,7 +45,7 @@
                             <td><code class="console-type-code">{{ $prop->property_type }}</code></td>
                             <td>
                                 @if ($prop->is_title)
-                                    <span class="console-pill console-pill-ok">Title</span>
+                                    <span class="console-tag console-tag-ok">Title</span>
                                 @else
                                     <span class="console-muted">—</span>
                                 @endif

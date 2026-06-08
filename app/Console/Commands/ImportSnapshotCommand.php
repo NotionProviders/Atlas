@@ -10,7 +10,7 @@ use InvalidArgumentException;
 
 class ImportSnapshotCommand extends Command
 {
-    protected $signature = 'atlas:import-snapshot {project : Project slug} {type : before|ideal|after} {file : Path to JSON file}';
+    protected $signature = 'atlas:import-snapshot {project : Project slug} {type : before|canon|after} {file : Path to JSON file}';
 
     protected $description = 'Import workspace snapshot data from a JSON file';
 
@@ -27,7 +27,7 @@ class ImportSnapshotCommand extends Command
         try {
             $type = SnapshotType::from($this->argument('type'));
         } catch (\ValueError) {
-            $this->error('Invalid type. Use before, ideal, or after.');
+            $this->error('Invalid type. Use before, canon, or after.');
 
             return self::FAILURE;
         }

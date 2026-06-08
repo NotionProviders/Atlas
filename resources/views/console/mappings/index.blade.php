@@ -2,120 +2,95 @@
 
 @section('title', 'Database mappings — '.$project->name)
 
+@section('breadcrumb')
+    <span class="console-breadcrumb-sep">/</span>
+    <a href="{{ route('console.projects.show', $project) }}" class="console-breadcrumb">{{ $project->name }}</a>
+    <span class="console-breadcrumb-sep">/</span>
+    <span class="console-breadcrumb">Mappings</span>
+@endsection
+
 @section('content')
 <div class="console-page-header">
     <div>
         <h1>Database mappings</h1>
-        <p class="console-muted">Map each client database (Before) to one canonical target. Many client databases can share the same canonical database.</p>
+        <p class="console-muted">Map each client database (Before) to a canonical target. New canonical databases created here appear in the Canonical table until assigned to a teamspace.</p>
     </div>
     <div class="console-page-actions">
-        <a href="{{ route('console.canonical.index') }}" class="console-btn">Canonical registry</a>
+        <a href="{{ route('console.canonical.index') }}" class="console-btn">Global registry</a>
         <a href="{{ route('console.projects.show', $project) }}" class="console-btn">Back to project</a>
     </div>
 </div>
 
 @if (!$beforeSnapshot || $beforeSnapshot->isEmpty())
     <p class="console-muted">Import a <strong>Before</strong> snapshot first to see client databases here.</p>
+@elseif ($clientDatabases->isEmpty())
+    <p class="console-muted">No databases found in the Before snapshot.</p>
 @else
-    <details class="console-add-canonical">
-        <summary class="console-btn">+ Add canonical database</summary>
-        <form method="POST" action="{{ route('console.canonical.store') }}" class="console-form console-add-canonical-form">
-            @csrf
-            <input type="hidden" name="redirect" value="{{ request()->getRequestUri() }}">
-            <label>
-                <span>Name</span>
-                <input type="text" name="name" required placeholder="e.g. Companies">
-            </label>
-            <label>
-                <span>Description</span>
-                <textarea name="description" rows="2" placeholder="What this canonical database represents"></textarea>
-            </label>
-            <fieldset class="console-property-fieldset">
-                <legend>Standard properties (optional)</legend>
-                @for ($i = 0; $i < 3; $i++)
-                    <div class="console-property-row">
-                        <input type="text" name="properties[{{ $i }}][name]" placeholder="Property name">
-                        <input type="text" name="properties[{{ $i }}][property_type]" placeholder="Type (e.g. select)">
-                    </div>
-                @endfor
-            </fieldset>
-            <button type="submit" class="console-btn console-btn-primary">Add to registry</button>
-        </form>
-    </details>
+    <h2 class="console-section-title">Before → Canonical</h2>
+    <table class="workspace-table mapping-table">
+        <thead>
+            <tr>
+                <th class="mapping-col-client">Client database (Before)</th>
+                <th class="mapping-col-arrow"></th>
+                <th class="mapping-col-canonical">Maps to (Canonical)</th>
+                <th class="mapping-col-info" aria-label="Details"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($clientDatabases as $node)
+                @php $mapping = $mappingsByNodeId->get($node->id); @endphp
+                @include('console.mappings.partials.client-row', [
+                    'node' => $node,
+                    'mapping' => $mapping,
+                    'canonicalDatabases' => $canonicalDatabases,
+                ])
+            @endforeach
+        </tbody>
+    </table>
 
-    @if ($clientDatabases->isEmpty())
-        <p class="console-muted">No databases found in the Before snapshot.</p>
-    @elseif ($canonicalDatabases->isEmpty())
-        <p class="console-muted">Add canonical databases above (or in the <a href="{{ route('console.canonical.index') }}">registry</a>) before mapping.</p>
+    <h2 class="console-section-title">Canonical table</h2>
+    <p class="console-muted mappings-canonical-intro">Canonical databases mapped for this project. Assign a teamspace when ready — they will appear in the Canonical atlas view once placed.</p>
+
+    @if ($projectCanonicalRows->isEmpty())
+        <p class="console-muted">No mappings yet. Select or create a canonical target above.</p>
     @else
-        <table class="workspace-table mapping-table">
+        <table class="workspace-table mapping-table canonical-project-table">
             <thead>
                 <tr>
-                    <th class="mapping-col-client">Client database (Before)</th>
-                    <th class="mapping-col-arrow"></th>
-                    <th class="mapping-col-canonical">Maps to (Canonical)</th>
-                    <th>Notes</th>
-                    <th></th>
+                    <th>Canonical database</th>
+                    <th>Source</th>
+                    <th>Client mappings</th>
+                    <th>Teamspace</th>
+                    <th class="canonical-col-info" aria-label="Details"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($clientDatabases as $node)
-                    @php $mapping = $mappingsByNodeId->get($node->id); @endphp
-                    <tr>
-                        <td class="mapping-col-client">
-                            <strong>{{ $node->label }}</strong>
-                            @if ($node->databaseProperties->isNotEmpty())
-                                <div class="mapping-props-hint">
-                                    {{ $node->databaseProperties->pluck('name')->join(', ') }}
-                                </div>
-                            @endif
-                        </td>
-                        <td class="mapping-col-arrow">→</td>
-                        <td class="mapping-col-canonical">
-                            <form method="POST" action="{{ route('console.mappings.store', $project) }}" class="mapping-row-form">
-                                @csrf
-                                <input type="hidden" name="atlas_node_id" value="{{ $node->id }}">
-                                <select name="canonical_database_id" required onchange="this.form.submit()">
-                                    <option value="">Select canonical…</option>
-                                    @foreach ($canonicalDatabases as $canonical)
-                                        <option value="{{ $canonical->id }}" @selected($mapping?->canonical_database_id === $canonical->id)>
-                                            {{ $canonical->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </form>
-                            @if ($mapping?->canonicalDatabase)
-                                <div class="mapping-props-hint">
-                                    {{ $mapping->canonicalDatabase->properties->pluck('name')->join(', ') ?: 'No standard properties defined' }}
-                                </div>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($mapping)
-                                <form method="POST" action="{{ route('console.mappings.store', $project) }}" class="mapping-notes-form">
-                                    @csrf
-                                    <input type="hidden" name="atlas_node_id" value="{{ $node->id }}">
-                                    <input type="hidden" name="canonical_database_id" value="{{ $mapping->canonical_database_id }}">
-                                    <textarea name="notes" rows="2" placeholder="Migration notes…">{{ $mapping->notes }}</textarea>
-                                    <button type="submit" class="console-link-btn">Save notes</button>
-                                </form>
-                            @else
-                                <span class="console-muted">—</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($mapping)
-                                <form method="POST" action="{{ route('console.mappings.destroy', [$project, $mapping]) }}" onsubmit="return confirm('Remove this mapping?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="console-link-btn">Clear</button>
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
+                @foreach ($projectCanonicalRows as $row)
+                    @include('console.mappings.partials.canonical-row', ['row' => $row])
                 @endforeach
             </tbody>
         </table>
     @endif
 @endif
+
+<div id="mapping-modal"
+     class="canonical-modal hidden"
+     role="dialog"
+     aria-modal="true"
+     data-index-url="{{ route('console.mappings.index', $project) }}"
+     @if ($openDatabaseNode)
+         data-open-panel-url="{{ route('console.mappings.database.panel', [$project, $openDatabaseNode]) }}"
+         data-open-peek-url="{{ route('console.mappings.database.peek-page', [$project, $openDatabaseNode]) }}"
+     @elseif ($openCanonical)
+         data-open-panel-url="{{ route('console.canonical.panel', ['canonicalDatabase' => $openCanonical, 'project' => $project->slug]) }}"
+         data-open-peek-url="{{ route('console.mappings.canonical.peek-page', [$project, $openCanonical]) }}"
+     @endif>
+    <button type="button" class="canonical-modal-backdrop" aria-label="Close details"></button>
+    <div class="canonical-modal-slot" id="mapping-modal-slot"></div>
+</div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/mapping-combobox.js') }}?v={{ @filemtime(public_path('js/mapping-combobox.js')) ?: 1 }}" defer></script>
+    <script src="{{ asset('js/mapping-modal.js') }}?v={{ @filemtime(public_path('js/mapping-modal.js')) ?: 1 }}" defer></script>
+@endpush

@@ -1,6 +1,7 @@
 @php
     $propertyPreview = $canonical->properties->take(4)->pluck('name')->join(', ');
     $propertyOverflow = max(0, $canonical->properties->count() - 4);
+    $showNotes = $showNotes ?? false;
 @endphp
 <tr>
     <td>
@@ -8,11 +9,20 @@
     </td>
     <td>
         @if ($canonical->is_lookup)
-            <span class="console-pill">Lookup</span>
+            <span class="console-tag">Lookup</span>
         @else
-            <span class="console-pill console-pill-ok">Entity</span>
+            <span class="console-tag console-tag-ok">Entity</span>
         @endif
     </td>
+    @if ($showNotes)
+        <td class="canonical-col-notes">
+            @if ($canonical->description)
+                <span class="canonical-notes-preview" title="{{ $canonical->description }}">{{ Str::limit($canonical->description, 80) }}</span>
+            @else
+                <span class="console-muted">—</span>
+            @endif
+        </td>
+    @endif
     <td class="canonical-col-count">{{ $canonical->properties->count() }}</td>
     <td class="canonical-col-info">
         <button type="button"

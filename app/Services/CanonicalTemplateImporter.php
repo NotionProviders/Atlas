@@ -10,6 +10,9 @@ use RuntimeException;
 
 class CanonicalTemplateImporter
 {
+    public function __construct(
+        private readonly NotionExportPropertyTypeInferrer $propertyTypeInferrer = new NotionExportPropertyTypeInferrer(),
+    ) {}
     /** @var list<string> */
     private array $lookupPrefixes = [
         'All Address Type',
@@ -175,6 +178,7 @@ class CanonicalTemplateImporter
     public function parseCsvFile(string $path): ?array
     {
         $basename = pathinfo($path, PATHINFO_FILENAME);
+        $basename = preg_replace('/_all$/i', '', $basename) ?? $basename;
 
         if (! preg_match('/^(.+?) ([a-f0-9]{32})$/i', $basename, $matches)) {
             return null;
@@ -204,6 +208,10 @@ class CanonicalTemplateImporter
         }
 
         $header = fgetcsv($handle);
+        $sampleRows = [];
+        while (($row = fgetcsv($handle)) !== false && count($sampleRows) < 50) {
+            $sampleRows[] = $row;
+        }
         fclose($handle);
 
         if ($header === false || $header === []) {
@@ -211,17 +219,28 @@ class CanonicalTemplateImporter
         }
 
         $properties = [];
-        foreach ($header as $column) {
+        foreach ($header as $index => $column) {
             $column = trim((string) $column);
             $column = preg_replace('/^\xEF\xBB\xBF/', '', $column) ?? $column;
-            if ($column === '' || strcasecmp($column, 'Name') === 0) {
+            if ($column === '') {
                 continue;
             }
 
+            // Count rollups duplicate the linked relation property in this template.
+            if (preg_match('/\sCounts?$/i', $column)) {
+                continue;
+            }
+
+            $isTitle = strcasecmp($column, 'Name') === 0;
+            $samples = array_map(
+                fn (array $row): ?string => $row[$index] ?? null,
+                $sampleRows,
+            );
+
             $properties[] = [
                 'name' => $column,
-                'property_type' => $this->inferPropertyType($column),
-                'is_title' => false,
+                'property_type' => $this->propertyTypeInferrer->infer($column, $samples, $isTitle),
+                'is_title' => $isTitle,
                 'options' => null,
             ];
         }
@@ -267,6 +286,26 @@ class CanonicalTemplateImporter
     /** @return list<string> */
     private function discoverDatabaseCsvFiles(string $directory): array
     {
+        $allFiles = glob($directory.DIRECTORY_SEPARATOR.'*_all.csv') ?: [];
+        $allFiles = array_values(array_filter($allFiles, function (string $path): bool {
+            $name = basename($path);
+
+            if (str_starts_with($name, 'Untitled')) {
+                return false;
+            }
+
+            if (str_starts_with($name, 'View of ')) {
+                return false;
+            }
+
+            return (bool) preg_match('/^All .+\[(CC|FT)\] [a-f0-9]{32}_all\.csv$/i', $name);
+        }));
+
+        if ($allFiles !== []) {
+            return $allFiles;
+        }
+
+        // Fallback for exports that only ship view CSVs.
         $files = glob($directory.DIRECTORY_SEPARATOR.'*.csv') ?: [];
 
         return array_values(array_filter($files, function (string $path): bool {
@@ -286,45 +325,6 @@ class CanonicalTemplateImporter
 
             return (bool) preg_match('/^All .+\[(CC|FT)\] [a-f0-9]{32}\.csv$/i', $name);
         }));
-    }
-
-    private function inferPropertyType(string $column): string
-    {
-        $lower = strtolower($column);
-
-        if ($lower === 'email' || str_contains($lower, 'email')) {
-            return 'email';
-        }
-
-        if ($lower === 'phone' || str_contains($lower, 'phone') || str_contains($column, '☎')) {
-            return 'phone_number';
-        }
-
-        if ($lower === 'status' || str_contains($lower, 'status')) {
-            return 'status';
-        }
-
-        if (str_contains($lower, 'date') || str_contains($lower, 'timeframe')) {
-            return 'date';
-        }
-
-        if (str_contains($lower, 'url') || str_contains($lower, 'link')) {
-            return 'url';
-        }
-
-        if (preg_match('/[\x{1F300}-\x{1FAFF}]/u', $column)) {
-            return 'select';
-        }
-
-        if (str_contains($lower, 'owner') || str_contains($lower, 'contact') || str_contains($lower, 'poc')) {
-            return 'relation';
-        }
-
-        if (str_contains($lower, 'value') || str_contains($lower, 'balance') || str_contains($lower, 'total')) {
-            return 'number';
-        }
-
-        return 'rich_text';
     }
 
     private function isLookupDatabase(string $fullName, string $displayName): bool
