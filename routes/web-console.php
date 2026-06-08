@@ -46,6 +46,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('canonical-databases', [CanonicalDatabaseController::class, 'index'])
         ->name('console.canonical.index');
+    Route::get('canonical-databases/c/{canonicalDatabase:slug}', [CanonicalDatabaseController::class, 'indexWithPeek'])
+        ->name('console.canonical.peek-page');
+    Route::get('canonical-databases/c/{canonicalDatabase:slug}/panel', [CanonicalDatabaseController::class, 'panel'])
+        ->name('console.canonical.panel');
+    Route::get('canonical-databases/{canonicalDatabase:slug}', [CanonicalDatabaseController::class, 'show'])
+        ->name('console.canonical.show');
     Route::post('canonical-databases', [CanonicalDatabaseController::class, 'store'])
         ->name('console.canonical.store');
     Route::delete('canonical-databases/{canonicalDatabase}', [CanonicalDatabaseController::class, 'destroy'])

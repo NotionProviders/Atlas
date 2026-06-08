@@ -13,13 +13,22 @@ class CanonicalDatabaseController extends Controller
 {
     public function index(): View
     {
-        $canonicalDatabases = CanonicalDatabase::query()
-            ->with('properties')
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+        return $this->renderIndex(null);
+    }
 
-        return view('console.canonical.index', compact('canonicalDatabases'));
+    public function indexWithPeek(CanonicalDatabase $canonicalDatabase): View
+    {
+        return $this->renderIndex($canonicalDatabase);
+    }
+
+    public function panel(CanonicalDatabase $canonicalDatabase): View
+    {
+        return view('console.canonical.panel', $this->detailContext($canonicalDatabase));
+    }
+
+    public function show(CanonicalDatabase $canonicalDatabase): View
+    {
+        return view('console.canonical.show', $this->detailContext($canonicalDatabase));
     }
 
     public function store(Request $request): RedirectResponse
@@ -74,5 +83,38 @@ class CanonicalDatabaseController extends Controller
         $canonicalDatabase->delete();
 
         return back()->with('status', 'Removed "'.$name.'" from the canonical registry.');
+    }
+
+    /** @return array<string, mixed> */
+    private function detailContext(CanonicalDatabase $canonicalDatabase): array
+    {
+        $canonicalDatabase->load('properties');
+
+        $mappingCount = $canonicalDatabase->databaseMappings()->count();
+        $projectCount = (int) $canonicalDatabase->databaseMappings()
+            ->distinct('project_id')
+            ->count('project_id');
+
+        return compact('canonicalDatabase', 'mappingCount', 'projectCount');
+    }
+
+    private function renderIndex(?CanonicalDatabase $openPeek): View
+    {
+        $canonicalDatabases = CanonicalDatabase::query()
+            ->with('properties')
+            ->orderBy('is_lookup')
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        $entityDatabases = $canonicalDatabases->where('is_lookup', false)->values();
+        $lookupDatabases = $canonicalDatabases->where('is_lookup', true)->values();
+
+        return view('console.canonical.index', compact(
+            'canonicalDatabases',
+            'entityDatabases',
+            'lookupDatabases',
+            'openPeek',
+        ));
     }
 }

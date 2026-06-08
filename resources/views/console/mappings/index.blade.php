@@ -6,7 +6,7 @@
 <div class="console-page-header">
     <div>
         <h1>Database mappings</h1>
-        <p class="console-muted">Map each client database (Before) to a canonical target database.</p>
+        <p class="console-muted">Map each client database (Before) to one canonical target. Many client databases can share the same canonical database.</p>
     </div>
     <div class="console-page-actions">
         <a href="{{ route('console.canonical.index') }}" class="console-btn">Canonical registry</a>

@@ -59,6 +59,13 @@ Import snapshot JSON:
 php artisan atlas:import-snapshot formosa-ev before resources/data/demo-formosa-before.json
 ```
 
+Import canonical template (Notion HTML export directory or committed JSON):
+
+```bash
+php artisan atlas:import-canonical-template path/to/ExportBlock --replace
+php artisan atlas:import-canonical-template resources/data/canonical-databases.json --replace
+```
+
 Production requires PostgreSQL — see [COOLIFY.md](COOLIFY.md).
 
 ## Regenerating data from the legacy HTML

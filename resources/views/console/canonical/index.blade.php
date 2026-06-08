@@ -2,16 +2,30 @@
 
 @section('title', 'Canonical databases')
 
+@section('breadcrumb')
+    <span class="console-breadcrumb-sep">/</span>
+    <span class="console-breadcrumb">Canonical databases</span>
+@endsection
+
 @section('content')
 <div class="console-page-header">
     <div>
         <h1>Canonical database registry</h1>
-        <p class="console-muted">Master list of target databases used to map client workspaces. Grows over time as you onboard new clients.</p>
+        <p class="console-muted">
+            Master pool of target databases for mapping client workspaces.
+            Multiple client databases can map to the same canonical database.
+        </p>
     </div>
 </div>
 
-<details class="console-add-canonical" open>
-    <summary class="console-btn console-btn-primary">+ Add canonical database</summary>
+<div class="console-canonical-stats">
+    <span class="console-pill console-pill-ok">{{ $entityDatabases->count() }} entity databases</span>
+    <span class="console-pill">{{ $lookupDatabases->count() }} lookup / taxonomy databases</span>
+    <span class="console-pill">{{ $canonicalDatabases->sum(fn ($d) => $d->properties->count()) }} properties total</span>
+</div>
+
+<details class="console-add-canonical">
+    <summary class="console-btn">+ Add canonical database manually</summary>
     <form method="POST" action="{{ route('console.canonical.store') }}" class="console-form console-add-canonical-form">
         @csrf
         <label>
@@ -36,41 +50,35 @@
 </details>
 
 @if ($canonicalDatabases->isEmpty())
-    <p class="console-muted">No canonical databases yet.</p>
+    <p class="console-muted">No canonical databases yet. Import the template with <code>php artisan atlas:import-canonical-template path/to/export</code>.</p>
 @else
-    <div class="console-card-list">
-        @foreach ($canonicalDatabases as $canonical)
-            <div class="console-card console-card-static">
-                <div class="console-card-top">
-                    <h2>{{ $canonical->name }}</h2>
-                    <form method="POST" action="{{ route('console.canonical.destroy', $canonical) }}" onsubmit="return confirm('Remove this canonical database? Existing mappings will be deleted.');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="console-link-btn">Remove</button>
-                    </form>
-                </div>
-                @if ($canonical->description)
-                    <p class="console-muted">{{ $canonical->description }}</p>
-                @endif
-                @if ($canonical->properties->isNotEmpty())
-                    <table class="workspace-props-table">
-                        <thead>
-                            <tr><th>Property</th><th>Type</th></tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($canonical->properties as $prop)
-                                <tr>
-                                    <td>{{ $prop->name }}</td>
-                                    <td>{{ $prop->property_type }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @else
-                    <p class="console-muted">No standard properties defined.</p>
-                @endif
-            </div>
-        @endforeach
-    </div>
+    @if ($entityDatabases->isNotEmpty())
+        <h2 class="console-section-title">Entity databases</h2>
+        @include('console.canonical.partials.table', ['databases' => $entityDatabases])
+    @endif
+
+    @if ($lookupDatabases->isNotEmpty())
+        <h2 class="console-section-title">Lookup & taxonomy databases</h2>
+        @include('console.canonical.partials.table', ['databases' => $lookupDatabases])
+    @endif
 @endif
+
+<div id="canonical-modal"
+     class="canonical-modal hidden"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="canonical-peek-title"
+     data-index-url="{{ route('console.canonical.index') }}"
+     @if ($openPeek)
+         data-open-slug="{{ $openPeek->slug }}"
+         data-open-panel-url="{{ route('console.canonical.panel', $openPeek) }}"
+         data-open-peek-url="{{ route('console.canonical.peek-page', $openPeek) }}"
+     @endif>
+    <button type="button" class="canonical-modal-backdrop" aria-label="Close details"></button>
+    <div class="canonical-modal-slot" id="canonical-modal-slot"></div>
+</div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/canonical-registry.js') }}?v={{ @filemtime(public_path('js/canonical-registry.js')) ?: 1 }}" defer></script>
+@endpush

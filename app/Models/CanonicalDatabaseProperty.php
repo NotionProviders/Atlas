@@ -12,6 +12,7 @@ class CanonicalDatabaseProperty extends Model
         'name',
         'property_type',
         'options',
+        'is_title',
         'sort_order',
     ];
 
@@ -19,6 +20,7 @@ class CanonicalDatabaseProperty extends Model
     {
         return [
             'options' => 'array',
+            'is_title' => 'boolean',
         ];
     }
 

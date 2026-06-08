@@ -1,0 +1,2338 @@
+{
+    "databases": [
+        {
+            "name": "Address Type",
+            "notion_export_id": "29e46b5708ad81a4b29bc7dd96c7ce6e",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Important",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Address Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 0
+        },
+        {
+            "name": "Addresses",
+            "notion_export_id": "29e46b5708ad81c8bbfcee3d9b141ed2",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "\"Address 1 \"",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Address 2",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "City",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏙️ States",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Zip Code",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Searchable Address",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 1
+        },
+        {
+            "name": "Admin Docs",
+            "notion_export_id": "29e46b5708ad8185b8eae122ce3e8151",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Due Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 2
+        },
+        {
+            "name": "Agendas",
+            "notion_export_id": "29e46b5708ad814e8355d01ff88ed759",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Agenda Creator",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📝 Meeting Notes",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Agenda Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Meeting Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Meeting Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 3
+        },
+        {
+            "name": "Agreement Types",
+            "notion_export_id": "29e46b5708ad81c58ac4c02bf7217422",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Agreement Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 4
+        },
+        {
+            "name": "Agreements",
+            "notion_export_id": "29e46b5708ad8154a67ec20d56db0826",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Estimate Total Amount",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Due Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Estimate Project",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 5
+        },
+        {
+            "name": "Asset Uses",
+            "notion_export_id": "29e46b5708ad81c882b3ef41ef12c3b5",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Photo Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 6
+        },
+        {
+            "name": "Automation Categories",
+            "notion_export_id": "29e46b5708ad81cb9514eef5fad01b10",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Automation Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 7
+        },
+        {
+            "name": "Automation Type",
+            "notion_export_id": "29e46b5708ad81a593f5e50d51e2d0cf",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Note Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 8
+        },
+        {
+            "name": "Bills",
+            "notion_export_id": "29e46b5708ad81e7bd75c975585576a2",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🧾 Invoices",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Button",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 9
+        },
+        {
+            "name": "Business Pillars",
+            "notion_export_id": "29e46b5708ad8151bc38ccf226480ecb",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Department Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 10
+        },
+        {
+            "name": "Business Relationshipss",
+            "notion_export_id": "29e46b5708ad811f95c5daf0a3dbfec6",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Companies Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 11
+        },
+        {
+            "name": "Business Tags",
+            "notion_export_id": "29e46b5708ad812faa0ef45aa750f514",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Company Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 12
+        },
+        {
+            "name": "Business Types",
+            "notion_export_id": "29e46b5708ad810b83efd14fba1c98da",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Companies Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 13
+        },
+        {
+            "name": "Career Levels",
+            "notion_export_id": "29e46b5708ad8136bd48d8532959c7c8",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Roles Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 14
+        },
+        {
+            "name": "Companies",
+            "notion_export_id": "29e46b5708ad81e3b8e1e7dea01b6c2f",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "💼 Relationship",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "👩‍💼 Business Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 15
+        },
+        {
+            "name": "Company Divisions",
+            "notion_export_id": "29e46b5708ad81e0b60cdd47186835fc",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Locations Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 16
+        },
+        {
+            "name": "Company Locations",
+            "notion_export_id": "29e46b5708ad810a94c9c233eb9d3297",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "🗺️ Division",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 17
+        },
+        {
+            "name": "Company Teams",
+            "notion_export_id": "29e46b5708ad81bab860df6391283f1f",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "🏬 Department",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 18
+        },
+        {
+            "name": "Contact Interactions",
+            "notion_export_id": "29e46b5708ad817aae28c81a56a7307a",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "📝 Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interaction Time",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 19
+        },
+        {
+            "name": "Contact Tags",
+            "notion_export_id": "29e46b5708ad814bb6d7f70e1621f370",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Contact Count",
+                    "property_type": "relation",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 20
+        },
+        {
+            "name": "Contacts",
+            "notion_export_id": "29e46b5708ad8142a85bd7a3d3fcfdb3",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Email",
+                    "property_type": "email",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Phone",
+                    "property_type": "phone_number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "👥 Team POC",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 21
+        },
+        {
+            "name": "Countries",
+            "notion_export_id": "29e46b5708ad81f29ddfee14685c063e",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Address Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 22
+        },
+        {
+            "name": "Deliverables",
+            "notion_export_id": "29e46b5708ad8186a846cb522baf0cbc",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Deliverable",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Delivery Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 23
+        },
+        {
+            "name": "Departments",
+            "notion_export_id": "29e46b5708ad81c8b39dcd522ad1c619",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Teams Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏪 Location",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 24
+        },
+        {
+            "name": "Document Purposes",
+            "notion_export_id": "29e46b5708ad81439c48e25736e012aa",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Resource Docs Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 25
+        },
+        {
+            "name": "Documents",
+            "notion_export_id": "29e46b5708ad81a7bb21fc129c3fb33d",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Folder",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 26
+        },
+        {
+            "name": "Engagement Types",
+            "notion_export_id": "29e46b5708ad81a7ae48d3f0cb4dead9",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Engagements Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 27
+        },
+        {
+            "name": "Engagements",
+            "notion_export_id": "29e46b5708ad8168afb9ca637ebdddcb",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Date Placed",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📝 Engagement Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📙 Service Providers",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 28
+        },
+        {
+            "name": "Estimate Types",
+            "notion_export_id": "29e46b5708ad81b2af89d7159055d905",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Estimate Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 29
+        },
+        {
+            "name": "Estimates",
+            "notion_export_id": "29e46b5708ad81e4a34ae2302cdc1abd",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Project",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 30
+        },
+        {
+            "name": "Expense Accounts",
+            "notion_export_id": "29e46b5708ad81ff8ddeca73434f2a02",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "ID",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Current Balance",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Currency",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "QuickBooks ID",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 31
+        },
+        {
+            "name": "File Types",
+            "notion_export_id": "29e46b5708ad81d9b21af4b4c5a7fbfb",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Resource Docs Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 32
+        },
+        {
+            "name": "Financial Worksheets",
+            "notion_export_id": "29e46b5708ad81b69fa8ccddc548a6e0",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Type",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 33
+        },
+        {
+            "name": "Folders",
+            "notion_export_id": "29e46b5708ad8103bc62ff058a0354c5",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Asset Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 34
+        },
+        {
+            "name": "Incidentals",
+            "notion_export_id": "29e46b5708ad81a98470eed3f2d98230",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Price",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 35
+        },
+        {
+            "name": "Income Accounts",
+            "notion_export_id": "29e46b5708ad8118887fee4fe838dc46",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "ID",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Current Balance",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Currency",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "QuickBooks ID",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 36
+        },
+        {
+            "name": "Industries",
+            "notion_export_id": "29e46b5708ad81be9741f19d128bada5",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Contact Count",
+                    "property_type": "relation",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 37
+        },
+        {
+            "name": "Interaction Outcomes",
+            "notion_export_id": "29e46b5708ad81099ca5e0a42551483e",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interactions Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 38
+        },
+        {
+            "name": "Interaction Outcomes",
+            "notion_export_id": "29e46b5708ad8145b7d9cb910cb68999",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interactions Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 39
+        },
+        {
+            "name": "Interaction Types",
+            "notion_export_id": "29e46b5708ad8162aebfd53edec1fe57",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interaction Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 40
+        },
+        {
+            "name": "Interaction Types",
+            "notion_export_id": "29e46b5708ad818fb3afcfa81293153a",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interaction Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 41
+        },
+        {
+            "name": "Internal Projects",
+            "notion_export_id": "29e46b5708ad811bb17ceb173a91dc7f",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "👥 Team Members",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 42
+        },
+        {
+            "name": "Invoice Types",
+            "notion_export_id": "29e46b5708ad81c49b31de477eacb63f",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Invoice Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 43
+        },
+        {
+            "name": "Invoices",
+            "notion_export_id": "29e46b5708ad81b5b61be9fb7deb2f43",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Balance Due",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Final Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "☎️ Contacts",
+                    "property_type": "phone_number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 44
+        },
+        {
+            "name": "Languages",
+            "notion_export_id": "29e46b5708ad81a7be00d02285527731",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Contact Count",
+                    "property_type": "relation",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 45
+        },
+        {
+            "name": "Lead Interactions",
+            "notion_export_id": "29e46b5708ad8141a606d20140c12de4",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "📝 Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Interaction Time",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🕵️‍♂️ Lead",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 46
+        },
+        {
+            "name": "Lead Sources",
+            "notion_export_id": "29e46b5708ad813ba204e75faa11993c",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Leads Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 47
+        },
+        {
+            "name": "Lead Tags",
+            "notion_export_id": "29e46b5708ad817c8fc6ef90d873ff38",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 48
+        },
+        {
+            "name": "Leads",
+            "notion_export_id": "29e46b5708ad81cfa57bf41a39827446",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Follow-Up Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Phone",
+                    "property_type": "phone_number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Email",
+                    "property_type": "email",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 49
+        },
+        {
+            "name": "Leads Lists",
+            "notion_export_id": "29e46b5708ad8186aa43f5c6600a0f7f",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Leads Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 50
+        },
+        {
+            "name": "Measurement Tools",
+            "notion_export_id": "29e46b5708ad81dda6acf6022c1ad7a2",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Measurements Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 51
+        },
+        {
+            "name": "Measurements",
+            "notion_export_id": "29e46b5708ad8146a625c63f8ac44f30",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Order Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Full Property Address",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📐 Measurement Tool",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 52
+        },
+        {
+            "name": "Meeting Notes",
+            "notion_export_id": "29e46b5708ad810684c1cc298e0bdede",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Conference Link",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏬 Departments",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Meeting Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 53
+        },
+        {
+            "name": "Note Types",
+            "notion_export_id": "29e46b5708ad81f1b432fa1fc9a473d0",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Note Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 54
+        },
+        {
+            "name": "Notes",
+            "notion_export_id": "29e46b5708ad8115bd4afae87a7e5838",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏷 Topic",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏬 Departments",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📝 Note Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 55
+        },
+        {
+            "name": "Occupations",
+            "notion_export_id": "29e46b5708ad81da844bec5e8187a06b",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Contact Counts",
+                    "property_type": "relation",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 56
+        },
+        {
+            "name": "Organizations",
+            "notion_export_id": "29e46b5708ad81e2b4e3e3ca41e1e8ca",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Divisions Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 57
+        },
+        {
+            "name": "Outside Service Categories",
+            "notion_export_id": "29e46b5708ad8155b235cec1af23581c",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Outside Services Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 58
+        },
+        {
+            "name": "Outside Service Types",
+            "notion_export_id": "29e46b5708ad819c8f94d8eab34e68eb",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Outside Services Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 59
+        },
+        {
+            "name": "Outside Services",
+            "notion_export_id": "29e46b5708ad8146975dd30a314b0ff9",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Price",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📝 Service Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🗂️ Category",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 60
+        },
+        {
+            "name": "Package Links",
+            "notion_export_id": "29e46b5708ad8101a990cdae58218711",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "📦 Service Package",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Qty",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Unit Price",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Total Price",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📃 Estimates",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 61
+        },
+        {
+            "name": "Payments",
+            "notion_export_id": "29e46b5708ad81698709dcf1f661fbe1",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Payment Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Invoice Project",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🧾 Invoice",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 62
+        },
+        {
+            "name": "Photos",
+            "notion_export_id": "29e46b5708ad81f8a71ee93ff8dee957",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📨 Use",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📂 Folder",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 63
+        },
+        {
+            "name": "Platforms",
+            "notion_export_id": "29e46b5708ad81c5a50cc081fc97d4c8",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Testimonials Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 64
+        },
+        {
+            "name": "Projects",
+            "notion_export_id": "29e46b5708ad817fbdfeca14e7f4d650",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Balance Due",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Project Timeframe",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Total Value",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "👥 Owner",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "☎️ Contact",
+                    "property_type": "phone_number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 65
+        },
+        {
+            "name": "Provider Tags",
+            "notion_export_id": "29e46b5708ad8135bf05f64b9ff803f9",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Providers Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 66
+        },
+        {
+            "name": "Provider Types",
+            "notion_export_id": "29e46b5708ad81d99023fd6dac0ece67",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Providers Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 67
+        },
+        {
+            "name": "Purchase Orders",
+            "notion_export_id": "29e46b5708ad81598f0ad8feff2056cd",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Button",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 68
+        },
+        {
+            "name": "Purchases",
+            "notion_export_id": "29e46b5708ad81ef9f0cf41f64b44d2b",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Button",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🛎️ Engagements",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Payment Type",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Account Name",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Vendor Used",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 69
+        },
+        {
+            "name": "Ratings",
+            "notion_export_id": "29e46b5708ad816aa006f67080b73b11",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Testimonial Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 70
+        },
+        {
+            "name": "Resource Documents",
+            "notion_export_id": "29e46b5708ad81a3b0bbc09f3e1a909c",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🏬 Departments",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🚩 Purpose",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🗃 File Type",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 71
+        },
+        {
+            "name": "Roles",
+            "notion_export_id": "29e46b5708ad81b6b7f3ee366dead82f",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "🏬 Department",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Team Members Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 72
+        },
+        {
+            "name": "Service Categories",
+            "notion_export_id": "29e46b5708ad8178aa4ceb8610709cdb",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Services Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 73
+        },
+        {
+            "name": "Service Links",
+            "notion_export_id": "29e46b5708ad818f925ff43a612a4183",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "🔧 Service",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Dynamic Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📃 Estimate",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Amount",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Billable Percent",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Billable Milestone",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 74
+        },
+        {
+            "name": "Service Packages",
+            "notion_export_id": "29e46b5708ad813d911bd38d0ddd12de",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Price",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Payment Link",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Archive",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 75
+        },
+        {
+            "name": "Service Providers",
+            "notion_export_id": "29e46b5708ad81129891d6d047f1b562",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Email",
+                    "property_type": "email",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Local Time",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 76
+        },
+        {
+            "name": "Service Types",
+            "notion_export_id": "29e46b5708ad81eda813cc177e391068",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Services Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 77
+        },
+        {
+            "name": "Skill Categories",
+            "notion_export_id": "29e46b5708ad81258cd3cfc15ec789ba",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Skill Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 78
+        },
+        {
+            "name": "Skills",
+            "notion_export_id": "29e46b5708ad8184a226c5d372039cd5",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🗂️ Category",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Roles Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 79
+        },
+        {
+            "name": "States & Regions",
+            "notion_export_id": "29e46b5708ad813ba513c81c25e4e028",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Address Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 80
+        },
+        {
+            "name": "Tasks",
+            "notion_export_id": "29e46b5708ad8146a56df31a6d192ecc",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Done",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Task Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Due Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Priority",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Completed Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "👥 Team Member",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "👔 Roles",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🔨 Client Projects",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Last edited",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 81
+        },
+        {
+            "name": "Team Members",
+            "notion_export_id": "29e46b5708ad81638e34da982d16f230",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Email",
+                    "property_type": "email",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Team Leader Notion Profile",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 82
+        },
+        {
+            "name": "Team Wages",
+            "notion_export_id": "29e46b5708ad81668066fa298a99cf60",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Hourly Rate",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Overhead Multipler",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "After Profit Hourly",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 83
+        },
+        {
+            "name": "Team Wages Links",
+            "notion_export_id": "29e46b5708ad814a9317e05bde3d5a87",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "👨‍🔧 Team Members Wages",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Qty",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Unit Price",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Total Price",
+                    "property_type": "number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📃 Estimates",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 84
+        },
+        {
+            "name": "Testimonials",
+            "notion_export_id": "29e46b5708ad81ac82cec3a88ba9cca8",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "⭐ Rating",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "☎️ Contact",
+                    "property_type": "phone_number",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "🌐 Platforms",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Status",
+                    "property_type": "status",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 85
+        },
+        {
+            "name": "Time Zones",
+            "notion_export_id": "29e46b5708ad8187a35ecd86f08658f0",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Title",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Full Name",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Local Time",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 86
+        },
+        {
+            "name": "Titles",
+            "notion_export_id": "29e46b5708ad81c2bc69cafe1200b666",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Contact Counts",
+                    "property_type": "relation",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 87
+        },
+        {
+            "name": "Topics",
+            "notion_export_id": "29e46b5708ad81debcd9ec1ce962e1f0",
+            "is_lookup": true,
+            "properties": [
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Note Count",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 88
+        },
+        {
+            "name": "Zoom Recordings",
+            "notion_export_id": "29e46b5708ad816ebae3d0db13e5f5c0",
+            "is_lookup": false,
+            "properties": [
+                {
+                    "name": "Favorite",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Description",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Host",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Meeting Date",
+                    "property_type": "date",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Duration",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "📝 Meeting Notes",
+                    "property_type": "select",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Join Meeting Link",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "G Drive URL",
+                    "property_type": "url",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Files & media",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Last edited",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                },
+                {
+                    "name": "Archive",
+                    "property_type": "rich_text",
+                    "is_title": false,
+                    "options": null
+                }
+            ],
+            "sort_order": 89
+        }
+    ]
+}
