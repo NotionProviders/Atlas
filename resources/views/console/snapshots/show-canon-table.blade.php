@@ -13,7 +13,7 @@
 <div class="console-page-header">
     <div>
         <h1>Canonical table</h1>
-        <p class="console-muted">Mapped canonical databases for this project. Assign teamspaces from database mappings to place them in the imported Canonical snapshot structure.</p>
+        <p class="console-muted">Reference list of canonical templates used in this project. Open client mappings to finalize property schemas and teamspace placement.</p>
     </div>
     <div class="console-page-actions">
         <a href="{{ route('console.mappings.index', $project) }}" class="console-btn">Database mappings</a>
@@ -30,8 +30,7 @@
                 <th>Canonical database</th>
                 <th>Source</th>
                 <th>Client mappings</th>
-                <th>Teamspace</th>
-                <th class="canonical-col-info" aria-label="Details"></th>
+                <th>Template</th>
             </tr>
         </thead>
         <tbody>
@@ -41,17 +40,4 @@
         </tbody>
     </table>
 @endif
-
-<div id="mapping-modal"
-     class="canonical-modal hidden"
-     role="dialog"
-     aria-modal="true"
-     data-index-url="{{ route('console.snapshots.show', [$project, 'canon', 'view' => 'table']) }}">
-    <button type="button" class="canonical-modal-backdrop" aria-label="Close details"></button>
-    <div class="canonical-modal-slot" id="mapping-modal-slot"></div>
-</div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('js/mapping-modal.js') }}?v={{ @filemtime(public_path('js/mapping-modal.js')) ?: 1 }}" defer></script>
-@endpush

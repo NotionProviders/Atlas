@@ -10,8 +10,7 @@
     var loading = false;
 
     function isPeekPath(path) {
-        return path.indexOf('/mappings/c/database/') !== -1
-            || path.indexOf('/mappings/c/canonical/') !== -1;
+        return path.indexOf('/mappings/c/database/') !== -1;
     }
 
     function isOpen() {

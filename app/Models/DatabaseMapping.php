@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DatabaseMapping extends Model
 {
@@ -13,6 +14,8 @@ class DatabaseMapping extends Model
         'canonical_database_id',
         'notes',
         'migration_details',
+        'teamspace_node_id',
+        'placement_notes',
     ];
 
     /** @return BelongsTo<Project, $this> */
@@ -31,5 +34,22 @@ class DatabaseMapping extends Model
     public function canonicalDatabase(): BelongsTo
     {
         return $this->belongsTo(CanonicalDatabase::class);
+    }
+
+    /** @return BelongsTo<AtlasNode, $this> */
+    public function teamspaceNode(): BelongsTo
+    {
+        return $this->belongsTo(AtlasNode::class, 'teamspace_node_id');
+    }
+
+    /** @return HasMany<DatabaseMappingProperty, $this> */
+    public function properties(): HasMany
+    {
+        return $this->hasMany(DatabaseMappingProperty::class)->orderBy('sort_order');
+    }
+
+    public function isAssignedToTeamspace(): bool
+    {
+        return $this->teamspace_node_id !== null;
     }
 }

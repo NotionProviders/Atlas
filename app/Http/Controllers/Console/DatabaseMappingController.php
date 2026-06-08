@@ -7,9 +7,9 @@ use App\Enums\SnapshotType;
 use App\Http\Controllers\Controller;
 use App\Models\AtlasNode;
 use App\Models\CanonicalDatabase;
-use App\Models\CanonicalPlacement;
 use App\Models\DatabaseMapping;
 use App\Models\Project;
+use App\Services\MappingPropertySyncService;
 use App\Support\ProjectCanonicalTable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,21 +18,20 @@ use Illuminate\View\View;
 
 class DatabaseMappingController extends Controller
 {
+    public function __construct(
+        private readonly MappingPropertySyncService $propertySync,
+    ) {}
+
     public function index(Project $project): View
     {
-        return $this->renderIndex($project, null, null);
+        return $this->renderIndex($project, null);
     }
 
     public function indexWithDatabasePeek(Project $project, AtlasNode $atlasNode): View
     {
         $this->assertDatabaseNodeInBeforeSnapshot($project, $atlasNode);
 
-        return $this->renderIndex($project, $atlasNode, null);
-    }
-
-    public function indexWithCanonicalPeek(Project $project, CanonicalDatabase $canonicalDatabase): View
-    {
-        return $this->renderIndex($project, null, $canonicalDatabase);
+        return $this->renderIndex($project, $atlasNode);
     }
 
     public function databasePanel(Project $project, AtlasNode $atlasNode): View
@@ -60,7 +59,7 @@ class DatabaseMappingController extends Controller
 
         $hadMappings = $project->databaseMappings()->exists();
 
-        DatabaseMapping::query()->updateOrCreate(
+        $mapping = DatabaseMapping::query()->updateOrCreate(
             [
                 'project_id' => $project->id,
                 'atlas_node_id' => $validated['atlas_node_id'],
@@ -72,7 +71,9 @@ class DatabaseMappingController extends Controller
             ],
         );
 
-        $this->ensurePlacement($project, (int) $validated['canonical_database_id']);
+        if ($mapping->wasRecentlyCreated || $mapping->wasChanged('canonical_database_id')) {
+            $this->propertySync->syncFromCanonical($mapping);
+        }
 
         return $this->afterMappingSaved($project, $hadMappings, 'Mapping saved.');
     }
@@ -110,7 +111,7 @@ class DatabaseMappingController extends Controller
             ]);
         }
 
-        DatabaseMapping::query()->updateOrCreate(
+        $mapping = DatabaseMapping::query()->updateOrCreate(
             [
                 'project_id' => $project->id,
                 'atlas_node_id' => $validated['atlas_node_id'],
@@ -120,7 +121,9 @@ class DatabaseMappingController extends Controller
             ],
         );
 
-        $this->ensurePlacement($project, $canonical->id);
+        if ($mapping->wasRecentlyCreated || $mapping->wasChanged('canonical_database_id')) {
+            $this->propertySync->syncFromCanonical($mapping);
+        }
 
         $message = 'Mapped to "'.$canonical->name.'".'.($canonical->wasRecentlyCreated ? ' New canonical database added to this project.' : '');
 
@@ -138,7 +141,13 @@ class DatabaseMappingController extends Controller
         $validated = $request->validate([
             'notes' => ['nullable', 'string'],
             'migration_details' => ['nullable', 'string'],
+            'teamspace_node_id' => ['nullable', 'exists:atlas_nodes,id'],
+            'placement_notes' => ['nullable', 'string'],
         ]);
+
+        if ($validated['teamspace_node_id'] ?? null) {
+            $this->assertTeamspaceInCanonSnapshot($project, (int) $validated['teamspace_node_id']);
+        }
 
         $mapping->update($validated);
 
@@ -153,19 +162,14 @@ class DatabaseMappingController extends Controller
             ->where('atlas_node_id', $atlasNode->id)
             ->firstOrFail();
 
-        $canonicalId = $mapping->canonical_database_id;
         $mapping->delete();
-
-        if (! $project->databaseMappings()->where('canonical_database_id', $canonicalId)->exists()) {
-            $project->canonicalPlacements()->where('canonical_database_id', $canonicalId)->delete();
-        }
 
         return redirect()
             ->route('console.mappings.database.show', [$project, $atlasNode])
             ->with('status', 'Mapping removed.');
     }
 
-    private function renderIndex(Project $project, ?AtlasNode $openDatabaseNode, ?CanonicalDatabase $openCanonical): View
+    private function renderIndex(Project $project, ?AtlasNode $openDatabaseNode): View
     {
         $beforeSnapshot = $project->snapshots()->where('type', SnapshotType::Before)->first();
 
@@ -179,7 +183,7 @@ class DatabaseMappingController extends Controller
             : collect();
 
         $mappingsByNodeId = $project->databaseMappings()
-            ->with(['canonicalDatabase.properties', 'atlasNode'])
+            ->with(['canonicalDatabase', 'atlasNode', 'teamspaceNode'])
             ->get()
             ->keyBy('atlas_node_id');
 
@@ -200,7 +204,6 @@ class DatabaseMappingController extends Controller
             'canonicalDatabases',
             'projectCanonicalRows',
             'openDatabaseNode',
-            'openCanonical',
         ));
     }
 
@@ -213,7 +216,7 @@ class DatabaseMappingController extends Controller
 
         $mapping = $project->databaseMappings()
             ->where('atlas_node_id', $atlasNode->id)
-            ->with('canonicalDatabase.properties')
+            ->with(['canonicalDatabase', 'properties', 'teamspaceNode'])
             ->first();
 
         $canonicalDatabases = CanonicalDatabase::query()
@@ -223,7 +226,22 @@ class DatabaseMappingController extends Controller
             ->orderBy('name')
             ->get();
 
-        return compact('project', 'atlasNode', 'mapping', 'canonicalDatabases');
+        $teamspaces = $this->canonTeamspaces($project);
+
+        $mergedClientPropertyIds = $mapping
+            ? $mapping->properties->pluck('source_client_property_id')->filter()->all()
+            : [];
+
+        return compact(
+            'project',
+            'atlasNode',
+            'mapping',
+            'canonicalDatabases',
+            'teamspaces',
+            'mergedClientPropertyIds',
+        ) + [
+            'propertyTypes' => CanonicalDatabasePropertyController::PROPERTY_TYPES,
+        ];
     }
 
     private function afterMappingSaved(Project $project, bool $hadMappings, string $message): RedirectResponse
@@ -237,12 +255,34 @@ class DatabaseMappingController extends Controller
             ->with('status', $message);
     }
 
-    private function ensurePlacement(Project $project, int $canonicalDatabaseId): void
+    /** @return \Illuminate\Support\Collection<int, AtlasNode> */
+    private function canonTeamspaces(Project $project)
     {
-        CanonicalPlacement::query()->firstOrCreate([
-            'project_id' => $project->id,
-            'canonical_database_id' => $canonicalDatabaseId,
-        ]);
+        $canonSnapshot = $project->snapshots()->where('type', SnapshotType::Canon)->first();
+
+        if (! $canonSnapshot || $canonSnapshot->isEmpty()) {
+            return collect();
+        }
+
+        return AtlasNode::query()
+            ->where('snapshot_id', $canonSnapshot->id)
+            ->where('kind', NodeKind::Teamspace)
+            ->orderBy('label')
+            ->get();
+    }
+
+    private function assertTeamspaceInCanonSnapshot(Project $project, int $teamspaceNodeId): void
+    {
+        $canonSnapshot = $project->snapshots()->where('type', SnapshotType::Canon)->first();
+        abort_unless($canonSnapshot && ! $canonSnapshot->isEmpty(), 422);
+
+        $valid = AtlasNode::query()
+            ->where('id', $teamspaceNodeId)
+            ->where('snapshot_id', $canonSnapshot->id)
+            ->where('kind', NodeKind::Teamspace)
+            ->exists();
+
+        abort_unless($valid, 422);
     }
 
     private function assertDatabaseNodeInBeforeSnapshot(Project $project, AtlasNode $atlasNode): void

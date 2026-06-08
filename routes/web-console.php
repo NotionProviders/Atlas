@@ -9,6 +9,7 @@ use App\Http\Controllers\Console\CanonicalDatabasePropertyController;
 use App\Http\Controllers\Console\CanonicalDatabaseController;
 use App\Http\Controllers\Console\DashboardController;
 use App\Http\Controllers\Console\DatabaseMappingController;
+use App\Http\Controllers\Console\DatabaseMappingPropertyController;
 use App\Http\Controllers\Console\ProjectController;
 use App\Http\Controllers\Console\SnapshotController;
 use Illuminate\Support\Facades\Route;
@@ -55,8 +56,6 @@ Route::middleware('auth')->group(function () {
         ->name('console.canonical.show');
     Route::put('canonical-databases/{canonicalDatabase:slug}', [CanonicalDatabaseController::class, 'update'])
         ->name('console.canonical.update');
-    Route::put('canonical-databases/{canonicalDatabase:slug}/placement', [CanonicalDatabaseController::class, 'updatePlacement'])
-        ->name('console.canonical.placement.update');
     Route::post('canonical-databases', [CanonicalDatabaseController::class, 'store'])
         ->name('console.canonical.store');
     Route::post('canonical-databases/{canonicalDatabase:slug}/properties', [CanonicalDatabasePropertyController::class, 'store'])
@@ -94,14 +93,20 @@ Route::middleware('auth')->group(function () {
         ->name('console.mappings.database.peek-page');
     Route::get('projects/{project:slug}/mappings/c/database/{atlasNode}/panel', [DatabaseMappingController::class, 'databasePanel'])
         ->name('console.mappings.database.panel');
-    Route::get('projects/{project:slug}/mappings/c/canonical/{canonicalDatabase:slug}', [DatabaseMappingController::class, 'indexWithCanonicalPeek'])
-        ->name('console.mappings.canonical.peek-page');
     Route::get('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'databaseShow'])
         ->name('console.mappings.database.show');
     Route::put('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'updateDatabaseMapping'])
         ->name('console.mappings.database.update');
     Route::delete('projects/{project:slug}/mappings/database/{atlasNode}', [DatabaseMappingController::class, 'destroyDatabaseMapping'])
         ->name('console.mappings.database.destroy');
+    Route::post('projects/{project:slug}/mappings/database/{atlasNode}/properties', [DatabaseMappingPropertyController::class, 'store'])
+        ->name('console.mappings.database.properties.store');
+    Route::post('projects/{project:slug}/mappings/database/{atlasNode}/properties/merge/{clientProperty}', [DatabaseMappingPropertyController::class, 'mergeClient'])
+        ->name('console.mappings.database.properties.merge');
+    Route::put('projects/{project:slug}/mappings/database/{atlasNode}/properties/{property}', [DatabaseMappingPropertyController::class, 'update'])
+        ->name('console.mappings.database.properties.update');
+    Route::delete('projects/{project:slug}/mappings/database/{atlasNode}/properties/{property}', [DatabaseMappingPropertyController::class, 'destroy'])
+        ->name('console.mappings.database.properties.destroy');
 
     Route::post('projects/{project:slug}/mappings', [DatabaseMappingController::class, 'store'])
         ->name('console.mappings.store');

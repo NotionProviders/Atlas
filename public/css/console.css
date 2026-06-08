@@ -994,6 +994,10 @@ body.canonical-modal-open { overflow: hidden; }
     margin-bottom: 1rem;
 }
 
+.mapping-prop-locked {
+    border-color: rgba(59, 130, 246, 0.35);
+}
+
 .canonical-prop-row {
     display: flex;
     align-items: center;
@@ -1004,6 +1008,43 @@ body.canonical-modal-open { overflow: hidden; }
     border-radius: 8px;
     background: rgba(15, 23, 42, 0.35);
 }
+
+.mapping-prop-notes-input {
+    flex: 1 1 10rem;
+    min-width: 8rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--console-border);
+    border-radius: 6px;
+    background: var(--console-bg);
+    color: var(--console-text);
+    font: inherit;
+}
+
+.mapping-canonical-ref {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.mapping-client-prop-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mapping-client-prop-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mapping-client-prop-merge-form {
+    margin: 0;
+}
+
 
 .canonical-prop-edit-form {
     display: flex;

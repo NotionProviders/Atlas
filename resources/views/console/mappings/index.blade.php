@@ -49,7 +49,7 @@
     </table>
 
     <h2 class="console-section-title">Canonical table</h2>
-    <p class="console-muted mappings-canonical-intro">Canonical databases mapped for this project. Assign a teamspace when ready — they will appear in the Canonical atlas view once placed.</p>
+    <p class="console-muted mappings-canonical-intro">Reference list of canonical templates used in this project. Migration work happens in the Before → Canonical rows above.</p>
 
     @if ($projectCanonicalRows->isEmpty())
         <p class="console-muted">No mappings yet. Select or create a canonical target above.</p>
@@ -60,8 +60,7 @@
                     <th>Canonical database</th>
                     <th>Source</th>
                     <th>Client mappings</th>
-                    <th>Teamspace</th>
-                    <th class="canonical-col-info" aria-label="Details"></th>
+                    <th>Template</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,9 +80,6 @@
      @if ($openDatabaseNode)
          data-open-panel-url="{{ route('console.mappings.database.panel', [$project, $openDatabaseNode]) }}"
          data-open-peek-url="{{ route('console.mappings.database.peek-page', [$project, $openDatabaseNode]) }}"
-     @elseif ($openCanonical)
-         data-open-panel-url="{{ route('console.canonical.panel', ['canonicalDatabase' => $openCanonical, 'project' => $project->slug]) }}"
-         data-open-peek-url="{{ route('console.mappings.canonical.peek-page', [$project, $openCanonical]) }}"
      @endif>
     <button type="button" class="canonical-modal-backdrop" aria-label="Close details"></button>
     <div class="canonical-modal-slot" id="mapping-modal-slot"></div>

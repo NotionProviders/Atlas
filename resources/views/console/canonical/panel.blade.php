@@ -1,11 +1,6 @@
-@php
-    $showParams = $project
-        ? ['canonicalDatabase' => $canonicalDatabase, 'project' => $project->slug]
-        : ['canonicalDatabase' => $canonicalDatabase];
-@endphp
 <div class="canonical-peek">
     <header class="canonical-peek-header">
-        <a href="{{ route('console.canonical.show', $showParams) }}"
+        <a href="{{ route('console.canonical.show', $canonicalDatabase) }}"
            class="canonical-peek-expand"
            aria-label="Open full page"
            title="Open full page">

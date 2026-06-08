@@ -6,6 +6,8 @@ use App\Enums\NodeKind;
 use App\Enums\SnapshotType;
 use App\Models\AtlasNode;
 use App\Models\CanonicalDatabase;
+use App\Models\CanonicalDatabaseProperty;
+use App\Models\DatabaseMapping;
 use App\Models\Project;
 use App\Models\Snapshot;
 use App\Models\User;
@@ -43,15 +45,45 @@ class DatabaseMappingTest extends TestCase
             'atlas_node_id' => $node->id,
             'canonical_database_id' => $canonical->id,
         ]);
+    }
 
-        $this->assertDatabaseHas('canonical_placements', [
-            'project_id' => $project->id,
+    public function test_mapping_copies_canonical_properties_into_migration_schema(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
+        $snapshot = Snapshot::query()->create(['project_id' => $project->id, 'type' => SnapshotType::Before]);
+        $node = AtlasNode::query()->create([
+            'snapshot_id' => $snapshot->id,
+            'kind' => NodeKind::Database,
+            'label' => 'People',
+        ]);
+        $canonical = CanonicalDatabase::query()->create([
+            'name' => 'Contacts',
+            'slug' => 'contacts',
+        ]);
+        CanonicalDatabaseProperty::query()->create([
             'canonical_database_id' => $canonical->id,
-            'teamspace_node_id' => null,
+            'name' => 'Email',
+            'property_type' => 'email',
+            'sort_order' => 0,
+        ]);
+
+        $this->actingAs($user)->post('/console/projects/test/mappings', [
+            'atlas_node_id' => $node->id,
+            'canonical_database_id' => $canonical->id,
+        ]);
+
+        $mapping = DatabaseMapping::query()->where('atlas_node_id', $node->id)->first();
+        $this->assertNotNull($mapping);
+        $this->assertDatabaseHas('database_mapping_properties', [
+            'database_mapping_id' => $mapping->id,
+            'name' => 'Email',
+            'source' => 'canonical',
+            'is_locked' => true,
         ]);
     }
 
-    public function test_mappings_page_shows_canonical_table_with_pending_teamspace(): void
+    public function test_mappings_page_shows_canonical_reference_table(): void
     {
         $user = User::factory()->create();
         $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
@@ -77,7 +109,32 @@ class DatabaseMappingTest extends TestCase
             ->assertOk()
             ->assertSee('Canonical table')
             ->assertSee('Not in template')
-            ->assertSee('Pending teamspace');
+            ->assertSee('View template');
+    }
+
+    public function test_database_mapping_page_shows_teamspace_form_when_mapped(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
+        $snapshot = Snapshot::query()->create(['project_id' => $project->id, 'type' => SnapshotType::Before]);
+        $node = AtlasNode::query()->create([
+            'snapshot_id' => $snapshot->id,
+            'kind' => NodeKind::Database,
+            'label' => 'People',
+        ]);
+        $canonical = CanonicalDatabase::query()->create(['name' => 'Contacts', 'slug' => 'contacts']);
+
+        $this->actingAs($user)->post('/console/projects/test/mappings', [
+            'atlas_node_id' => $node->id,
+            'canonical_database_id' => $canonical->id,
+        ]);
+
+        $this->actingAs($user)
+            ->get('/console/projects/test/mappings/database/'.$node->id)
+            ->assertOk()
+            ->assertSee('Migration schema')
+            ->assertSee('Teamspace')
+            ->assertSee('Canonical snapshot not imported yet');
     }
 
     public function test_first_mapping_redirects_to_canonical_table(): void
@@ -166,6 +223,22 @@ class DatabaseMappingTest extends TestCase
             ->get('/console/projects/test/mappings/c/database/'.$node->id.'/panel')
             ->assertOk()
             ->assertSee('Unmapped DB')
-            ->assertSee('Select or create a canonical target above');
+            ->assertSee('begin building the migration schema');
+    }
+
+    public function test_canonical_registry_page_does_not_show_notion_export_id(): void
+    {
+        $user = User::factory()->create();
+        $canonical = CanonicalDatabase::query()->create([
+            'name' => 'Contacts',
+            'slug' => 'contacts',
+            'notion_export_id' => '29e46b5708ad81a4b29bc7dd96c7ce6e',
+        ]);
+
+        $this->actingAs($user)
+            ->get('/console/canonical-databases/'.$canonical->slug)
+            ->assertOk()
+            ->assertDontSee('Notion export ID')
+            ->assertDontSee('29e46b5708ad81a4b29bc7dd96c7ce6e');
     }
 }
