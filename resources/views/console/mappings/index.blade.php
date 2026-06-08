@@ -48,6 +48,7 @@
                 <th class="mapping-col-client">Client database (Before)</th>
                 <th class="mapping-col-arrow"></th>
                 <th class="mapping-col-canonical">Maps to (Canonical)</th>
+                <th class="mapping-col-meta">Source / properties</th>
                 <th class="mapping-col-actions" aria-label="Actions"></th>
             </tr>
         </thead>

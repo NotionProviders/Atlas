@@ -168,9 +168,7 @@ class DatabaseMappingController extends Controller
 
         $mapping->delete();
 
-        return redirect()
-            ->route('console.mappings.database.show', [$project, $atlasNode])
-            ->with('status', 'Mapping removed.');
+        return back()->with('status', 'Mapping removed.');
     }
 
     private function renderIndex(Project $project, ?AtlasNode $openDatabaseNode): View

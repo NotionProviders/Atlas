@@ -15,15 +15,26 @@ class ProjectTeamspaceController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'notes' => ['nullable', 'string'],
+            'assign_atlas_node_id' => ['nullable', 'integer', 'exists:atlas_nodes,id'],
         ]);
 
         $sortOrder = (int) $project->teamspaces()->max('sort_order') + 1;
 
-        $project->teamspaces()->create([
+        $teamspace = $project->teamspaces()->create([
             'name' => trim($validated['name']),
             'notes' => $validated['notes'] ?? null,
             'sort_order' => $sortOrder,
         ]);
+
+        if ($assignNodeId = $validated['assign_atlas_node_id'] ?? null) {
+            $mapping = $project->databaseMappings()
+                ->where('atlas_node_id', $assignNodeId)
+                ->first();
+
+            if ($mapping) {
+                $mapping->update(['project_teamspace_id' => $teamspace->id]);
+            }
+        }
 
         return back()->with('status', 'Teamspace "'.trim($validated['name']).'" added.');
     }

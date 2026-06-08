@@ -13,8 +13,12 @@
             'node' => $node,
             'mapping' => $mapping,
             'canonicalDatabases' => $canonicalDatabases,
+            'showMeta' => false,
         ])
     </td>
+    @include('console.mappings.partials.canonical-combobox-meta', [
+        'mapping' => $mapping,
+    ])
     <td class="mapping-col-actions">
         <div class="mapping-row-actions">
             @if ($mapping)

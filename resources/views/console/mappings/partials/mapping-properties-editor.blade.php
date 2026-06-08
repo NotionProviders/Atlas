@@ -1,6 +1,34 @@
 <section class="mapping-schema-section">
     <div class="mapping-schema-header">
         <h3>Migration schema <span class="console-muted">({{ $mapping->properties->count() }})</span></h3>
+        @if ($atlasNode->databaseProperties->isNotEmpty())
+            <details class="mapping-client-props-menu">
+                <summary class="console-btn console-btn-sm">Client properties</summary>
+                <div class="mapping-client-props-panel">
+                    <p class="console-muted">Add properties from the Before database into the migration schema.</p>
+                    <ul class="mapping-client-props-panel-list">
+                        @foreach ($atlasNode->databaseProperties as $clientProp)
+                            <li class="mapping-client-props-panel-item @if (in_array($clientProp->id, $mergedClientPropertyIds, true)) is-merged @endif">
+                                <div class="mapping-client-props-panel-info">
+                                    <strong>{{ $clientProp->name }}</strong>
+                                    <span class="console-tag">{{ $clientProp->property_type }}</span>
+                                </div>
+                                @if (in_array($clientProp->id, $mergedClientPropertyIds, true))
+                                    <span class="console-tag console-tag-ok">In schema</span>
+                                @else
+                                    <form method="POST"
+                                          action="{{ route('console.mappings.database.properties.merge', [$project, $atlasNode, $clientProp]) }}"
+                                          class="mapping-client-prop-merge-form">
+                                        @csrf
+                                        <button type="submit" class="console-btn console-btn-sm">Add to schema</button>
+                                    </form>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </details>
+        @endif
     </div>
 
     @if ($mapping->properties->isEmpty())
@@ -21,7 +49,7 @@
                             @endforeach
                         </select>
                         @if ($prop->source === 'canonical')
-                            <span class="console-tag" title="Copied from canonical template">Canonical</span>
+                            <span class="console-tag console-tag-canonical" title="Copied from canonical template">Canonical</span>
                         @elseif ($prop->source === 'client')
                             <span class="console-tag console-tag-warn" title="Merged from client database">Client</span>
                         @else

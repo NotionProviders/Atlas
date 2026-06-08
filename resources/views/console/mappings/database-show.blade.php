@@ -12,17 +12,7 @@
 @endsection
 
 @section('content')
-<div class="mapping-page-toolbar">
-    <h1 class="mapping-page-title">
-        {{ $atlasNode->label }}@if ($mapping)<span class="mapping-page-arrow">→</span>{{ $mapping->canonicalDatabase->name }}@endif
-    </h1>
-    <div class="mapping-page-actions">
-        <a href="{{ route('console.mappings.database.peek-page', [$project, $atlasNode]) }}" class="console-btn console-btn-sm">Center peek</a>
-        <a href="{{ route('console.mappings.index', $project) }}" class="console-btn console-btn-sm">Back</a>
-    </div>
-</div>
-
-@include('console.mappings.partials.database-details')
+@include('console.mappings.partials.database-details', ['peekMode' => false])
 
 <div id="mapping-modal"
      class="canonical-modal hidden"

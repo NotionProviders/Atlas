@@ -1,48 +1,9 @@
 <div class="mapping-workspace">
+    @include('console.mappings.partials.mapping-row-header', [
+        'peekMode' => $peekMode ?? false,
+    ])
+
     @if ($mapping)
-        <div class="mapping-workspace-top">
-            <div class="mapping-workspace-fields">
-                <div class="mapping-workspace-field">
-                    <span class="mapping-workspace-label">Before</span>
-                    <strong>{{ $atlasNode->label }}</strong>
-                </div>
-                <div class="mapping-workspace-field mapping-workspace-field-grow">
-                    <span class="mapping-workspace-label">Canonical</span>
-                    @include('console.mappings.partials.canonical-combobox', [
-                        'node' => $atlasNode,
-                        'mapping' => $mapping,
-                        'canonicalDatabases' => $canonicalDatabases,
-                    ])
-                </div>
-                <div class="mapping-workspace-field">
-                    <span class="mapping-workspace-label">Teamspace</span>
-                    @include('console.mappings.partials.mapping-teamspace-form')
-                </div>
-            </div>
-        </div>
-
-        @if ($atlasNode->databaseProperties->isNotEmpty())
-            <div class="mapping-client-props-compact">
-                <span class="mapping-workspace-label">Client properties</span>
-                <ul class="mapping-client-prop-chips">
-                    @foreach ($atlasNode->databaseProperties as $clientProp)
-                        <li class="mapping-client-prop-chip @if (in_array($clientProp->id, $mergedClientPropertyIds, true)) is-merged @endif">
-                            <span>{{ $clientProp->name }}</span>
-                            <span class="console-tag">{{ $clientProp->property_type }}</span>
-                            @if (! in_array($clientProp->id, $mergedClientPropertyIds, true))
-                                <form method="POST"
-                                      action="{{ route('console.mappings.database.properties.merge', [$project, $atlasNode, $clientProp]) }}"
-                                      class="mapping-client-prop-merge-form">
-                                    @csrf
-                                    <button type="submit" class="console-link-btn">+ schema</button>
-                                </form>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         @include('console.mappings.partials.mapping-properties-editor')
 
         <details class="mapping-notes-details">
@@ -73,27 +34,6 @@
             <button type="submit" class="console-link-btn console-link-danger">Remove mapping</button>
         </form>
     @else
-        <div class="mapping-workspace-top">
-            <div class="mapping-workspace-fields">
-                <div class="mapping-workspace-field">
-                    <span class="mapping-workspace-label">Before</span>
-                    <strong>{{ $atlasNode->label }}</strong>
-                </div>
-                <div class="mapping-workspace-field mapping-workspace-field-grow">
-                    <span class="mapping-workspace-label">Canonical</span>
-                    @include('console.mappings.partials.canonical-combobox', [
-                        'node' => $atlasNode,
-                        'mapping' => $mapping,
-                        'canonicalDatabases' => $canonicalDatabases,
-                    ])
-                </div>
-            </div>
-        </div>
-
-        @if ($atlasNode->databaseProperties->isNotEmpty())
-            <p class="console-muted mapping-props-hint">{{ $atlasNode->databaseProperties->pluck('name')->join(', ') }}</p>
-        @endif
-
-        <p class="console-muted">Select or create a canonical target to begin building the migration schema.</p>
+        <p class="console-muted mapping-unmapped-hint">Select or create a canonical target to begin building the migration schema.</p>
     @endif
 </div>
