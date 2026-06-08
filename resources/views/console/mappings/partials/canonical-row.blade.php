@@ -3,7 +3,7 @@
 @endphp
 <tr>
     <td>
-        <a href="{{ route('console.canonical.show', $canonical) }}" class="canonical-name-link" target="_blank" rel="noopener">{{ $canonical->name }}</a>
+        <span class="canonical-name-static">{{ $canonical->name }}</span>
     </td>
     <td>
         @if ($canonical->is_custom)
@@ -19,7 +19,9 @@
             @endforeach
         </span>
     </td>
-    <td>
-        <a href="{{ route('console.canonical.show', $canonical) }}" class="console-btn" target="_blank" rel="noopener">View template</a>
+    <td class="mapping-col-actions">
+        <div class="mapping-row-actions">
+            @include('console.mappings.partials.canonical-template-btn', ['canonical' => $canonical])
+        </div>
     </td>
 </tr>

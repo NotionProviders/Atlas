@@ -79,7 +79,72 @@ class DatabaseMappingTest extends TestCase
             'database_mapping_id' => $mapping->id,
             'name' => 'Email',
             'source' => 'canonical',
-            'is_locked' => true,
+        ]);
+    }
+
+    public function test_canonical_migration_property_can_be_removed(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
+        $snapshot = Snapshot::query()->create(['project_id' => $project->id, 'type' => SnapshotType::Before]);
+        $node = AtlasNode::query()->create([
+            'snapshot_id' => $snapshot->id,
+            'kind' => NodeKind::Database,
+            'label' => 'People',
+        ]);
+        $canonical = CanonicalDatabase::query()->create(['name' => 'Contacts', 'slug' => 'contacts']);
+        CanonicalDatabaseProperty::query()->create([
+            'canonical_database_id' => $canonical->id,
+            'name' => 'Email',
+            'property_type' => 'email',
+            'sort_order' => 0,
+        ]);
+
+        $this->actingAs($user)->post('/console/projects/test/mappings', [
+            'atlas_node_id' => $node->id,
+            'canonical_database_id' => $canonical->id,
+        ]);
+
+        $mapping = DatabaseMapping::query()->where('atlas_node_id', $node->id)->firstOrFail();
+        $property = $mapping->properties()->where('name', 'Email')->firstOrFail();
+
+        $this->actingAs($user)
+            ->delete('/console/projects/test/mappings/database/'.$node->id.'/properties/'.$property->id)
+            ->assertRedirect();
+
+        $this->assertDatabaseMissing('database_mapping_properties', ['id' => $property->id]);
+    }
+
+    public function test_project_teamspace_can_be_assigned_on_mapping_page(): void
+    {
+        $user = User::factory()->create();
+        $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
+        $snapshot = Snapshot::query()->create(['project_id' => $project->id, 'type' => SnapshotType::Before]);
+        $node = AtlasNode::query()->create([
+            'snapshot_id' => $snapshot->id,
+            'kind' => NodeKind::Database,
+            'label' => 'People',
+        ]);
+        $canonical = CanonicalDatabase::query()->create(['name' => 'Contacts', 'slug' => 'contacts']);
+
+        $this->actingAs($user)->post('/console/projects/test/mappings', [
+            'atlas_node_id' => $node->id,
+            'canonical_database_id' => $canonical->id,
+        ]);
+
+        $this->actingAs($user)->post('/console/projects/test/teamspaces', [
+            'name' => 'Marketing',
+        ]);
+
+        $teamspaceId = $project->fresh()->teamspaces()->value('id');
+
+        $this->actingAs($user)->put('/console/projects/test/mappings/database/'.$node->id, [
+            'project_teamspace_id' => $teamspaceId,
+        ])->assertRedirect();
+
+        $this->assertDatabaseHas('database_mappings', [
+            'atlas_node_id' => $node->id,
+            'project_teamspace_id' => $teamspaceId,
         ]);
     }
 
@@ -109,10 +174,10 @@ class DatabaseMappingTest extends TestCase
             ->assertOk()
             ->assertSee('Canonical table')
             ->assertSee('Not in template')
-            ->assertSee('View template');
+            ->assertSee('canonical-template-btn', false);
     }
 
-    public function test_database_mapping_page_shows_teamspace_form_when_mapped(): void
+    public function test_database_mapping_page_shows_teamspace_selector_when_mapped(): void
     {
         $user = User::factory()->create();
         $project = Project::query()->create(['name' => 'Test', 'slug' => 'test']);
@@ -129,12 +194,13 @@ class DatabaseMappingTest extends TestCase
             'canonical_database_id' => $canonical->id,
         ]);
 
+        $this->actingAs($user)->post('/console/projects/test/teamspaces', ['name' => 'Marketing']);
+
         $this->actingAs($user)
             ->get('/console/projects/test/mappings/database/'.$node->id)
             ->assertOk()
             ->assertSee('Migration schema')
-            ->assertSee('Teamspace')
-            ->assertSee('Canonical snapshot not imported yet');
+            ->assertSee('Marketing');
     }
 
     public function test_first_mapping_redirects_to_canonical_table(): void

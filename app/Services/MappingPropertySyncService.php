@@ -20,7 +20,7 @@ class MappingPropertySyncService
                 'name' => $prop->name,
                 'property_type' => $prop->property_type,
                 'source' => DatabaseMappingProperty::SOURCE_CANONICAL,
-                'is_locked' => true,
+                'is_locked' => false,
                 'source_canonical_property_id' => $prop->id,
                 'is_title' => $prop->is_title,
                 'sort_order' => $index,

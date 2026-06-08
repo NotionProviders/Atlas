@@ -10,14 +10,13 @@
 @endsection
 
 @section('content')
-<div class="console-page-header">
+<div class="console-page-header console-page-header-compact">
     <div>
         <h1>Database mappings</h1>
-        <p class="console-muted">Map each client database (Before) to a canonical target. New canonical databases created here appear in the Canonical table until assigned to a teamspace.</p>
     </div>
     <div class="console-page-actions">
-        <a href="{{ route('console.canonical.index') }}" class="console-btn">Global registry</a>
-        <a href="{{ route('console.projects.show', $project) }}" class="console-btn">Back to project</a>
+        <a href="{{ route('console.canonical.index') }}" class="console-btn console-btn-sm">Global registry</a>
+        <a href="{{ route('console.projects.show', $project) }}" class="console-btn console-btn-sm">Back</a>
     </div>
 </div>
 
@@ -26,6 +25,22 @@
 @elseif ($clientDatabases->isEmpty())
     <p class="console-muted">No databases found in the Before snapshot.</p>
 @else
+    <section class="project-teamspaces-bar">
+        <div class="project-teamspaces-list">
+            <span class="mapping-workspace-label">Teamspaces</span>
+            @forelse ($projectTeamspaces as $teamspace)
+                <span class="console-tag">{{ $teamspace->name }}</span>
+            @empty
+                <span class="console-muted">None yet — add one to assign mappings</span>
+            @endforelse
+        </div>
+        <form method="POST" action="{{ route('console.teamspaces.store', $project) }}" class="project-teamspace-add-form">
+            @csrf
+            <input type="text" name="name" placeholder="New teamspace name" required class="project-teamspace-input" aria-label="Teamspace name">
+            <button type="submit" class="console-btn console-btn-sm">Add</button>
+        </form>
+    </section>
+
     <h2 class="console-section-title">Before → Canonical</h2>
     <table class="workspace-table mapping-table">
         <thead>
@@ -33,7 +48,7 @@
                 <th class="mapping-col-client">Client database (Before)</th>
                 <th class="mapping-col-arrow"></th>
                 <th class="mapping-col-canonical">Maps to (Canonical)</th>
-                <th class="mapping-col-info" aria-label="Details"></th>
+                <th class="mapping-col-actions" aria-label="Actions"></th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +75,7 @@
                     <th>Canonical database</th>
                     <th>Source</th>
                     <th>Client mappings</th>
-                    <th>Template</th>
+                    <th class="mapping-col-actions" aria-label="Template"></th>
                 </tr>
             </thead>
             <tbody>

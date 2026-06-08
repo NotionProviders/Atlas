@@ -30,7 +30,7 @@
                 <th>Canonical database</th>
                 <th>Source</th>
                 <th>Client mappings</th>
-                <th>Template</th>
+                <th class="mapping-col-actions" aria-label="Template"></th>
             </tr>
         </thead>
         <tbody>
@@ -40,4 +40,17 @@
         </tbody>
     </table>
 @endif
+
+<div id="mapping-modal"
+     class="canonical-modal hidden"
+     role="dialog"
+     aria-modal="true"
+     data-index-url="{{ route('console.snapshots.show', [$project, 'canon', 'view' => 'table']) }}">
+    <button type="button" class="canonical-modal-backdrop" aria-label="Close details"></button>
+    <div class="canonical-modal-slot" id="mapping-modal-slot"></div>
+</div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/mapping-modal.js') }}?v={{ @filemtime(public_path('js/mapping-modal.js')) ?: 1 }}" defer></script>
+@endpush

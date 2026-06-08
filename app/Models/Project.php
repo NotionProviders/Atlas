@@ -47,4 +47,10 @@ class Project extends Model
     {
         return $this->hasMany(CanonicalPlacement::class);
     }
+
+    /** @return HasMany<ProjectTeamspace, $this> */
+    public function teamspaces(): HasMany
+    {
+        return $this->hasMany(ProjectTeamspace::class)->orderBy('sort_order')->orderBy('name');
+    }
 }

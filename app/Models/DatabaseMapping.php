@@ -14,7 +14,7 @@ class DatabaseMapping extends Model
         'canonical_database_id',
         'notes',
         'migration_details',
-        'teamspace_node_id',
+        'project_teamspace_id',
         'placement_notes',
     ];
 
@@ -36,10 +36,10 @@ class DatabaseMapping extends Model
         return $this->belongsTo(CanonicalDatabase::class);
     }
 
-    /** @return BelongsTo<AtlasNode, $this> */
-    public function teamspaceNode(): BelongsTo
+    /** @return BelongsTo<ProjectTeamspace, $this> */
+    public function projectTeamspace(): BelongsTo
     {
-        return $this->belongsTo(AtlasNode::class, 'teamspace_node_id');
+        return $this->belongsTo(ProjectTeamspace::class);
     }
 
     /** @return HasMany<DatabaseMappingProperty, $this> */
@@ -50,6 +50,6 @@ class DatabaseMapping extends Model
 
     public function isAssignedToTeamspace(): bool
     {
-        return $this->teamspace_node_id !== null;
+        return $this->project_teamspace_id !== null;
     }
 }

@@ -102,14 +102,6 @@ class DatabaseMappingPropertyController extends Controller
         $mapping = $this->mappingForNode($project, $atlasNode);
         abort_unless($property->database_mapping_id === $mapping->id, 404);
 
-        if ($property->is_locked) {
-            return back()->withErrors(['property' => 'Template properties copied from the canonical database cannot be removed.']);
-        }
-
-        if ($property->is_title) {
-            return back()->withErrors(['property' => 'The title property cannot be removed.']);
-        }
-
         $name = $property->name;
         $property->delete();
 

@@ -1,17 +1,14 @@
-<section class="canonical-details-section">
-    <div class="canonical-props-header">
-        <h3>Migration schema ({{ $mapping->properties->count() }})</h3>
-        <p class="console-muted canonical-props-help">
-            Properties copied from the canonical template are locked and cannot be removed. Add custom properties or merge client properties above.
-        </p>
+<section class="mapping-schema-section">
+    <div class="mapping-schema-header">
+        <h3>Migration schema <span class="console-muted">({{ $mapping->properties->count() }})</span></h3>
     </div>
 
     @if ($mapping->properties->isEmpty())
         <p class="console-muted">No properties yet. Re-select the canonical target if the template should have properties.</p>
     @else
-        <div class="canonical-prop-list">
+        <div class="canonical-prop-list mapping-schema-list">
             @foreach ($mapping->properties as $prop)
-                <div class="canonical-prop-row @if ($prop->is_locked) mapping-prop-locked @endif">
+                <div class="canonical-prop-row">
                     <form method="POST"
                           action="{{ route('console.mappings.database.properties.update', [$project, $atlasNode, $prop]) }}"
                           class="canonical-prop-edit-form">
@@ -24,14 +21,11 @@
                             @endforeach
                         </select>
                         @if ($prop->source === 'canonical')
-                            <span class="console-tag" title="Copied from canonical template">Template</span>
+                            <span class="console-tag" title="Copied from canonical template">Canonical</span>
                         @elseif ($prop->source === 'client')
                             <span class="console-tag console-tag-warn" title="Merged from client database">Client</span>
                         @else
                             <span class="console-tag console-tag-ok">Custom</span>
-                        @endif
-                        @if ($prop->is_title)
-                            <span class="console-tag console-tag-ok">Title</span>
                         @endif
                         <input type="text"
                                name="merge_notes"
@@ -41,16 +35,14 @@
                                aria-label="Merge notes">
                         <button type="submit" class="console-btn">Save</button>
                     </form>
-                    @if (! $prop->is_locked && ! $prop->is_title)
-                        <form method="POST"
-                              action="{{ route('console.mappings.database.properties.destroy', [$project, $atlasNode, $prop]) }}"
-                              class="canonical-prop-delete-form"
-                              onsubmit="return confirm('Remove this property from the migration schema?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="console-link-btn console-link-danger">Remove</button>
-                        </form>
-                    @endif
+                    <form method="POST"
+                          action="{{ route('console.mappings.database.properties.destroy', [$project, $atlasNode, $prop]) }}"
+                          class="canonical-prop-delete-form"
+                          onsubmit="return confirm('Remove this property from the migration schema?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="console-link-btn console-link-danger">Remove</button>
+                    </form>
                 </div>
             @endforeach
         </div>

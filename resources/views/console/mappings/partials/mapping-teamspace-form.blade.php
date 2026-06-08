@@ -1,35 +1,19 @@
-<section class="canonical-details-section">
-    <h3>Teamspace</h3>
-    <p class="console-muted">Where this database will live in the Canonical workspace for this client.</p>
-    <form method="POST" action="{{ route('console.mappings.database.update', [$project, $atlasNode]) }}" class="console-form">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="notes" value="{{ $mapping->notes }}">
-        <input type="hidden" name="migration_details" value="{{ $mapping->migration_details }}">
-        <label>
-            <span>Teamspace</span>
-            @if ($teamspaces->isEmpty())
-                <select name="teamspace_node_id" disabled>
-                    <option>Import a Canonical snapshot with teamspaces first</option>
-                </select>
-                <span class="console-muted">Canonical snapshot not imported yet — teamspace can be set later.</span>
-            @else
-                <select name="teamspace_node_id">
-                    <option value="">Pending teamspace…</option>
-                    @foreach ($teamspaces as $teamspace)
-                        <option value="{{ $teamspace->id }}" @selected($mapping->teamspace_node_id === $teamspace->id)>
-                            {{ $teamspace->label }}
-                        </option>
-                    @endforeach
-                </select>
-            @endif
-        </label>
-        <label>
-            <span>Placement notes</span>
-            <textarea name="placement_notes" rows="3" placeholder="Where this database lives in the target workspace…">{{ old('placement_notes', $mapping->placement_notes) }}</textarea>
-        </label>
-        @if ($teamspaces->isNotEmpty())
-            <button type="submit" class="console-btn console-btn-primary">Save teamspace</button>
-        @endif
-    </form>
-</section>
+<form method="POST" action="{{ route('console.mappings.database.update', [$project, $atlasNode]) }}" class="mapping-teamspace-inline">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="notes" value="{{ $mapping->notes }}">
+    <input type="hidden" name="migration_details" value="{{ $mapping->migration_details }}">
+    <input type="hidden" name="placement_notes" value="{{ $mapping->placement_notes }}">
+    @if ($projectTeamspaces->isEmpty())
+        <span class="console-muted">Add a teamspace below first</span>
+    @else
+        <select name="project_teamspace_id" class="mapping-teamspace-select" onchange="this.form.submit()">
+            <option value="">Unassigned…</option>
+            @foreach ($projectTeamspaces as $teamspace)
+                <option value="{{ $teamspace->id }}" @selected($mapping->project_teamspace_id === $teamspace->id)>
+                    {{ $teamspace->name }}
+                </option>
+            @endforeach
+        </select>
+    @endif
+</form>

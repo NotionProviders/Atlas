@@ -11,6 +11,7 @@ use App\Http\Controllers\Console\DashboardController;
 use App\Http\Controllers\Console\DatabaseMappingController;
 use App\Http\Controllers\Console\DatabaseMappingPropertyController;
 use App\Http\Controllers\Console\ProjectController;
+use App\Http\Controllers\Console\ProjectTeamspaceController;
 use App\Http\Controllers\Console\SnapshotController;
 use Illuminate\Support\Facades\Route;
 
@@ -112,4 +113,9 @@ Route::middleware('auth')->group(function () {
         ->name('console.mappings.store');
     Route::post('projects/{project:slug}/mappings/quick-canonical', [DatabaseMappingController::class, 'quickCanonical'])
         ->name('console.mappings.quick-canonical');
+
+    Route::post('projects/{project:slug}/teamspaces', [ProjectTeamspaceController::class, 'store'])
+        ->name('console.teamspaces.store');
+    Route::delete('projects/{project:slug}/teamspaces/{teamspace}', [ProjectTeamspaceController::class, 'destroy'])
+        ->name('console.teamspaces.destroy');
 });

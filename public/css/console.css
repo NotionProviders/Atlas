@@ -1090,6 +1090,18 @@ body.canonical-modal-open { overflow: hidden; }
     font-size: 0.875rem;
 }
 
+.mapping-col-actions {
+    width: 5.5rem;
+    text-align: right;
+}
+
+.mapping-row-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+}
+
 .mapping-col-info {
     width: 3.25rem;
     text-align: center;
@@ -1200,3 +1212,191 @@ body.canonical-modal-open { overflow: hidden; }
 .canonical-project-table {
     margin-bottom: 2rem;
 }
+
+.console-page-header-compact {
+    margin-bottom: 0.75rem;
+}
+
+.console-page-header-compact h1 {
+    margin-bottom: 0;
+}
+
+.console-btn-sm {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8125rem;
+}
+
+.project-teamspaces-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--console-border);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.35);
+}
+
+.project-teamspaces-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.project-teamspace-add-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.project-teamspace-input {
+    padding: 0.35rem 0.55rem;
+    border: 1px solid var(--console-border);
+    border-radius: 6px;
+    background: var(--console-bg);
+    color: var(--console-text);
+    font: inherit;
+    min-width: 10rem;
+}
+
+.mapping-page-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.mapping-page-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.mapping-page-arrow {
+    margin: 0 0.35rem;
+    color: var(--console-muted);
+}
+
+.mapping-page-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mapping-workspace-top {
+    margin-bottom: 0.75rem;
+}
+
+.mapping-workspace-fields {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(12rem, 2fr) minmax(10rem, 1fr);
+    gap: 0.75rem 1rem;
+    align-items: end;
+}
+
+.mapping-workspace-field-grow .canonical-combobox {
+    width: 100%;
+}
+
+.mapping-workspace-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--console-muted);
+    margin-bottom: 0.25rem;
+}
+
+.mapping-teamspace-inline {
+    margin: 0;
+}
+
+.mapping-teamspace-select {
+    width: 100%;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--console-border);
+    border-radius: 6px;
+    background: var(--console-bg);
+    color: var(--console-text);
+    font: inherit;
+}
+
+.mapping-client-props-compact {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.mapping-client-prop-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+}
+
+.mapping-client-prop-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.45rem;
+    border: 1px solid var(--console-border);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    background: rgba(15, 23, 42, 0.35);
+}
+
+.mapping-client-prop-chip.is-merged {
+    opacity: 0.65;
+}
+
+.mapping-schema-section {
+    margin-bottom: 0.75rem;
+}
+
+.mapping-schema-header {
+    margin-bottom: 0.5rem;
+}
+
+.mapping-schema-header h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.mapping-schema-list {
+    margin-bottom: 0.5rem;
+}
+
+.mapping-schema-list .canonical-prop-row {
+    padding: 0.45rem 0.55rem;
+}
+
+.mapping-notes-details {
+    margin: 0.75rem 0;
+}
+
+.mapping-notes-details summary {
+    cursor: pointer;
+    color: var(--console-accent);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.canonical-name-static {
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .mapping-workspace-fields {
+        grid-template-columns: 1fr;
+    }
+}
+
