@@ -9,20 +9,20 @@
         "cyan": "#45e0f5"
     },
     "legend": [
-        ["ts-hq", "Formosa EV HQ"],
+        ["ts-hq", "Notion HQ"],
         ["ts-sales", "Sales and Marketing"],
         ["ts-ops", "Operations"],
         ["ts-product", "Product Dev"]
     ],
     "tree": {
-        "label": "Formosa EV",
+        "label": "Notion",
         "kind": "core",
         "c": "#ffd66b",
         "id": "workspace",
-        "note": "Demo workspace snapshot for Atlas Console.",
+        "note": "Notion workspace snapshot for Atlas Console.",
         "children": [
             {
-                "label": "Formosa EV HQ",
+                "label": "Notion HQ",
                 "kind": "teamspace",
                 "c": "#f5a623",
                 "id": "ts-hq",

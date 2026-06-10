@@ -56,7 +56,7 @@ Sign in at [http://127.0.0.1:8000/console/login](http://127.0.0.1:8000/console/l
 Import snapshot JSON:
 
 ```bash
-php artisan atlas:import-snapshot formosa-ev before resources/data/demo-formosa-before.json
+php artisan atlas:import-snapshot notion before resources/data/demo-notion-before.json
 ```
 
 Import canonical template (Notion HTML export directory or committed JSON):

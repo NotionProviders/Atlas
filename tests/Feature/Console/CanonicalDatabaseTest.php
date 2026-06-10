@@ -101,14 +101,14 @@ class CanonicalDatabaseTest extends TestCase
         ]);
 
         \App\Models\Project::query()->create([
-            'name' => 'Formosa EV',
-            'slug' => 'formosa-ev',
+            'name' => 'Notion',
+            'slug' => 'notion',
         ]);
 
         $response = $this->actingAs($user)->get('/console/projects');
 
         $response->assertOk();
-        $response->assertSee('Formosa EV');
+        $response->assertSee('Notion');
         $response->assertDontSee('console-breadcrumb-sep', false);
     }
 }

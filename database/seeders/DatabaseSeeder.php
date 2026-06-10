@@ -28,13 +28,21 @@ class DatabaseSeeder extends Seeder
             $this->seedCanonicalDatabases();
         }
 
+        Project::query()
+            ->where('slug', 'formosa-ev')
+            ->update([
+                'slug' => 'notion',
+                'name' => 'Notion',
+                'client_name' => 'Notion',
+            ]);
+
         $project = Project::query()->firstOrCreate(
-            ['slug' => 'formosa-ev'],
+            ['slug' => 'notion'],
             [
                 'user_id' => $admin->id,
-                'name' => 'Formosa EV',
-                'client_name' => 'Formosa EV',
-                'notes' => 'Demo client workspace for Atlas Console development.',
+                'name' => 'Notion',
+                'client_name' => 'Notion',
+                'notes' => 'Demo Notion workspace for Atlas Console.',
             ],
         );
 
@@ -43,9 +51,11 @@ class DatabaseSeeder extends Seeder
         }
 
         $beforeSnapshot = $project->snapshots()->where('type', SnapshotType::Before)->first();
-        $demoPath = resource_path('data/demo-formosa-before.json');
+        $demoPath = resource_path('data/demo-notion-before.json');
+        $needsDemoImport = $beforeSnapshot?->isEmpty()
+            || data_get($beforeSnapshot?->tree_json, 'label') === 'Formosa EV';
 
-        if ($beforeSnapshot?->isEmpty() && is_readable($demoPath)) {
+        if ($needsDemoImport && is_readable($demoPath)) {
             app(SnapshotImporter::class)->import($project, SnapshotType::Before, $demoPath);
         }
     }
