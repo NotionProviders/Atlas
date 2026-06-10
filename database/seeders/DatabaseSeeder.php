@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\SnapshotType;
+use App\Models\CanonicalDatabase;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\CanonicalTemplateImporter;
@@ -23,7 +24,9 @@ class DatabaseSeeder extends Seeder
             ],
         );
 
-        $this->seedCanonicalDatabases();
+        if (CanonicalDatabase::query()->count() === 0) {
+            $this->seedCanonicalDatabases();
+        }
 
         $project = Project::query()->firstOrCreate(
             ['slug' => 'formosa-ev'],
@@ -39,9 +42,10 @@ class DatabaseSeeder extends Seeder
             $project->snapshots()->firstOrCreate(['type' => $type]);
         }
 
+        $beforeSnapshot = $project->snapshots()->where('type', SnapshotType::Before)->first();
         $demoPath = resource_path('data/demo-formosa-before.json');
 
-        if (is_readable($demoPath)) {
+        if ($beforeSnapshot?->isEmpty() && is_readable($demoPath)) {
             app(SnapshotImporter::class)->import($project, SnapshotType::Before, $demoPath);
         }
     }

@@ -38,6 +38,7 @@ if [ ! -f /var/www/html/resources/data/atlas.json ]; then
 fi
 
 php artisan migrate --force --no-interaction
+php artisan db:seed --force --no-interaction
 
 php artisan config:cache --no-interaction
 php artisan route:cache --no-interaction

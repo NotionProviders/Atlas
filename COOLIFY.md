@@ -45,10 +45,9 @@ The public atlas at `/` still works without a database. **Atlas Console** (`/con
 | `DB_PASSWORD` | From Coolify Postgres resource |
 | `SESSION_DRIVER` | `database` |
 
-3. Redeploy. Migrations run on container start.
-4. Seed an admin user (once): `php artisan db:seed --force` inside the container, or run locally against the same database.
+3. Redeploy. Migrations and database seeding run automatically on container start.
 
-Default seeded credentials (change immediately in production):
+Default demo credentials (reset to these on every deploy until you change the seeder):
 
 - Email: `admin@notionproviders.com`
 - Password: `password`

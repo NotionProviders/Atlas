@@ -4,7 +4,12 @@ require __DIR__.'/../vendor/autoload.php';
 $app = require __DIR__.'/../bootstrap/app.php';
 $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+use App\Models\User;
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$adminExists = User::query()->where('email', 'admin@notionproviders.com')->exists();
+echo 'admin_user='.($adminExists ? 'ok' : 'missing').PHP_EOL;
 
 $checks = [
     ['GET', '/'],
