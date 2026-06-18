@@ -2,29 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Notion\WorkspaceMapRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 use JsonException;
 use RuntimeException;
 
 class AtlasController extends Controller
 {
-    public function index(): View
+    public function __construct(private readonly WorkspaceMapRepository $maps) {}
+
+    public function index(Request $request): View
     {
         $meta = config('atlas');
+        $slug = $this->resolveSlug($request);
+        $map = $this->maps->load($slug);
 
         return view('atlas.index', [
             'pageTitle' => $meta['title'],
-            'kicker' => $meta['kicker'],
-            'atlasConfigScript' => $this->buildConfigScript($this->loadAtlasData()),
+            'kicker' => $map['meta']['name'] ?? $meta['kicker'],
+            'atlasConfigScript' => $this->buildConfigScript($map),
+            'workspaces' => $this->maps->list(),
+            'activeSlug' => $slug,
         ]);
     }
 
-    public function configScript(): Response
+    public function configScript(Request $request): Response
     {
+        $map = $this->maps->load($this->resolveSlug($request));
+
         return response(
-            $this->buildConfigScript($this->loadAtlasData()),
+            $this->buildConfigScript($map),
             200,
             [
                 'Content-Type' => 'application/javascript; charset=UTF-8',
@@ -33,8 +42,23 @@ class AtlasController extends Controller
         );
     }
 
-    private function buildConfigScript(array $data): string
+    private function resolveSlug(Request $request): string
     {
+        $slug = (string) $request->query('w', '');
+
+        if ($slug !== '' && $this->maps->exists($slug)) {
+            return $slug;
+        }
+
+        return $this->maps->defaultSlug();
+    }
+
+    private function buildConfigScript(?array $data): string
+    {
+        if ($data === null) {
+            throw new RuntimeException('No atlas map available to render.');
+        }
+
         try {
             $json = json_encode([
                 'palette' => $data['palette'],
@@ -46,16 +70,5 @@ class AtlasController extends Controller
         }
 
         return 'window.ATLAS_CONFIG='.$json.';';
-    }
-
-    private function loadAtlasData(): array
-    {
-        $path = resource_path('data/atlas.json');
-
-        if (! File::exists($path)) {
-            throw new RuntimeException('Missing atlas data at '.$path);
-        }
-
-        return json_decode(File::get($path), true, 512, JSON_THROW_ON_ERROR);
     }
 }

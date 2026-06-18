@@ -21,7 +21,18 @@
 
   <div class="hud" id="top">
     <div class="brand">
-      <span class="kicker">{{ $kicker }}</span>
+      <div class="brand-row">
+        <span class="kicker">{{ $kicker }}</span>
+        @if (!empty($workspaces) && count($workspaces) > 1)
+        <select class="ws-switch" id="ws-switch" aria-label="Switch workspace"
+                onchange="if(this.value)window.location.search='?w='+this.value">
+          @foreach ($workspaces as $ws)
+            <option value="{{ $ws['slug'] }}" @selected($ws['slug'] === $activeSlug)>{{ $ws['name'] }}</option>
+          @endforeach
+        </select>
+        @endif
+        <a class="ws-add" href="{{ route('workspaces.index') }}" title="Add or manage workspaces">+ Workspace</a>
+      </div>
       <div class="crumbs" id="crumbs"></div>
     </div>
   </div>
