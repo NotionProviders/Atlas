@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Intake\IntakeRepository;
 use App\Services\Notion\WorkspaceMapRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,10 @@ use RuntimeException;
  */
 class ConsoleController extends Controller
 {
-    public function __construct(private readonly WorkspaceMapRepository $maps) {}
+    public function __construct(
+        private readonly WorkspaceMapRepository $maps,
+        private readonly IntakeRepository $intake,
+    ) {}
 
     public function showLogin(Request $request): View|RedirectResponse
     {
@@ -59,8 +63,7 @@ class ConsoleController extends Controller
     public function index(): View
     {
         return view('console.index', [
-            'workspaces' => $this->maps->list(),
-            'hasToken' => trim((string) config('notion.token')) !== '',
+            'workspaces' => $this->intake->listWorkspaces(),
         ]);
     }
 

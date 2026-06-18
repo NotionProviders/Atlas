@@ -48,21 +48,38 @@ Atlas has two faces:
 
 Set `CONSOLE_PASSWORD` in `.env` to enable login (blank = console locked).
 
-## Mapping a real Notion workspace
+## Importing a real Notion workspace
 
-The crawl walks **teamspaces → pages (recursively) → databases → each database
-page → its subpages and nested databases**, all the way down — pages first,
-then databases, at every level.
+A complete footprint never comes from one export. Atlas treats intake as a
+**checklist of many sources** that reconcile against each other:
 
-Because the Notion REST API can't list teamspaces, seed the teamspace roots
-once (e.g. from a Notion MCP `get-teams` call), then let the API do the deep
-recursive crawl with a full-access integration token.
+| Source | Role |
+|--------|------|
+| **AdminContentSearch (Active)** CSV | Canonical page seed |
+| **AdminContentSearch (Retained)** CSV | Admin-deleted / legal-hold pages |
+| **Audit Log** CSV | Behavioral truth (who/what/when/IP) |
+| **Content Analytics** CSV | Recency corroborator |
+| **Members** CSV | People + permission groups |
+| **Workspace export** ZIP | Page tree + archive state |
+| **Live API scan** (paste token) | Current structure via REST |
+| **Connect Notion** (OAuth) | One-click scan — setup required |
 
-**From the browser:** log in at `/console`, then in **Add a workspace** paste
-your token and teamspace roots (or pick auto-discover) and submit. The new map
-opens automatically and is selectable from the switcher in the map's top-left.
+The admin CSVs are the canonical, complete sources; the live API scan can't see
+admin-deleted pages or un-shared teamspaces. So intake is primarily **file
+upload** with the API scan as a supplement.
 
-**From the CLI** (sturdier for large, fully-recursive crawls):
+**In the console:**
+
+1. Log in at `/console` (`CONSOLE_PASSWORD`).
+2. Create a workspace, then work down its **intake checklist** — upload each
+   export or run the live API scan. A progress bar tracks coverage. Uploaded
+   files are stored privately under `storage/app` and never web-served.
+3. The **Guide** (`/console/guide`) explains each source and how to obtain it.
+
+**Live API scan token handling:** pasted for the one request, never written to
+disk. `Connect Notion` (OAuth) is cleaner but needs `NOTION_OAUTH_*` set.
+
+**CLI** (sturdy for large recursive crawls — feeds the "Live API scan" source):
 
 ```bash
 # .env: NOTION_API_KEY=ntn_...
@@ -73,8 +90,10 @@ php artisan atlas:ingest --name="Formosa EV HQ" \
 php artisan atlas:ingest --name="My Workspace" --discover -v
 ```
 
-Crawled maps are stored privately; `CONSOLE_DEFAULT_MAP` chooses which one the
-console opens first. `ATLAS_PUBLIC_MAP` chooses the public map shown at `/`.
+The recursive crawl walks **teamspaces → pages → databases → each database page
+→ nested subpages/databases**, pages first then databases at every level.
+`ATLAS_PUBLIC_MAP` chooses the public map at `/`; `CONSOLE_DEFAULT_MAP` the one
+the console opens first.
 
 ## Project structure
 
@@ -82,10 +101,12 @@ console opens first. `ATLAS_PUBLIC_MAP` chooses the public map shown at `/`.
 |------|---------|
 | `app/Http/Controllers/AtlasController.php` | Public atlas at `/` (public maps only) |
 | `app/Http/Controllers/ConsoleController.php` | Private console: login, dashboard, map view |
-| `app/Http/Controllers/WorkspacesController.php` | Crawl intake actions (console-only) |
+| `app/Http/Controllers/IntakeController.php` | Intake checklist, uploads, API scan, guide |
 | `app/Http/Middleware/ConsoleAuth.php` | Session login gate for `/console` |
 | `app/Console/Commands/AtlasIngest.php` | `atlas:ingest` recursive crawl command |
+| `app/Services/Intake/` | Intake manifest store + CSV inspector |
 | `app/Services/Notion/` | Notion REST client, recursive crawler, map storage |
+| `config/intake.php` | Source catalog driving the checklist + guide |
 | `config/atlas.php` · `config/notion.php` | Page metadata · Notion token + crawl limits |
 | `resources/data/atlas.json` | Built-in conceptual map (`?w=concept`) |
 | `resources/data/workspaces/*.json` | Seeded real-workspace maps |

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'notion_oauth' => [
+        'client_id' => env('NOTION_OAUTH_CLIENT_ID'),
+        'client_secret' => env('NOTION_OAUTH_CLIENT_SECRET'),
+        'redirect' => env('NOTION_OAUTH_REDIRECT'),
+    ],
+
 ];
