@@ -52,11 +52,11 @@ class WorkspaceMapRepository
         }
 
         uasort($summaries, function ($a, $b) {
-            $default = $this->defaultSlug();
-            if ($a['slug'] === $default) {
+            // Concept (public reference) first, then alphabetical.
+            if ($a['slug'] === 'concept') {
                 return -1;
             }
-            if ($b['slug'] === $default) {
+            if ($b['slug'] === 'concept') {
                 return 1;
             }
 
@@ -66,11 +66,65 @@ class WorkspaceMapRepository
         return array_values($summaries);
     }
 
-    public function defaultSlug(): string
+    /**
+     * Public default — the conceptual atlas shown at "/".
+     */
+    public function publicDefaultSlug(): string
     {
-        $configured = (string) config('notion.default_map', 'concept');
+        $configured = (string) config('atlas.public_default', 'concept');
+
+        if ($this->exists($configured) && $this->isPublic($configured)) {
+            return $configured;
+        }
+
+        foreach ($this->slugs() as $slug) {
+            if ($this->isPublic($slug)) {
+                return $slug;
+            }
+        }
+
+        return 'concept';
+    }
+
+    /**
+     * Console default — the real workspace shown first in the backend.
+     */
+    public function consoleDefaultSlug(): string
+    {
+        $configured = (string) config('console.default_map', 'formosa-ev-hq');
 
         return $this->exists($configured) ? $configured : ($this->slugs()[0] ?? 'concept');
+    }
+
+    /**
+     * A map is public only if it's the conceptual atlas or explicitly flagged
+     * public. Crawled real workspaces are private and live behind the console.
+     */
+    public function isPublic(string $slug): bool
+    {
+        if ($slug === 'concept') {
+            return true;
+        }
+
+        $map = $this->load($slug);
+        if ($map === null) {
+            return false;
+        }
+
+        return (bool) ($map['meta']['public'] ?? false);
+    }
+
+    /**
+     * Summaries of public maps only (for the public-facing switcher).
+     *
+     * @return array<int, array{slug: string, name: string, source: string, generatedAt: ?string, nodeCount: ?int}>
+     */
+    public function publicList(): array
+    {
+        return array_values(array_filter(
+            $this->list(),
+            fn ($summary) => $this->isPublic($summary['slug'])
+        ));
     }
 
     public function exists(string $slug): bool

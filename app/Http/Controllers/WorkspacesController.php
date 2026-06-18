@@ -7,24 +7,15 @@ use App\Services\Notion\WorkspaceCrawler;
 use App\Services\Notion\WorkspaceMapRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Throwable;
 
 /**
- * Self-serve intake: connect a Notion token, point at teamspace roots, and
- * crawl a workspace into a map without touching the CLI.
+ * Self-serve intake (console-only): connect a Notion token, point at teamspace
+ * roots, and crawl a workspace into a map. Crawled maps are private.
  */
 class WorkspacesController extends Controller
 {
     public function __construct(private readonly WorkspaceMapRepository $maps) {}
-
-    public function index(): View
-    {
-        return view('workspaces.index', [
-            'workspaces' => $this->maps->list(),
-            'hasToken' => trim((string) config('notion.token')) !== '',
-        ]);
-    }
 
     public function store(Request $request): RedirectResponse
     {
@@ -65,7 +56,7 @@ class WorkspacesController extends Controller
             return back()->withInput()->withErrors(['token' => 'Crawl failed: '.$e->getMessage()]);
         }
 
-        return redirect('/?w='.$slug)->with('status',
+        return redirect()->route('console.map', $slug)->with('status',
             "Mapped {$map['meta']['nodeCount']} nodes from {$data['name']}.");
     }
 
@@ -73,7 +64,7 @@ class WorkspacesController extends Controller
     {
         $this->maps->delete($slug);
 
-        return redirect()->route('workspaces.index')->with('status', "Removed map '{$slug}'.");
+        return redirect()->route('console.index')->with('status', "Removed map '{$slug}'.");
     }
 
     /**
