@@ -10,12 +10,20 @@ An interactive map of a Notion workspace, built with Laravel. Zoom from the whol
 composer install
 cp .env.example .env
 php artisan key:generate
+touch database/database.sqlite     # create the local SQLite file
+php artisan migrate                # set up the tables
 php artisan serve
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). You'll land on the Formosa
+workspace map; visit [/workspaces](http://127.0.0.1:8000/workspaces) for the
+intake console.
 
-On Windows if `php` is not on PATH: `C:\php\php.exe artisan serve`
+The app reads its database from `database/database.sqlite` by default, so the
+steps above work as-is on any machine — no path editing required.
+
+On Windows if `php` is not on PATH: `C:\php\php.exe artisan serve` (and
+`type nul > database\database.sqlite` instead of `touch`).
 
 ## Production deployment (Coolify)
 
