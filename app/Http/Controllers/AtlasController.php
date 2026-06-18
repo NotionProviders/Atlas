@@ -9,6 +9,11 @@ use Illuminate\View\View;
 use JsonException;
 use RuntimeException;
 
+/**
+ * Public-facing atlas at "/". Serves only public maps (the conceptual
+ * Workspace Atlas). Real, crawled workspaces are private and live behind the
+ * console; they are never reachable from here.
+ */
 class AtlasController extends Controller
 {
     public function __construct(private readonly WorkspaceMapRepository $maps) {}
@@ -16,21 +21,23 @@ class AtlasController extends Controller
     public function index(Request $request): View
     {
         $meta = config('atlas');
-        $slug = $this->resolveSlug($request);
+        $slug = $this->resolvePublicSlug($request);
         $map = $this->maps->load($slug);
 
         return view('atlas.index', [
             'pageTitle' => $meta['title'],
-            'kicker' => $map['meta']['name'] ?? $meta['kicker'],
+            'kicker' => $meta['kicker'],
             'atlasConfigScript' => $this->buildConfigScript($map),
-            'workspaces' => $this->maps->list(),
+            'context' => 'public',
+            'workspaces' => $this->maps->publicList(),
             'activeSlug' => $slug,
+            'switchBase' => '/?w=',
         ]);
     }
 
     public function configScript(Request $request): Response
     {
-        $map = $this->maps->load($this->resolveSlug($request));
+        $map = $this->maps->load($this->resolvePublicSlug($request));
 
         return response(
             $this->buildConfigScript($map),
@@ -42,15 +49,18 @@ class AtlasController extends Controller
         );
     }
 
-    private function resolveSlug(Request $request): string
+    /**
+     * Resolve the requested slug, but never serve a private map publicly.
+     */
+    private function resolvePublicSlug(Request $request): string
     {
         $slug = (string) $request->query('w', '');
 
-        if ($slug !== '' && $this->maps->exists($slug)) {
+        if ($slug !== '' && $this->maps->exists($slug) && $this->maps->isPublic($slug)) {
             return $slug;
         }
 
-        return $this->maps->defaultSlug();
+        return $this->maps->publicDefaultSlug();
     }
 
     private function buildConfigScript(?array $data): string

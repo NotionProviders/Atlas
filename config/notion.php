@@ -31,13 +31,4 @@ return [
         'max_nodes' => (int) env('NOTION_CRAWL_MAX_NODES', 20000),
         'throttle_ms' => (int) env('NOTION_CRAWL_THROTTLE_MS', 0),
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default workspace map
-    |--------------------------------------------------------------------------
-    |
-    | Slug of the map shown at "/" when no ?w= is provided.
-    */
-    'default_map' => env('ATLAS_DEFAULT_MAP', 'formosa-ev-hq'),
 ];

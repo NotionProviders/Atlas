@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Workspaces · {{ config('atlas.title') }}</title>
+    <title>Console · {{ config('atlas.title') }}</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,10 @@
             <h1>Workspaces</h1>
             <p class="sub">Map any Notion workspace, then explore it as an interactive atlas.</p>
         </div>
-        <a class="ghost" href="{{ route('atlas.index') }}">← Back to map</a>
+        <div class="head-actions">
+            <a class="ghost" href="{{ route('atlas.index') }}">Public atlas ↗</a>
+            <form method="POST" action="{{ route('console.logout') }}">@csrf<button class="ghost" type="submit">Log out</button></form>
+        </div>
     </header>
 
     @if (session('status'))
@@ -40,7 +43,7 @@
                     @foreach ($workspaces as $ws)
                         <li>
                             <div class="ws-meta">
-                                <a class="ws-name" href="{{ route('atlas.index') }}?w={{ $ws['slug'] }}">{{ $ws['name'] }}</a>
+                                <a class="ws-name" href="{{ route('console.map', $ws['slug']) }}">{{ $ws['name'] }}</a>
                                 <div class="ws-tags">
                                     <span class="tag tag-{{ $ws['source'] === 'notion-crawl' ? 'live' : 'static' }}">{{ $ws['source'] }}</span>
                                     @if ($ws['nodeCount'])<span class="tag">{{ number_format($ws['nodeCount']) }} nodes</span>@endif
@@ -48,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="ws-actions">
-                                <a class="btn sm" href="{{ route('atlas.index') }}?w={{ $ws['slug'] }}">Open</a>
+                                <a class="btn sm" href="{{ route('console.map', $ws['slug']) }}">Open</a>
                                 @if ($ws['source'] === 'notion-crawl')
                                 <form method="POST" action="{{ route('workspaces.destroy', $ws['slug']) }}" onsubmit="return confirm('Remove this map?')">
                                     @csrf @method('DELETE')

@@ -21,17 +21,21 @@
 
   <div class="hud" id="top">
     <div class="brand">
+      @php($ctx = $context ?? 'public')
       <div class="brand-row">
         <span class="kicker">{{ $kicker }}</span>
         @if (!empty($workspaces) && count($workspaces) > 1)
         <select class="ws-switch" id="ws-switch" aria-label="Switch workspace"
-                onchange="if(this.value)window.location.search='?w='+this.value">
+                onchange="if(this.value)window.location.href='{{ $switchBase ?? '/?w=' }}'+this.value">
           @foreach ($workspaces as $ws)
             <option value="{{ $ws['slug'] }}" @selected($ws['slug'] === $activeSlug)>{{ $ws['name'] }}</option>
           @endforeach
         </select>
         @endif
-        <a class="ws-add" href="{{ route('workspaces.index') }}" title="Add or manage workspaces">+ Workspace</a>
+        @if ($ctx === 'console')
+          <a class="ws-add" href="{{ route('console.index') }}" title="Back to console">‹ Console</a>
+          <form method="POST" action="{{ route('console.logout') }}" class="ws-logout">@csrf<button type="submit" class="ws-add">Log out</button></form>
+        @endif
       </div>
       <div class="crumbs" id="crumbs"></div>
     </div>
