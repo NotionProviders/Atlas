@@ -19,6 +19,7 @@
             <p class="sub">Pull any Notion workspace into Atlas — by export, live crawl, or seed — then explore it as an interactive map.</p>
         </div>
         <div class="head-actions">
+            <a class="ghost" href="{{ route('console.migrations.index') }}">Migrations →</a>
             <a class="ghost" href="{{ route('atlas.index') }}">Public atlas ↗</a>
             <form method="POST" action="{{ route('console.logout') }}">@csrf<button class="ghost" type="submit">Log out</button></form>
         </div>
@@ -32,6 +33,15 @@
             @foreach ($errors->all() as $error)<div>{{ $error }}</div>@endforeach
         </div>
     @endif
+
+    {{-- Migrating off another tool (no Notion export to upload yet)? --}}
+    <section class="card" style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <div>
+            <h2 style="margin-bottom:4px">Coming from Microsoft Loop or another tool?</h2>
+            <p class="muted">Use the browser extension to pull a workspace out of a closed-API tool and export it Notion-ready — then upload it here.</p>
+        </div>
+        <a class="btn primary" href="{{ route('console.migrations.index') }}">Open Migrations →</a>
+    </section>
 
     {{-- Coverage checklist: every intake method and whether it's wired up. --}}
     <section class="card checklist-card">

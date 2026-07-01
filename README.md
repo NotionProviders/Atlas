@@ -97,6 +97,22 @@ Crawled and uploaded maps are stored privately; `CONSOLE_DEFAULT_MAP` chooses
 which one the console opens first. `ATLAS_PUBLIC_MAP` chooses the public map
 shown at `/`.
 
+## Migrating off another tool (Loop → Notion)
+
+Some tools have no usable API to export from — Microsoft Loop is the motivating
+case. The **Migrations** module (console → **Migrations**) drives a companion
+**browser extension** that scrapes a workspace from *your own logged-in tab* and
+streams it to Atlas, which turns it into a Notion-ready markdown export.
+
+- Nothing runs server-side against the source — your Microsoft session never
+  leaves your browser, so this works fine on the hosted Coolify deployment.
+- Pair once: the console mints a code, the extension trades it for a token.
+- The pipeline (markdown cleanup, Notion-readiness punch list, re-attach
+  manifest, zip) is source-agnostic; a new tool is just a new extension adapter
+  plus a `config/migration.php` entry.
+
+See **[extension/README.md](extension/README.md)** to install and use it.
+
 ## Project structure
 
 | Path | Purpose |
@@ -109,6 +125,10 @@ shown at `/`.
 | `app/Services/Notion/WorkspaceCrawler.php` | Recursive REST crawler (teamspaces → pages → databases) |
 | `app/Services/Notion/ExportMapBuilder.php` | Builds a map from an uploaded Notion export (zip / md / csv / html) |
 | `app/Services/Notion/NotionClient.php` · `WorkspaceMapRepository.php` | Notion REST client · map storage |
+| `app/Http/Controllers/MigrationsController.php` | Migrations module: pairing, start, monitor, download (console-only) |
+| `app/Http/Controllers/Api/*` · `routes/api.php` | Extension-facing token API (pair, create, stream nodes, complete) |
+| `app/Services/Migration/*` | Source-agnostic ingest: cleanup, punch-list report, zip, storage |
+| `extension/` | The browser extension — Loop connector + general-purpose runner (MV3) |
 | `config/atlas.php` · `config/notion.php` | Page metadata · Notion token + crawl limits |
 | `resources/data/atlas.json` | Built-in conceptual map (`?w=concept`) |
 | `resources/data/workspaces/*.json` | Seeded real-workspace maps (`formosa.json` = live teamspaces) |

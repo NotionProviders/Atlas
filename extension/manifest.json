@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Migrator",
+  "version": "0.1.0",
+  "description": "Migrate workspaces out of closed-API tools (starting with Microsoft Loop) into a Notion-ready export — from your own logged-in browser tab.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://loop.cloud.microsoft/*"],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Atlas Migrator"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://loop.cloud.microsoft/*"],
+      "js": [
+        "src/lib/html-to-markdown.js",
+        "src/connectors/loop.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

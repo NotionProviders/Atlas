@@ -64,7 +64,8 @@ class AtlasMapTest extends TestCase
         $this->withSession(['console_authed' => true])
             ->get('/console')
             ->assertStatus(200)
-            ->assertSee('Workspaces');
+            ->assertSee('Intake Hub')
+            ->assertSee('Mapped workspaces');
     }
 
     public function test_authed_console_can_view_private_map(): void
