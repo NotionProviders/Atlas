@@ -15,8 +15,8 @@
     <header class="head">
         <div>
             <span class="kicker">Atlas Console</span>
-            <h1>Workspaces</h1>
-            <p class="sub">Map any Notion workspace, then explore it as an interactive atlas.</p>
+            <h1>Intake Hub</h1>
+            <p class="sub">Pull any Notion workspace into Atlas — by export, live crawl, or seed — then explore it as an interactive map.</p>
         </div>
         <div class="head-actions">
             <a class="ghost" href="{{ route('atlas.index') }}">Public atlas ↗</a>
@@ -33,26 +33,62 @@
         </div>
     @endif
 
+    {{-- Coverage checklist: every intake method and whether it's wired up. --}}
+    <section class="card checklist-card">
+        <h2>Intake coverage</h2>
+        <p class="muted" style="margin-bottom:14px">The ways a workspace can enter Atlas. Pick the one that fits what you have access to.</p>
+        <ul class="checklist">
+            @foreach ($intakeMethods as $m)
+                <li class="check-item status-{{ $m['status'] }}">
+                    <span class="dot"></span>
+                    <div class="check-body">
+                        <div class="check-top">
+                            <strong>{{ $m['label'] }}</strong>
+                            @switch($m['status'])
+                                @case('ready')<span class="pill ok">Ready</span>@break
+                                @case('available')<span class="pill">Available</span>@break
+                                @case('needs-token')<span class="pill warn">Needs token</span>@break
+                                @case('planned')<span class="pill muted-pill">Planned</span>@break
+                            @endswitch
+                            @if ($m['count'] > 0)<span class="pill count">{{ $m['count'] }} imported</span>@endif
+                        </div>
+                        <span class="check-blurb">{{ $m['blurb'] }}</span>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    </section>
+
     <section class="grid">
         <div class="card">
             <h2>Mapped workspaces</h2>
             @if (empty($workspaces))
-                <p class="muted">No maps yet. Create one on the right.</p>
+                <p class="muted">No maps yet. Use an intake method on the right to add one.</p>
             @else
                 <ul class="ws-list">
                     @foreach ($workspaces as $ws)
+                        @php
+                            $sourceLabel = match($ws['source']) {
+                                'notion-crawl' => 'API crawl',
+                                'export-upload' => 'Export',
+                                'notion-mcp' => 'MCP seed',
+                                default => 'Built-in',
+                            };
+                            $sourceTag = in_array($ws['source'], ['notion-crawl', 'export-upload'], true) ? 'live' : 'static';
+                            $removable = in_array($ws['source'], ['notion-crawl', 'export-upload'], true);
+                        @endphp
                         <li>
                             <div class="ws-meta">
                                 <a class="ws-name" href="{{ route('console.map', $ws['slug']) }}">{{ $ws['name'] }}</a>
                                 <div class="ws-tags">
-                                    <span class="tag tag-{{ $ws['source'] === 'notion-crawl' ? 'live' : 'static' }}">{{ $ws['source'] }}</span>
+                                    <span class="tag tag-{{ $sourceTag }}">{{ $sourceLabel }}</span>
                                     @if ($ws['nodeCount'])<span class="tag">{{ number_format($ws['nodeCount']) }} nodes</span>@endif
                                     @if ($ws['generatedAt'])<span class="tag">{{ \Illuminate\Support\Carbon::parse($ws['generatedAt'])->diffForHumans() }}</span>@endif
                                 </div>
                             </div>
                             <div class="ws-actions">
                                 <a class="btn sm" href="{{ route('console.map', $ws['slug']) }}">Open</a>
-                                @if ($ws['source'] === 'notion-crawl')
+                                @if ($removable)
                                 <form method="POST" action="{{ route('workspaces.destroy', $ws['slug']) }}" onsubmit="return confirm('Remove this map?')">
                                     @csrf @method('DELETE')
                                     <button class="btn sm danger" type="submit">Remove</button>
@@ -67,45 +103,118 @@
 
         <div class="card">
             <h2>Add a workspace</h2>
-            <form method="POST" action="{{ route('workspaces.store') }}" class="form">
-                @csrf
-                <label>
-                    <span>Name</span>
-                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Formosa EV HQ" required>
-                </label>
 
-                <label>
-                    <span>Notion API token @if ($hasToken)<em class="hint-inline">— using NOTION_API_KEY from .env if blank</em>@endif</span>
-                    <input type="password" name="token" placeholder="ntn_… (full-access integration token)" @if(!$hasToken) required @endif autocomplete="off">
-                </label>
+            <div class="tabs" role="tablist">
+                <button class="tab-btn is-active" data-tab="upload" type="button">Upload export</button>
+                <button class="tab-btn" data-tab="crawl" type="button">API crawl</button>
+                <button class="tab-btn" data-tab="seed" type="button">MCP seed</button>
+            </div>
 
-                <fieldset class="modes">
-                    <legend>Where to start</legend>
-                    <label class="radio">
-                        <input type="radio" name="mode" value="teamspaces" {{ old('mode', 'teamspaces') === 'teamspaces' ? 'checked' : '' }}>
-                        <span><strong>Teamspace roots</strong> — paste them (the API can't list teamspaces)</span>
+            {{-- Method 1: Upload a Notion export (offline, most complete). --}}
+            <div class="tab-panel is-active" data-panel="upload">
+                <form method="POST" action="{{ route('workspaces.upload') }}" class="form" enctype="multipart/form-data">
+                    @csrf
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Company Notion" required>
                     </label>
-                    <label class="radio">
-                        <input type="radio" name="mode" value="discover" {{ old('mode') === 'discover' ? 'checked' : '' }}>
-                        <span><strong>Auto-discover</strong> — crawl every top-level page/database the token can see</span>
+                    <label>
+                        <span>Notion export file</span>
+                        <input type="file" name="export" accept=".zip,.csv,.md,.html,.htm,.txt" required>
+                        <em class="hint-inline">In Notion: ••• → Export → <strong>Markdown &amp; CSV</strong>, include subpages &amp; databases, then upload the .zip here.</em>
                     </label>
-                </fieldset>
+                    <button class="btn primary" type="submit">Import export →</button>
+                </form>
+                <p class="muted" style="margin-top:12px">Most complete &amp; private — it reads the page tree straight off disk, so it covers teamspaces the API can't list. No keys leave your machine.</p>
+            </div>
 
-                <label>
-                    <span>Teamspace roots</span>
-                    <textarea name="teamspaces" rows="5" placeholder="One per line:&#10;Formosa EV HQ = fbbe1391-befa-44f2-aa7e-cc72c2d2d3c8&#10;&#10;…or paste the raw get-teams JSON.">{{ old('teamspaces') }}</textarea>
-                </label>
+            {{-- Method 2: Live API crawl. --}}
+            <div class="tab-panel" data-panel="crawl">
+                <form method="POST" action="{{ route('workspaces.store') }}" class="form">
+                    @csrf
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Company Notion" required>
+                    </label>
+                    <label>
+                        <span>Notion API token @if ($hasToken)<em class="hint-inline">— using NOTION_API_KEY from .env if blank</em>@endif</span>
+                        <input type="password" name="token" placeholder="ntn_… (full-access integration token)" @if(!$hasToken) required @endif autocomplete="off">
+                    </label>
 
-                <button class="btn primary" type="submit">Crawl &amp; map →</button>
-            </form>
+                    <fieldset class="modes">
+                        <legend>Where to start</legend>
+                        <label class="radio">
+                            <input type="radio" name="mode" value="teamspaces" {{ old('mode', 'teamspaces') === 'teamspaces' ? 'checked' : '' }}>
+                            <span><strong>Teamspace roots</strong> — paste them (the API can't list teamspaces)</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="mode" value="discover" {{ old('mode') === 'discover' ? 'checked' : '' }}>
+                            <span><strong>Auto-discover</strong> — crawl every top-level page/database the token can see</span>
+                        </label>
+                    </fieldset>
+
+                    <label>
+                        <span>Teamspace roots
+                            @if ($discoveredSeed)<button type="button" class="link-btn" id="loadSeed">load discovered ↧</button>@endif
+                        </span>
+                        <textarea name="teamspaces" id="teamspacesBox" rows="5" placeholder="One per line:&#10;Company Home = 7cb6264d-6634-4dff-aa05-e4b7f2852d24&#10;&#10;…or paste the raw get-teams JSON.">{{ old('teamspaces') }}</textarea>
+                    </label>
+
+                    <button class="btn primary" type="submit">Crawl &amp; map →</button>
+                </form>
+                <p class="muted" style="margin-top:12px">Live, but only sees pages shared with the integration. Best paired with the MCP seed below.</p>
+            </div>
+
+            {{-- Method 3: MCP seed instructions. --}}
+            <div class="tab-panel" data-panel="seed">
+                <ol class="steps">
+                    <li>In a Notion MCP client, run <code>get-teams</code> to list your teamspaces.</li>
+                    <li>Copy the JSON it returns.</li>
+                    <li>Switch to the <strong>API crawl</strong> tab, choose <em>Teamspace roots</em>, and paste it in.</li>
+                </ol>
+                @if ($discoveredSeed)
+                    <p class="muted">Already discovered for this workspace:</p>
+                    <pre class="seed-preview">{{ $discoveredSeed }}</pre>
+                    <p class="muted">Use <strong>load discovered</strong> on the API crawl tab to drop these in.</p>
+                @else
+                    <p class="muted">Nothing discovered yet. The REST API can't enumerate teamspaces, so this seed bridges the gap.</p>
+                @endif
+            </div>
 
             <details class="how">
-                <summary>How to get teamspace roots</summary>
-                <p>The Notion REST API can't enumerate teamspaces, so seed them once. In a Notion MCP client run <code>get-teams</code> and paste the JSON above, or list <code>Name = page-id</code> lines. The crawler then recurses from each root through every page and nested database.</p>
-                <p class="muted">Large workspaces can take a while. For "everything, fully recursive" runs, the CLI is sturdier: <code>php artisan atlas:ingest --name="…" --teamspaces=roots.json -v</code></p>
+                <summary>Which method should I use?</summary>
+                <p><strong>Upload export</strong> — you want the most complete map and can export from Notion. Covers everything, no keys.</p>
+                <p><strong>API crawl</strong> — you want a live map and have an integration token. Pair with an MCP seed for teamspaces.</p>
+                <p class="muted">For very large, fully-recursive crawls the CLI is sturdier: <code>php artisan atlas:ingest --name="…" --teamspaces=roots.json -v</code></p>
             </details>
         </div>
     </section>
 </div>
+
+<script>
+    // Tabs.
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var tab = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+            document.querySelectorAll('.tab-panel').forEach(function (p) {
+                p.classList.toggle('is-active', p.dataset.panel === tab);
+            });
+        });
+    });
+
+    // Drop the MCP-discovered teamspaces into the crawl seed box.
+    var seedBtn = document.getElementById('loadSeed');
+    if (seedBtn) {
+        var discovered = @json($discoveredSeed);
+        seedBtn.addEventListener('click', function () {
+            var box = document.getElementById('teamspacesBox');
+            box.value = discovered;
+            var radio = document.querySelector('input[name=mode][value=teamspaces]');
+            if (radio) { radio.checked = true; }
+            box.focus();
+        });
+    }
+</script>
 </body>
 </html>

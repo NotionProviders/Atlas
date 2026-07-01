@@ -15,9 +15,9 @@ php artisan migrate                # set up the tables
 php artisan serve
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). You'll land on the Formosa
-workspace map; visit [/workspaces](http://127.0.0.1:8000/workspaces) for the
-intake console.
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) for the public atlas. The
+private mapping tool lives at [/console](http://127.0.0.1:8000/console) — set
+`CONSOLE_PASSWORD` in `.env` first, then log in.
 
 The app reads its database from `database/database.sqlite` by default, so the
 steps above work as-is on any machine — no path editing required.
@@ -48,33 +48,54 @@ Atlas has two faces:
 
 Set `CONSOLE_PASSWORD` in `.env` to enable login (blank = console locked).
 
-## Mapping a real Notion workspace
+## Mapping a real Notion workspace (the Intake Hub)
 
-The crawl walks **teamspaces → pages (recursively) → databases → each database
-page → its subpages and nested databases**, all the way down — pages first,
-then databases, at every level.
+Log in at `/console` to reach the **Intake Hub**. The top "Intake coverage"
+checklist shows every way a workspace can enter Atlas and whether it's wired
+up; the "Add a workspace" card holds the three working methods as tabs.
 
-Because the Notion REST API can't list teamspaces, seed the teamspace roots
-once (e.g. from a Notion MCP `get-teams` call), then let the API do the deep
-recursive crawl with a full-access integration token.
+However a workspace comes in, the map is the same shape — **teamspaces → pages
+(recursively) → databases → each database page → its subpages and nested
+databases**, pages first then databases at every level.
 
-**From the browser:** log in at `/console`, then in **Add a workspace** paste
-your token and teamspace roots (or pick auto-discover) and submit. The new map
-opens automatically and is selectable from the switcher in the map's top-left.
+### 1. Upload a Notion export — most complete, fully offline ✅
 
-**From the CLI** (sturdier for large, fully-recursive crawls):
+In Notion: `•••` → **Export** → **Markdown & CSV**, include subpages &
+databases. Upload the resulting `.zip` on the **Upload export** tab. Atlas reads
+the page tree straight off disk, so this covers **every teamspace** — including
+ones the API and MCP can't enumerate — and no API keys leave your machine.
+
+### 2. Crawl via the Notion API — live, but partial ⚠️
+
+Paste a full-access integration token (or set `NOTION_API_KEY`) on the **API
+crawl** tab. The crawl only sees pages shared with the integration, and the
+REST API **can't list teamspaces**, so seed the roots (see method 3). For large
+fully-recursive runs the CLI is sturdier:
 
 ```bash
 # .env: NOTION_API_KEY=ntn_...
-php artisan atlas:ingest --name="Formosa EV HQ" \
-  --teamspaces='[{"id":"fbbe1391-befa-44f2-aa7e-cc72c2d2d3c8","name":"Formosa EV HQ","type":"page"}]' -v
+php artisan atlas:ingest --name="Formosa" --teamspaces=roots.json -v
 
 # or auto-discover every top-level page/database the token can see
 php artisan atlas:ingest --name="My Workspace" --discover -v
 ```
 
-Crawled maps are stored privately; `CONSOLE_DEFAULT_MAP` chooses which one the
-console opens first. `ATLAS_PUBLIC_MAP` chooses the public map shown at `/`.
+### 3. Seed teamspaces via the MCP — bridges the API gap
+
+The REST API can't enumerate teamspaces. In a Notion MCP client run
+`get-teams`, copy the JSON, and paste it into the **API crawl** tab's seed box
+(or click **load discovered** if the workspace's teamspaces are already in
+`resources/data/seeds/teamspaces.json`). Note: `get-teams` returns teamspace
+IDs only — their child pages still aren't cleanly listable by the API or MCP,
+which is why method 1 (export upload) is the most complete.
+
+> **OAuth** is on the checklist as *planned* — a one-click authorize flow that
+> would scan everything you can see without pasting keys. It needs a Notion
+> OAuth app (client id/secret + redirect) before it can be wired up.
+
+Crawled and uploaded maps are stored privately; `CONSOLE_DEFAULT_MAP` chooses
+which one the console opens first. `ATLAS_PUBLIC_MAP` chooses the public map
+shown at `/`.
 
 ## Project structure
 
@@ -82,13 +103,16 @@ console opens first. `ATLAS_PUBLIC_MAP` chooses the public map shown at `/`.
 |------|---------|
 | `app/Http/Controllers/AtlasController.php` | Public atlas at `/` (public maps only) |
 | `app/Http/Controllers/ConsoleController.php` | Private console: login, dashboard, map view |
-| `app/Http/Controllers/WorkspacesController.php` | Crawl intake actions (console-only) |
+| `app/Http/Controllers/WorkspacesController.php` | Intake actions: API crawl + export upload (console-only) |
 | `app/Http/Middleware/ConsoleAuth.php` | Session login gate for `/console` |
 | `app/Console/Commands/AtlasIngest.php` | `atlas:ingest` recursive crawl command |
-| `app/Services/Notion/` | Notion REST client, recursive crawler, map storage |
+| `app/Services/Notion/WorkspaceCrawler.php` | Recursive REST crawler (teamspaces → pages → databases) |
+| `app/Services/Notion/ExportMapBuilder.php` | Builds a map from an uploaded Notion export (zip / md / csv / html) |
+| `app/Services/Notion/NotionClient.php` · `WorkspaceMapRepository.php` | Notion REST client · map storage |
 | `config/atlas.php` · `config/notion.php` | Page metadata · Notion token + crawl limits |
 | `resources/data/atlas.json` | Built-in conceptual map (`?w=concept`) |
-| `resources/data/workspaces/*.json` | Seeded real-workspace maps |
+| `resources/data/workspaces/*.json` | Seeded real-workspace maps (`formosa.json` = live teamspaces) |
+| `resources/data/seeds/teamspaces.json` | MCP-discovered teamspace roots for the "load discovered" button |
 | `resources/views/atlas/` · `resources/views/workspaces/` | Map view · console |
 | `public/css/atlas.css` · `public/css/console.css` | Map styles · console styles |
 | `public/js/atlas.js` | Interactive map logic |

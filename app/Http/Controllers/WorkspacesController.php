@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Notion\ExportMapBuilder;
 use App\Services\Notion\NotionClient;
 use App\Services\Notion\WorkspaceCrawler;
 use App\Services\Notion\WorkspaceMapRepository;
@@ -58,6 +59,37 @@ class WorkspacesController extends Controller
 
         return redirect()->route('console.map', $slug)->with('status',
             "Mapped {$map['meta']['nodeCount']} nodes from {$data['name']}.");
+    }
+
+    /**
+     * Intake by uploaded Notion export (Markdown & CSV zip, or a single
+     * md/html/csv). Works offline and reaches teamspaces the REST API can't.
+     */
+    public function upload(Request $request, ExportMapBuilder $builder): RedirectResponse
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'export' => ['required', 'file', 'max:512000', // 500 MB
+                'mimes:zip,csv,md,markdown,html,htm,txt,application/zip,application/octet-stream'],
+        ]);
+
+        try {
+            @set_time_limit(0);
+            $map = $builder->buildFromUpload($request->file('export')->getRealPath(), $data['name']);
+
+            if (($map['meta']['nodeCount'] ?? 0) === 0) {
+                return back()->withInput()->withErrors([
+                    'export' => "Couldn't find any pages in that export. Use Notion's “Markdown & CSV” export (include subpages).",
+                ]);
+            }
+
+            $slug = $this->maps->save($data['name'], $map);
+        } catch (Throwable $e) {
+            return back()->withInput()->withErrors(['export' => 'Import failed: '.$e->getMessage()]);
+        }
+
+        return redirect()->route('console.map', $slug)->with('status',
+            "Imported {$map['meta']['nodeCount']} nodes from the {$data['name']} export.");
     }
 
     public function destroy(string $slug): RedirectResponse

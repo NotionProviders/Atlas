@@ -20,6 +20,7 @@ Route::prefix('console')->group(function () {
         Route::get('map/{slug}', [ConsoleController::class, 'viewMap'])->name('console.map');
 
         Route::post('workspaces', [WorkspacesController::class, 'store'])->name('workspaces.store');
+        Route::post('workspaces/upload', [WorkspacesController::class, 'upload'])->name('workspaces.upload');
         Route::delete('workspaces/{slug}', [WorkspacesController::class, 'destroy'])->name('workspaces.destroy');
     });
 });
