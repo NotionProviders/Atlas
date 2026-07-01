@@ -1,0 +1,77 @@
+{
+    "palette": {
+        "core": "#ffd66b",
+        "blue": "#5eb0ff",
+        "amber": "#f5a623",
+        "violet": "#c094ff",
+        "green": "#4aebb0",
+        "pink": "#ff85a0",
+        "cyan": "#45e0f5",
+        "red": "#ff7080",
+        "orange": "#ffb05a"
+    },
+    "tree": {
+        "label": "Formosa",
+        "kind": "core",
+        "c": "#ffd66b",
+        "id": "workspace",
+        "t": "workspace",
+        "note": "Live teamspaces discovered via the Notion MCP (get-teams). Teamspaces can't be listed by the REST API and their child pages can't be cleanly enumerated by the API or MCP — so fill each one in by uploading a Notion export (most complete) or running an API crawl from the Intake Hub.",
+        "children": [
+            {
+                "label": "🌐 Company Home",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "7cb6264d-6634-4dff-aa05-e4b7f2852d24",
+                "note": "Teamspace · owner. Empty until filled by an export upload or API crawl."
+            },
+            {
+                "label": "⚒️ Operations",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "9f605bbc-fb27-45c6-a1c5-76087f0036ff",
+                "note": "Teamspace · owner. Empty until filled by an export upload or API crawl."
+            },
+            {
+                "label": "🏦 Sales",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "c8128068-10ef-4abd-b67c-6e498633a50d",
+                "note": "Teamspace · owner. Empty until filled by an export upload or API crawl."
+            },
+            {
+                "label": "📣 Marketing",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "77c3032c-34fd-4986-a424-a8aa3ee33178",
+                "note": "Teamspace · owner. Empty until filled by an export upload or API crawl."
+            },
+            {
+                "label": "👨‍💻 Admin",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "9e204529-ff87-45d4-bc6e-66ffd9e061b4",
+                "note": "Teamspace · owner. Empty until filled by an export upload or API crawl."
+            }
+        ]
+    },
+    "legend": [
+        ["teamspace", "Teamspaces"],
+        ["database", "Databases"],
+        ["page", "Pages"],
+        ["row", "Database pages"]
+    ],
+    "meta": {
+        "name": "Formosa",
+        "source": "notion-mcp",
+        "generatedAt": "2026-06-17T00:00:00+00:00",
+        "nodeCount": 5,
+        "teamspaces": 5,
+        "note": "Teamspace skeleton from Notion MCP get-teams. Trashed teamspaces (HR, Wiki, Testing, etc.) are omitted."
+    }
+}

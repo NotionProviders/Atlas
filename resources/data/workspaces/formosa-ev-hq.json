@@ -1,0 +1,190 @@
+{
+    "palette": {
+        "core": "#ffd66b",
+        "blue": "#5eb0ff",
+        "amber": "#f5a623",
+        "violet": "#c094ff",
+        "green": "#4aebb0",
+        "pink": "#ff85a0",
+        "cyan": "#45e0f5",
+        "red": "#ff7080",
+        "orange": "#ffb05a"
+    },
+    "tree": {
+        "label": "Formosa EV",
+        "kind": "core",
+        "c": "#ffd66b",
+        "id": "workspace",
+        "t": "workspace",
+        "note": "Notion workspace mapped from teamspaces down through pages and databases. This is a seeded starter map; run `php artisan atlas:ingest` with a full-access token to fill in every page and database row recursively.",
+        "children": [
+            {
+                "label": "🏕️ Formosa EV HQ",
+                "kind": "domain",
+                "c": "#c094ff",
+                "t": "teamspace",
+                "id": "fbbe1391-befa-44f2-aa7e-cc72c2d2d3c8",
+                "note": "Teamspace · the company's home in Notion. Seed shows the verified hubs and databases; deeper rows fill in on a full crawl.",
+                "children": [
+                    {
+                        "label": "💻 Command Center",
+                        "kind": "sub",
+                        "c": "#4aebb0",
+                        "t": "page",
+                        "id": "386fdd23-a330-8226-80e6-01eb42fe4b12",
+                        "note": "Page · operations hub linking the core project/task/meeting areas plus a live status tracker.",
+                        "children": [
+                            {
+                                "label": "Projects",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "2fffdd23-a330-83ce-8355-01ca4a99462a",
+                                "note": "Page · linked from Command Center."
+                            },
+                            {
+                                "label": "Tasks",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "274fdd23-a330-8360-a712-81ca08b78b9a",
+                                "note": "Page · linked from Command Center."
+                            },
+                            {
+                                "label": "Meetings",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "77cfdd23-a330-82fb-8216-014c34c1179c",
+                                "note": "Page · linked from Command Center."
+                            },
+                            {
+                                "label": "Project Status Tracker",
+                                "kind": "sub",
+                                "c": "#5eb0ff",
+                                "t": "database",
+                                "id": "2d4fdd23-a330-8293-8def-81d69a5dcf6d",
+                                "note": "Database · inline tracker embedded in Command Center. Rows map on a full crawl."
+                            }
+                        ]
+                    },
+                    {
+                        "label": "🏠 Company Home",
+                        "kind": "sub",
+                        "c": "#5eb0ff",
+                        "t": "database",
+                        "id": "3aa28985-2ce0-4d0e-8e93-eee91f9b2523",
+                        "note": "Database (wiki) · the company knowledge base. Each row is a wiki page.",
+                        "children": [
+                            {
+                                "label": "🧑🏻‍💻 Tech Tools",
+                                "kind": "leaf",
+                                "c": "#ffb05a",
+                                "t": "row",
+                                "id": "e41cf3b4-d68a-406c-b0a0-93b19cce91ea",
+                                "note": "Wiki page · the team's tool stack (Gmail, Drive, Notion, Odoo, Onshape, Figma…) and SOPs."
+                            },
+                            {
+                                "label": "Values, Purpose, Mission",
+                                "kind": "leaf",
+                                "c": "#ffb05a",
+                                "t": "row",
+                                "id": "755b5777-1250-4e59-bb66-1d82028f72d3",
+                                "note": "Wiki page · company values and mission."
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Meetings",
+                        "kind": "sub",
+                        "c": "#5eb0ff",
+                        "t": "database",
+                        "id": "8e54fb4b-31aa-4691-a803-980e3b13dcdf",
+                        "note": "Database · meeting notes, incl. auto-imported Fireflies recordings. Rows map on a full crawl."
+                    },
+                    {
+                        "label": "Tasks",
+                        "kind": "sub",
+                        "c": "#5eb0ff",
+                        "t": "database",
+                        "id": "339ff978-73de-413e-9626-d34f1f2a2da4",
+                        "note": "Database · task tracking across projects. Rows map on a full crawl."
+                    },
+                    {
+                        "label": "Projects",
+                        "kind": "sub",
+                        "c": "#5eb0ff",
+                        "t": "database",
+                        "id": "a3bc4a6c-c27e-42d5-9ebd-f13274edd4d0",
+                        "note": "Database · active projects. Rows map on a full crawl."
+                    },
+                    {
+                        "label": "California",
+                        "kind": "leaf",
+                        "c": "#4aebb0",
+                        "t": "page",
+                        "id": "88ecf2e8-5682-499d-9946-08a9f93b09c8",
+                        "note": "Page · California operations."
+                    },
+                    {
+                        "label": "SEMA 2024 Bible",
+                        "kind": "leaf",
+                        "c": "#4aebb0",
+                        "t": "page",
+                        "id": "12afdd23-a330-80fb-b80a-d6dc1fa69839",
+                        "note": "Page · SEMA 2024 trade-show planning."
+                    },
+                    {
+                        "label": "Fireflies Meeting Notes",
+                        "kind": "sub",
+                        "c": "#4aebb0",
+                        "t": "page",
+                        "id": "1a8fdd23-a330-80d3-b07c-fab9a304910f",
+                        "note": "Page group · a large pile of auto-generated Fireflies.ai meeting transcripts. A full crawl expands each one.",
+                        "children": [
+                            {
+                                "label": "Weekly Production Meeting (TW↔CA) 13",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "360fdd23-a330-80e2-9737-d2540d32a738",
+                                "note": "Fireflies transcript."
+                            },
+                            {
+                                "label": "Formosa EV / Dana OpenECU discuss (Jan 29 2026)",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "2f7fdd23-a330-81d1-8e10-e871c809a0c6",
+                                "note": "Fireflies transcript."
+                            },
+                            {
+                                "label": "Formosa EV ↔ Clientron battery pack (Jun 23 2025)",
+                                "kind": "leaf",
+                                "c": "#4aebb0",
+                                "t": "page",
+                                "id": "21cfdd23-a330-81e0-87d4-f4ce701c7c25",
+                                "note": "Fireflies transcript."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "legend": [
+        ["teamspace", "Teamspaces"],
+        ["database", "Databases"],
+        ["page", "Pages"],
+        ["row", "Database pages"]
+    ],
+    "meta": {
+        "name": "Formosa EV HQ",
+        "source": "notion-crawl",
+        "generatedAt": "2026-06-18T01:20:00+00:00",
+        "nodeCount": 18,
+        "teamspaces": 1,
+        "seed": true,
+        "note": "Seeded from MCP discovery of verified structure. Run atlas:ingest with a full-access NOTION_API_KEY to replace this with an exhaustive recursive map."
+    }
+}

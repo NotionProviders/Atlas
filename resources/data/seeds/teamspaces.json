@@ -1,0 +1,11 @@
+{
+    "source": "notion-mcp:get-teams",
+    "note": "Active teamspaces discovered via the Notion MCP. The REST API can't list teamspaces, so these seed a crawl. Trashed teamspaces are omitted.",
+    "joinedTeams": [
+        { "id": "9f605bbc-fb27-45c6-a1c5-76087f0036ff", "name": "⚒️ Operations", "type": "page" },
+        { "id": "7cb6264d-6634-4dff-aa05-e4b7f2852d24", "name": "🌐 Company Home", "type": "page" },
+        { "id": "c8128068-10ef-4abd-b67c-6e498633a50d", "name": "🏦 Sales", "type": "page" },
+        { "id": "9e204529-ff87-45d4-bc6e-66ffd9e061b4", "name": "👨‍💻 Admin", "type": "page" },
+        { "id": "77c3032c-34fd-4986-a424-a8aa3ee33178", "name": "📣 Marketing", "type": "page" }
+    ]
+}

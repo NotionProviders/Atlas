@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>Atlas Migrator</title>
+</head>
+<body>
+  <header class="top">
+    <span class="brand">Atlas <em>Migrator</em></span>
+    <span class="conn" id="connDot" title="Not connected"></span>
+  </header>
+
+  <!-- Disconnected: pairing -->
+  <section id="viewPair" class="view">
+    <p class="lead">Pair with your Atlas console to get started. Generate a code in the console's <strong>Migrations</strong> page.</p>
+    <label>API URL<input id="apiBase" type="text" placeholder="https://atlas.notionproviders.com/api" autocomplete="off"></label>
+    <label>Pairing code<input id="code" type="text" placeholder="ABCD7X9K" autocomplete="off"></label>
+    <label>Name (optional)<input id="name" type="text" placeholder="Chrome on my PC" autocomplete="off"></label>
+    <button id="btnConnect" class="btn primary">Connect</button>
+    <p class="msg" id="pairMsg"></p>
+  </section>
+
+  <!-- Connected: run -->
+  <section id="viewMain" class="view" hidden>
+    <div class="identity">
+      <span id="identName">Connected</span>
+      <button id="btnDisconnect" class="link">Disconnect</button>
+    </div>
+
+    <div id="tabState" class="tab-state">Checking this tab…</div>
+
+    <div id="pendingWrap" hidden>
+      <p class="section-label">Queued from the console</p>
+      <ul id="pendingList" class="pending"></ul>
+    </div>
+
+    <div id="startWrap">
+      <p class="section-label">Start a migration</p>
+      <label>Name<input id="runName" type="text" placeholder="(defaults to the workspace name)" autocomplete="off"></label>
+      <button id="btnStart" class="btn primary" disabled>Scrape this workspace →</button>
+    </div>
+
+    <div id="progressWrap" class="progress-wrap" hidden>
+      <p class="section-label">Migrating</p>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <p class="prog-line" id="progLine">Starting…</p>
+      <p class="prog-current" id="progCurrent"></p>
+      <a id="openConsole" class="link" href="#" target="_blank" hidden>Open in console ↗</a>
+    </div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>
